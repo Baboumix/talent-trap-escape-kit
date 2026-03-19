@@ -79,9 +79,14 @@ export default function App() {
     }
     setEmailErr("");
     setUnlocked(true);
-    // Save result to localStorage
-    saveResult({ lang, profile, satisfaction: sat, importance: imp, score: getScore(sat, imp), verdict: getVerdict(sat, imp, lang).level });
-    // TODO: webhook call for email capture
+    const score = getScore(sat, imp);
+    const verdict = getVerdict(sat, imp, lang).level;
+    saveResult({ lang, profile, satisfaction: sat, importance: imp, score, verdict });
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, lang, profile, score, verdict }),
+    }).catch(() => {});
   };
 
   const restorePrevResult = () => {
