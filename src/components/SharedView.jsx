@@ -31,6 +31,20 @@ const S_TEXT = {
     own_sub: "5 minutes pour le Module 1. 28 minutes pour les 3 modules complets.",
     own_cta: "Commencer mon diagnostic →",
 
+    explore_label: "Pour aller plus loin",
+    esc_lab_title: "Escape Lab",
+    esc_lab_sub: "Cohorte de 12, 3 mois, live avec Julien.",
+    esc_lab_cta: "Découvrir →",
+    esc_now_title: "Escape Now!",
+    esc_now_sub: "4 sessions 1:1 avec Julien.",
+    esc_now_cta: "Réserver un appel →",
+    book_title: "Le livre",
+    book_sub: "170 pages. Le mode d'emploi.",
+    book_cta: "Découvrir →",
+    tidycal: "https://tidycal.com/julienklein/decouverte",
+    book_url: "https://www.monexpansion.com/#livre",
+    escape_lab_url: "https://monexpansion.com/fr/escape-lab/",
+
     footer: "Basé sur les Six Besoins Humains Essentiels · Robbins-Madanes Training",
     footer2: "Julien Klein · monexpansion.com",
   },
@@ -58,6 +72,20 @@ const S_TEXT = {
     own_title: "Take your own diagnostic",
     own_sub: "5 minutes for Module 1. 28 minutes for all 3 modules.",
     own_cta: "Start my diagnostic →",
+
+    explore_label: "Go further",
+    esc_lab_title: "Escape Lab",
+    esc_lab_sub: "Cohort of 12, 3 months, live with Julien.",
+    esc_lab_cta: "Discover →",
+    esc_now_title: "Escape Now!",
+    esc_now_sub: "4 sessions 1:1 with Julien.",
+    esc_now_cta: "Book a call →",
+    book_title: "The book",
+    book_sub: "170 pages. The manual.",
+    book_cta: "Discover →",
+    tidycal: "https://tidycal.com/julienklein/discovery",
+    book_url: "https://www.monexpansion.com/en/talent-trap/#livre",
+    escape_lab_url: "https://monexpansion.com/en/escape-lab/",
 
     footer: "Based on the Six Core Human Needs · Robbins-Madanes Training",
     footer2: "Julien Klein · monexpansion.com",
@@ -279,6 +307,54 @@ export default function SharedView({ data }) {
           <button style={{ ...styles.btn }} onClick={goHome}>
             {t.own_cta}
           </button>
+        </div>
+
+        {/* Secondary: divider + 3-col grid of options */}
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
+          <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
+          <div style={{ fontSize: "10px", color: COLORS.textMuted, textTransform: "uppercase", letterSpacing: "2px", fontWeight: 600 }}>
+            {t.explore_label}
+          </div>
+          <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px", marginBottom: "20px" }}>
+          <a href={t.escape_lab_url} target="_blank" rel="noopener noreferrer"
+             style={{
+               background: COLORS.bgCard, border: `1px solid ${COLORS.border}`,
+               borderRadius: "14px", padding: "14px 10px", textAlign: "center",
+               textDecoration: "none", display: "flex", flexDirection: "column",
+               alignItems: "center", gap: "6px", transition: "all 0.2s",
+             }}>
+            <div style={{ fontSize: "20px" }}>🧪</div>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: COLORS.textPrimary }}>{t.esc_lab_title}</div>
+            <div style={{ fontSize: "10px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.esc_lab_sub}</div>
+            <div style={{ fontSize: "10px", color: COLORS.coral, fontWeight: 600, marginTop: "2px" }}>{t.esc_lab_cta}</div>
+          </a>
+          <a href={t.tidycal} target="_blank" rel="noopener noreferrer"
+             style={{
+               background: COLORS.bgCard, border: `1px solid ${COLORS.border}`,
+               borderRadius: "14px", padding: "14px 10px", textAlign: "center",
+               textDecoration: "none", display: "flex", flexDirection: "column",
+               alignItems: "center", gap: "6px", transition: "all 0.2s",
+             }}>
+            <div style={{ fontSize: "20px" }}>🚀</div>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: COLORS.textPrimary }}>{t.esc_now_title}</div>
+            <div style={{ fontSize: "10px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.esc_now_sub}</div>
+            <div style={{ fontSize: "10px", color: COLORS.coral, fontWeight: 600, marginTop: "2px" }}>{t.esc_now_cta}</div>
+          </a>
+          <a href={t.book_url} target="_blank" rel="noopener noreferrer"
+             style={{
+               background: COLORS.bgCard, border: `1px solid ${COLORS.border}`,
+               borderRadius: "14px", padding: "14px 10px", textAlign: "center",
+               textDecoration: "none", display: "flex", flexDirection: "column",
+               alignItems: "center", gap: "6px", transition: "all 0.2s",
+             }}>
+            <div style={{ fontSize: "20px" }}>📕</div>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: COLORS.textPrimary }}>{t.book_title}</div>
+            <div style={{ fontSize: "10px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.book_sub}</div>
+            <div style={{ fontSize: "10px", color: COLORS.coral, fontWeight: 600, marginTop: "2px" }}>{t.book_cta}</div>
+          </a>
         </div>
 
         {/* Footer */}

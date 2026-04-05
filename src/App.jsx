@@ -165,7 +165,8 @@ export default function App() {
     setProgress((prev) => ({ ...prev, module3: data }));
     trackModuleCompleted(3, {});
     if (navigate) {
-      goScreen("hub");
+      // Module 3 is the last one — go directly to the full Results page
+      goScreen("results");
     }
   }, []);
 

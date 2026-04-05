@@ -37,17 +37,18 @@ const R_TEXT = {
     d90_title: "Refais ce diagnostic dans 90 jours.",
     d90_sub: "Pour mesurer ta progression.",
 
-    esc_lab_title: "Commence à sortir du piège. Avec un groupe.",
-    esc_lab_sub: "12 créatifs dans la même situation, 3 mois, sessions live avec Julien, groupe privé.",
-    esc_lab_cta: "Découvrir l'Escape Lab →",
+    explore_label: "Pour aller plus loin",
+    esc_lab_title: "Escape Lab",
+    esc_lab_sub: "Cohorte de 12, 3 mois, live avec Julien.",
+    esc_lab_cta: "Découvrir →",
 
-    esc_now_title: "Tu veux régler ça maintenant ?",
-    esc_now_sub: "4 sessions de coaching intensif avec Julien, calibrées sur ton diagnostic. Appel de découverte gratuit.",
-    esc_now_cta: "Réserver un appel gratuit →",
+    esc_now_title: "Escape Now!",
+    esc_now_sub: "4 sessions 1:1 avec Julien.",
+    esc_now_cta: "Réserver un appel →",
 
-    book_title: "Approfondir avec le livre",
-    book_sub: "170 pages, le mode d'emploi complet. Les histoires de Hong, Sofia et Emma.",
-    book_cta: "Découvrir le livre →",
+    book_title: "Le livre",
+    book_sub: "170 pages. Le mode d'emploi.",
+    book_cta: "Découvrir →",
 
     tidycal: "https://tidycal.com/julienklein/decouverte",
     book_url: "https://www.monexpansion.com/#livre",
@@ -81,17 +82,18 @@ const R_TEXT = {
     d90_title: "Retake this diagnostic in 90 days.",
     d90_sub: "To measure your progress.",
 
-    esc_lab_title: "Start breaking free. With a group.",
-    esc_lab_sub: "12 creatives in the same situation, 3 months, live sessions with Julien, private group.",
-    esc_lab_cta: "Discover the Escape Lab →",
+    explore_label: "Go further",
+    esc_lab_title: "Escape Lab",
+    esc_lab_sub: "Cohort of 12, 3 months, live with Julien.",
+    esc_lab_cta: "Discover →",
 
-    esc_now_title: "Want to fix this now?",
-    esc_now_sub: "4 intensive coaching sessions with Julien, calibrated to your diagnostic. Free discovery call.",
-    esc_now_cta: "Book a free call →",
+    esc_now_title: "Escape Now!",
+    esc_now_sub: "4 sessions 1:1 with Julien.",
+    esc_now_cta: "Book a call →",
 
-    book_title: "Go deeper with the book",
-    book_sub: "170 pages, the full manual. Hong, Sofia and Emma's full stories.",
-    book_cta: "Discover the book →",
+    book_title: "The book",
+    book_sub: "170 pages. The manual.",
+    book_cta: "Discover →",
 
     tidycal: "https://tidycal.com/julienklein/discovery",
     book_url: "https://www.monexpansion.com/en/talent-trap/#livre",
@@ -407,43 +409,70 @@ export default function Results({ lang, progress, firstName, onBack }) {
           <div style={{ fontSize: "12px", color: COLORS.textSecondary }}>{t.d90_sub}</div>
         </div>
 
-        {/* ═══ DOUBLE CTA ═══ */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "16px" }}>
-          {/* Escape Lab */}
-          <div style={{ ...styles.card, textAlign: "center" }}>
-            <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "6px" }}>{t.esc_lab_title}</div>
-            <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.5 }}>{t.esc_lab_sub}</div>
-            <a href={lang === "fr" ? "https://monexpansion.com/fr/escape-lab/" : "https://monexpansion.com/en/escape-lab/"} target="_blank" rel="noopener noreferrer"
-              style={{ ...styles.btn, display: "inline-block", textDecoration: "none" }}>
-              {t.esc_lab_cta}
-            </a>
+        {/* SECONDARY: Divider + explore label */}
+        <div style={{
+          display: "flex", alignItems: "center", gap: "12px",
+          marginBottom: "14px",
+        }}>
+          <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
+          <div style={{
+            fontSize: "10px", color: COLORS.textMuted,
+            textTransform: "uppercase", letterSpacing: "2px", fontWeight: 600,
+          }}>
+            {t.explore_label}
           </div>
+          <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
+        </div>
+
+        {/* ═══ SECONDARY CTAs — 3 cards in a grid (Escape Lab, Escape Now, Book) ═══ */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          gap: "10px",
+          marginBottom: "20px",
+        }}>
+          {/* Escape Lab */}
+          <a href={lang === "fr" ? "https://monexpansion.com/fr/escape-lab/" : "https://monexpansion.com/en/escape-lab/"}
+             target="_blank" rel="noopener noreferrer"
+             style={{
+               background: COLORS.bgCard, border: `1px solid ${COLORS.border}`,
+               borderRadius: "14px", padding: "14px 10px", textAlign: "center",
+               textDecoration: "none", display: "flex", flexDirection: "column",
+               alignItems: "center", gap: "6px", transition: "all 0.2s",
+             }}>
+            <div style={{ fontSize: "20px" }}>🧪</div>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: COLORS.textPrimary }}>{t.esc_lab_title}</div>
+            <div style={{ fontSize: "10px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.esc_lab_sub}</div>
+            <div style={{ fontSize: "10px", color: COLORS.coral, fontWeight: 600, marginTop: "2px" }}>{t.esc_lab_cta}</div>
+          </a>
 
           {/* Escape Now */}
-          <div style={{ ...styles.card, textAlign: "center", background: "#1a1010", border: `1px solid ${COLORS.borderAccent}` }}>
-            <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "6px" }}>{t.esc_now_title}</div>
-            <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.5 }}>{t.esc_now_sub}</div>
-            <a href={t.tidycal} target="_blank" rel="noopener noreferrer"
-              style={{ ...styles.btnOutline, display: "inline-block", textDecoration: "none" }}>
-              {t.esc_now_cta}
-            </a>
-          </div>
+          <a href={t.tidycal} target="_blank" rel="noopener noreferrer"
+             style={{
+               background: COLORS.bgCard, border: `1px solid ${COLORS.border}`,
+               borderRadius: "14px", padding: "14px 10px", textAlign: "center",
+               textDecoration: "none", display: "flex", flexDirection: "column",
+               alignItems: "center", gap: "6px", transition: "all 0.2s",
+             }}>
+            <div style={{ fontSize: "20px" }}>🚀</div>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: COLORS.textPrimary }}>{t.esc_now_title}</div>
+            <div style={{ fontSize: "10px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.esc_now_sub}</div>
+            <div style={{ fontSize: "10px", color: COLORS.coral, fontWeight: 600, marginTop: "2px" }}>{t.esc_now_cta}</div>
+          </a>
 
           {/* Book */}
-          <div style={{ ...styles.card, textAlign: "center" }}>
-            <img
-              src={lang === "fr" ? "/book-fr.png" : "/book-en.png"}
-              alt={lang === "fr" ? "Le Piège du Talent" : "The Talent Trap"}
-              style={{ maxWidth: "120px", width: "100%", height: "auto", marginBottom: "12px", filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.4))" }}
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-            />
-            <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "6px" }}>{t.book_title}</div>
-            <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.5 }}>{t.book_sub}</div>
-            <a href={t.book_url} target="_blank" rel="noopener noreferrer"
-              style={{ ...styles.btnOutline, display: "inline-block", textDecoration: "none" }}>
-              {t.book_cta}
-            </a>
-          </div>
+          <a href={t.book_url} target="_blank" rel="noopener noreferrer"
+             style={{
+               background: COLORS.bgCard, border: `1px solid ${COLORS.border}`,
+               borderRadius: "14px", padding: "14px 10px", textAlign: "center",
+               textDecoration: "none", display: "flex", flexDirection: "column",
+               alignItems: "center", gap: "6px", transition: "all 0.2s",
+             }}>
+            <div style={{ fontSize: "20px" }}>📕</div>
+            <div style={{ fontSize: "12px", fontWeight: 700, color: COLORS.textPrimary }}>{t.book_title}</div>
+            <div style={{ fontSize: "10px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.book_sub}</div>
+            <div style={{ fontSize: "10px", color: COLORS.coral, fontWeight: 600, marginTop: "2px" }}>{t.book_cta}</div>
+          </a>
         </div>
 
         {/* Back button */}

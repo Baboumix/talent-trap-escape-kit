@@ -324,30 +324,94 @@ export default function Module3({ lang, onComplete, onBack, savedData, module1Da
             </p>
           </div>
 
-          {/* Complete */}
-          <div style={{ textAlign: "center", marginBottom: "24px" }}>
-            <button style={styles.btn} onClick={completeModule}>
-              {lang === "fr" ? "Terminer le parcours \u2192" : "Complete the journey \u2192"}
+          {/* PRIMARY CTA — Complete journey, go to full Results */}
+          <div style={{
+            marginBottom: "32px",
+            background: `linear-gradient(135deg, ${COLORS.coral}15, ${COLORS.coral}08)`,
+            border: `2px solid ${COLORS.coral}`,
+            borderRadius: "20px",
+            padding: "24px 20px",
+            textAlign: "center",
+            boxShadow: `0 8px 32px ${COLORS.coral}20`,
+          }}>
+            {/* Badge */}
+            <div style={{
+              display: "inline-block",
+              fontSize: "10px", fontWeight: 800, letterSpacing: "1.5px",
+              color: "#fff", background: COLORS.coral,
+              padding: "4px 12px", borderRadius: "12px",
+              marginBottom: "12px",
+            }}>
+              {d.completeBadge}
+            </div>
+            <div style={{ fontSize: "20px", fontWeight: 800, color: COLORS.textPrimary, marginBottom: "6px", fontFamily: FONT }}>
+              {d.completeTitle}
+            </div>
+            <div style={{ fontSize: "14px", color: COLORS.textSecondary, marginBottom: "18px", lineHeight: 1.5 }}>
+              {d.completeSub}
+            </div>
+            <button style={{ ...styles.btn, width: "100%", maxWidth: "320px" }} onClick={completeModule}>
+              {d.completeCta}
             </button>
           </div>
 
-          {/* Escape Lab */}
-          <div style={{ ...styles.card, marginBottom: "16px", textAlign: "center" }}>
-            <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "4px" }}>{d.escLabTitle}</div>
-            <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.6 }}>{d.escLabSub}</div>
-            <a href="https://monexpansion.com/escape-lab" target="_blank" rel="noopener noreferrer"
-              style={{ ...styles.btnOutline, display: "inline-block", textDecoration: "none" }}>
-              {d.escLabCta}
-            </a>
+          {/* SECONDARY: Divider */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: "12px",
+            marginBottom: "16px",
+          }}>
+            <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
+            <div style={{
+              fontSize: "10px", color: COLORS.textMuted,
+              textTransform: "uppercase", letterSpacing: "2px", fontWeight: 600,
+            }}>
+              {d.exploreLabel}
+            </div>
+            <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
           </div>
 
-          {/* Escape Now */}
-          <div style={{ ...styles.card, marginBottom: "16px", textAlign: "center" }}>
-            <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "4px" }}>{d.escNowTitle}</div>
-            <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.6 }}>{d.escNowSub}</div>
+          {/* SECONDARY CTAs — Escape Lab + Escape Now side by side */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "10px",
+            marginBottom: "16px",
+          }}>
+            {/* Escape Lab */}
+            <a href={lang === "fr" ? "https://monexpansion.com/fr/escape-lab/" : "https://monexpansion.com/en/escape-lab/"}
+               target="_blank" rel="noopener noreferrer"
+               style={{
+                 background: COLORS.bgCard,
+                 border: `1px solid ${COLORS.border}`,
+                 borderRadius: "14px",
+                 padding: "14px 12px",
+                 textAlign: "center",
+                 textDecoration: "none",
+                 display: "flex", flexDirection: "column", alignItems: "center", gap: "6px",
+                 transition: "all 0.2s",
+               }}>
+              <div style={{ fontSize: "20px" }}>🧪</div>
+              <div style={{ fontSize: "13px", fontWeight: 700, color: COLORS.textPrimary }}>{d.escLabTitle}</div>
+              <div style={{ fontSize: "11px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{d.escLabSub}</div>
+              <div style={{ fontSize: "11px", color: COLORS.coral, fontWeight: 600, marginTop: "4px" }}>{d.escLabCta}</div>
+            </a>
+
+            {/* Escape Now */}
             <a href={d.tidycal} target="_blank" rel="noopener noreferrer"
-              style={{ ...styles.btn, display: "inline-block", textDecoration: "none" }}>
-              {d.escNowCta}
+               style={{
+                 background: COLORS.bgCard,
+                 border: `1px solid ${COLORS.border}`,
+                 borderRadius: "14px",
+                 padding: "14px 12px",
+                 textAlign: "center",
+                 textDecoration: "none",
+                 display: "flex", flexDirection: "column", alignItems: "center", gap: "6px",
+                 transition: "all 0.2s",
+               }}>
+              <div style={{ fontSize: "20px" }}>🚀</div>
+              <div style={{ fontSize: "13px", fontWeight: 700, color: COLORS.textPrimary }}>{d.escNowTitle}</div>
+              <div style={{ fontSize: "11px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{d.escNowSub}</div>
+              <div style={{ fontSize: "11px", color: COLORS.coral, fontWeight: 600, marginTop: "4px" }}>{d.escNowCta}</div>
             </a>
           </div>
 
