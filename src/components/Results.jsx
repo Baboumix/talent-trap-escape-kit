@@ -20,10 +20,6 @@ const R_TEXT = {
     sec_pattern: "Tu ressembles à",
     pattern_moment_label: "Le moment",
     pattern_unlock_label: "Ce qui a débloqué",
-    sec_tension_viz: "Ce que tu veux · ce que tu as",
-    tension_viz_sub: "Plus l'écart est grand, plus la tension est forte.",
-    tension_viz_want: "Essentiel",
-    tension_viz_have: "Satisfait",
     sec_sitting: "La question à garder avec toi pendant 7 jours",
 
     sec_tension: "Module 1 · Profil de tension",
@@ -75,10 +71,6 @@ const R_TEXT = {
     sec_pattern: "You resemble",
     pattern_moment_label: "The moment",
     pattern_unlock_label: "What unlocked them",
-    sec_tension_viz: "What you want · what you have",
-    tension_viz_sub: "The bigger the gap, the stronger the tension.",
-    tension_viz_want: "Essential",
-    tension_viz_have: "Satisfied",
     sec_sitting: "The question to sit with for 7 days",
 
     sec_tension: "Module 1 · Tension profile",
@@ -275,72 +267,6 @@ export default function Results({ lang, progress, firstName, onBack }) {
             </div>
           </div>
         )}
-
-        {/* ═══ PISTE 4 · TENSION VISUALIZER ═══ */}
-        <div style={{ ...section, padding: "24px 20px" }}>
-          <div style={sectionLabel}>{t.sec_tension_viz}</div>
-          <div style={{ fontSize: "12px", color: COLORS.textSecondary, marginBottom: "18px", lineHeight: 1.5 }}>
-            {t.tension_viz_sub}
-          </div>
-
-          {/* Legend */}
-          <div style={{ display: "flex", gap: "16px", marginBottom: "14px", fontSize: "10px", color: COLORS.textTertiary }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: COLORS.coral }} />
-              {t.tension_viz_want}
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: COLORS.textSecondary, opacity: 0.4 }} />
-              {t.tension_viz_have}
-            </div>
-          </div>
-
-          {/* For each of 6 needs: two horizontal bars (importance vs satisfaction) */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {Object.keys(imp).map((needId) => {
-              const importance = imp[needId] || 0; // 1-3
-              const satisfaction = sat[needId] || 0; // 1-5
-              // Normalize importance to 0-100% (3 = 100%)
-              const wantPct = (importance / 3) * 100;
-              // Normalize satisfaction to 0-100% (5 = 100%)
-              const havePct = (satisfaction / 5) * 100;
-              // Gap size — used for color intensity
-              const gap = Math.abs(wantPct - havePct);
-              const tensionColor = gap > 40 ? COLORS.coral : gap > 20 ? COLORS.orange : COLORS.green;
-
-              return (
-                <div key={needId}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                    <span style={{ fontSize: "13px", fontWeight: 600, color: COLORS.textPrimary }}>
-                      {NEED_NAMES[lang][needId]}
-                    </span>
-                    {importance >= 2 && satisfaction > 0 && (
-                      <span style={{ fontSize: "10px", fontWeight: 700, color: tensionColor }}>
-                        {gap > 40 ? (lang === "fr" ? "TENSION FORTE" : "HIGH TENSION") : gap > 20 ? (lang === "fr" ? "TENSION" : "TENSION") : (lang === "fr" ? "OK" : "OK")}
-                      </span>
-                    )}
-                  </div>
-                  {/* Importance bar (coral, what you want) */}
-                  <div style={{ position: "relative", height: "6px", borderRadius: "3px", background: "#1a1a1a", marginBottom: "3px", overflow: "hidden" }}>
-                    <div style={{
-                      position: "absolute", left: 0, top: 0, bottom: 0,
-                      width: `${wantPct}%`, borderRadius: "3px",
-                      background: COLORS.coral,
-                    }} />
-                  </div>
-                  {/* Satisfaction bar (grey, what you have) */}
-                  <div style={{ position: "relative", height: "6px", borderRadius: "3px", background: "#1a1a1a", overflow: "hidden" }}>
-                    <div style={{
-                      position: "absolute", left: 0, top: 0, bottom: 0,
-                      width: `${havePct}%`, borderRadius: "3px",
-                      background: COLORS.textSecondary, opacity: 0.5,
-                    }} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
 
         {/* ═══ PISTE 2 · LA QUESTION QUI RESTE ═══ */}
         <div style={{
