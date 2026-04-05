@@ -6,6 +6,7 @@ import Module2 from "./components/Module2";
 import Module3 from "./components/Module3";
 import Results from "./components/Results";
 import CookieBanner from "./components/CookieBanner";
+import PrivacyModal from "./components/PrivacyModal";
 import { initConsent, trackPageView, trackModuleStarted, trackModuleCompleted, trackLanguageChanged } from "./lib/analytics";
 
 const LS_KEY = "escape-kit-progress";
@@ -58,6 +59,7 @@ export default function App() {
   const [progress, setProgress] = useState({ module1: null, module2: null, module3: null });
   const [userData, setUserData] = useState({ email: null, firstName: null });
   const [hydrated, setHydrated] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   // Load saved progress on mount
   useEffect(() => {
@@ -83,6 +85,13 @@ export default function App() {
 
   // Initialize GA4 Consent Mode on first mount
   useEffect(() => { initConsent(); }, []);
+
+  // Listen for "show privacy" events from any component
+  useEffect(() => {
+    const handler = () => setShowPrivacy(true);
+    window.addEventListener("show-privacy", handler);
+    return () => window.removeEventListener("show-privacy", handler);
+  }, []);
 
   // Track page view on screen change
   useEffect(() => { trackPageView(screen, { lang }); }, [screen, lang]);
@@ -277,8 +286,26 @@ export default function App() {
         <Results lang={lang} progress={progress} onBack={goToHub} />
       )}
 
-      {/* Cookie Banner (RGPD / Consent Mode v2) */}
+      {/* Cookie Banner (Loi 25 / Consent Mode v2) */}
       <CookieBanner lang={lang} />
+
+      {/* Privacy footer link (always visible) */}
+      <button
+        onClick={() => setShowPrivacy(true)}
+        style={{
+          position: "fixed", bottom: "8px", left: "12px", zIndex: 90,
+          background: "transparent", border: "none",
+          color: COLORS.textMuted, fontSize: "10px",
+          cursor: "pointer", fontFamily: FONT,
+          textDecoration: "underline", padding: "4px 8px",
+          opacity: 0.6,
+        }}
+      >
+        {lang === "fr" ? "Confidentialité" : "Privacy"}
+      </button>
+
+      {/* Privacy Modal */}
+      {showPrivacy && <PrivacyModal lang={lang} onClose={() => setShowPrivacy(false)} />}
     </div>
   );
 }

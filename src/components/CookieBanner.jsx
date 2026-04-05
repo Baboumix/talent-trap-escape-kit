@@ -72,7 +72,17 @@ export default function CookieBanner({ lang }) {
             {t.title}
           </div>
           <div style={{ fontSize: "13px", color: COLORS.textSecondary, lineHeight: 1.5 }}>
-            {t.body}
+            {t.body}{" "}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("show-privacy"))}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: COLORS.coral, textDecoration: "underline",
+                fontSize: "13px", cursor: "pointer", fontFamily: FONT,
+              }}
+            >
+              {t.more}
+            </button>
           </div>
         </div>
         <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end", flexWrap: "wrap" }}>

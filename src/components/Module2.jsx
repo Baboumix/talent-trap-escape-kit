@@ -41,15 +41,18 @@ const M2_TEXT = {
     today: "Aujourd'hui :",
     objective: "L'objectif :",
     sec_question: "La question à garder avec toi",
-    module3_title: "Module 3 disponible",
+    step_badge: "ÉTAPE 3 SUR 3",
+    module3_title: "Termine ton parcours",
     module3_sub: "Identifie ta direction organique — ton vrai talent, pas celui du CV.",
-    module3_cta: "Découvrir ma direction →",
-    esc_lab_title: "Commence à sortir du piège. Avec un groupe.",
-    esc_lab_sub: "12 créatifs, 3 mois, sessions live avec Julien, groupe privé.",
-    esc_lab_cta: "Découvrir l'Escape Lab →",
-    esc_now_title: "Tu veux régler ça maintenant ?",
-    esc_now_sub: "4 sessions de coaching intensif avec Julien.",
-    esc_now_cta: "Réserver un appel gratuit →",
+    module3_cta: "Continuer vers La Boussole →",
+    module3_time: "15 min",
+    explore_label: "Ou explore plus tard",
+    esc_lab_title: "Escape Lab",
+    esc_lab_sub: "Cohorte de 12, 3 mois, live avec Julien.",
+    esc_lab_cta: "Découvrir →",
+    esc_now_title: "Escape Now!",
+    esc_now_sub: "4 sessions 1:1 avec Julien.",
+    esc_now_cta: "Réserver un appel →",
     tidycal: "https://tidycal.com/julienklein/decouverte",
     tension_label: "Profil de tension (Module 1)",
     signals_label: "signaux détectés",
@@ -88,15 +91,18 @@ const M2_TEXT = {
     today: "Today:",
     objective: "The goal:",
     sec_question: "The question to sit with",
-    module3_title: "Module 3 available",
+    step_badge: "STEP 3 OF 3",
+    module3_title: "Finish your journey",
     module3_sub: "Identify your organic direction — your real talent, not the resume one.",
-    module3_cta: "Discover my direction \u2192",
-    esc_lab_title: "Start breaking free. With a group.",
-    esc_lab_sub: "12 creatives, 3 months, live sessions with Julien, private group.",
-    esc_lab_cta: "Discover the Escape Lab \u2192",
-    esc_now_title: "Want to fix this now?",
-    esc_now_sub: "4 intensive coaching sessions with Julien.",
-    esc_now_cta: "Book a free call \u2192",
+    module3_cta: "Continue to The Compass \u2192",
+    module3_time: "15 min",
+    explore_label: "Or explore later",
+    esc_lab_title: "Escape Lab",
+    esc_lab_sub: "Cohort of 12, 3 months, live with Julien.",
+    esc_lab_cta: "Discover \u2192",
+    esc_now_title: "Escape Now!",
+    esc_now_sub: "4 sessions 1:1 with Julien.",
+    esc_now_cta: "Book a call \u2192",
     tidycal: "https://tidycal.com/julienklein/discovery",
     tension_label: "Tension profile (Module 1)",
     signals_label: "signals detected",
@@ -569,36 +575,98 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
             </div>
           )}
 
-          {/* Module 3 CTA */}
-          <div style={{ ...styles.card, marginBottom: "16px", textAlign: "center", background: "#0f0f1a", border: `1px solid #2a2a3a` }}>
-            <div style={{ fontSize: "11px", color: COLORS.coral, textTransform: "uppercase", letterSpacing: "2px", fontWeight: 700, marginBottom: "8px" }}>
+          {/* PRIMARY CTA — Module 3 (Next step in journey) */}
+          <div style={{
+            marginBottom: "32px",
+            background: `linear-gradient(135deg, ${COLORS.coral}15, ${COLORS.coral}08)`,
+            border: `2px solid ${COLORS.coral}`,
+            borderRadius: "20px",
+            padding: "24px 20px",
+            textAlign: "center",
+            position: "relative",
+            boxShadow: `0 8px 32px ${COLORS.coral}20`,
+          }}>
+            {/* Step badge */}
+            <div style={{
+              display: "inline-block",
+              fontSize: "10px", fontWeight: 800, letterSpacing: "1.5px",
+              color: "#fff", background: COLORS.coral,
+              padding: "4px 12px", borderRadius: "12px",
+              marginBottom: "12px",
+            }}>
+              {t.step_badge}
+            </div>
+            <div style={{ fontSize: "20px", fontWeight: 800, color: COLORS.textPrimary, marginBottom: "6px", fontFamily: FONT }}>
               {t.module3_title}
             </div>
-            <div style={{ fontSize: "14px", color: COLORS.textSecondary, marginBottom: "16px", lineHeight: 1.6 }}>
+            <div style={{ fontSize: "14px", color: COLORS.textSecondary, marginBottom: "4px", lineHeight: 1.5 }}>
               {t.module3_sub}
             </div>
-            <button style={styles.btn} onClick={goToModule3}>
+            <div style={{ fontSize: "11px", color: COLORS.textMuted, marginBottom: "18px", letterSpacing: "0.5px" }}>
+              ⏱ {t.module3_time}
+            </div>
+            <button style={{ ...styles.btn, width: "100%", maxWidth: "320px" }} onClick={goToModule3}>
               {t.module3_cta}
             </button>
           </div>
 
-          {/* Escape Lab */}
-          <div style={{ ...styles.card, marginBottom: "16px", textAlign: "center" }}>
-            <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "4px" }}>{t.esc_lab_title}</div>
-            <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.6 }}>{t.esc_lab_sub}</div>
-            <a href="https://monexpansion.com/escape-lab" target="_blank" rel="noopener noreferrer"
-              style={{ ...styles.btnOutline, display: "inline-block", textDecoration: "none" }}>
-              {t.esc_lab_cta}
-            </a>
+          {/* SECONDARY: Divider + explore later */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: "12px",
+            marginBottom: "16px",
+          }}>
+            <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
+            <div style={{
+              fontSize: "10px", color: COLORS.textMuted,
+              textTransform: "uppercase", letterSpacing: "2px", fontWeight: 600,
+            }}>
+              {t.explore_label}
+            </div>
+            <div style={{ flex: 1, height: "1px", background: COLORS.border }} />
           </div>
 
-          {/* Escape Now */}
-          <div style={{ ...styles.card, marginBottom: "16px", textAlign: "center" }}>
-            <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "4px" }}>{t.esc_now_title}</div>
-            <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.6 }}>{t.esc_now_sub}</div>
+          {/* SECONDARY CTAs — Escape Lab + Escape Now side by side */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "10px",
+            marginBottom: "16px",
+          }}>
+            {/* Escape Lab */}
+            <a href={lang === "fr" ? "https://monexpansion.com/fr/escape-lab/" : "https://monexpansion.com/en/escape-lab/"}
+               target="_blank" rel="noopener noreferrer"
+               style={{
+                 background: COLORS.bgCard,
+                 border: `1px solid ${COLORS.border}`,
+                 borderRadius: "14px",
+                 padding: "14px 12px",
+                 textAlign: "center",
+                 textDecoration: "none",
+                 display: "flex", flexDirection: "column", alignItems: "center", gap: "6px",
+                 transition: "all 0.2s",
+               }}>
+              <div style={{ fontSize: "20px" }}>🧪</div>
+              <div style={{ fontSize: "13px", fontWeight: 700, color: COLORS.textPrimary }}>{t.esc_lab_title}</div>
+              <div style={{ fontSize: "11px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.esc_lab_sub}</div>
+              <div style={{ fontSize: "11px", color: COLORS.coral, fontWeight: 600, marginTop: "4px" }}>{t.esc_lab_cta}</div>
+            </a>
+
+            {/* Escape Now */}
             <a href={t.tidycal} target="_blank" rel="noopener noreferrer"
-              style={{ ...styles.btn, display: "inline-block", textDecoration: "none" }}>
-              {t.esc_now_cta}
+               style={{
+                 background: COLORS.bgCard,
+                 border: `1px solid ${COLORS.border}`,
+                 borderRadius: "14px",
+                 padding: "14px 12px",
+                 textAlign: "center",
+                 textDecoration: "none",
+                 display: "flex", flexDirection: "column", alignItems: "center", gap: "6px",
+                 transition: "all 0.2s",
+               }}>
+              <div style={{ fontSize: "20px" }}>🚀</div>
+              <div style={{ fontSize: "13px", fontWeight: 700, color: COLORS.textPrimary }}>{t.esc_now_title}</div>
+              <div style={{ fontSize: "11px", color: COLORS.textSecondary, lineHeight: 1.4 }}>{t.esc_now_sub}</div>
+              <div style={{ fontSize: "11px", color: COLORS.coral, fontWeight: 600, marginTop: "4px" }}>{t.esc_now_cta}</div>
             </a>
           </div>
 

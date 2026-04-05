@@ -16,6 +16,8 @@ const GATE_TEXT = {
     errEmail: "Adresse email invalide.",
     errName: "Prénom requis.",
     spam: "Un email par mois maximum. Zéro spam.",
+    privacy_notice: "En continuant, tu acceptes la",
+    privacy_link: "politique de confidentialité",
   },
   en: {
     title: "Your result is ready.",
@@ -31,6 +33,8 @@ const GATE_TEXT = {
     errEmail: "Invalid email address.",
     errName: "First name required.",
     spam: "One email per month max. Zero spam.",
+    privacy_notice: "By continuing, you accept the",
+    privacy_link: "privacy policy",
   },
 };
 
@@ -141,7 +145,22 @@ export default function EmailGate({ lang, onUnlock, moduleData, emailData }) {
         </div>
 
         {err && <p style={{ fontSize: "13px", color: COLORS.coral, marginTop: "4px" }}>{err}</p>}
-        <p style={{ fontSize: "12px", color: COLORS.textMuted, marginTop: "12px" }}>{t.spam}</p>
+        <p style={{ fontSize: "11px", color: COLORS.textMuted, marginTop: "12px", lineHeight: 1.5 }}>
+          {t.privacy_notice}{" "}
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent("show-privacy"))}
+            style={{
+              background: "none", border: "none", padding: 0,
+              color: COLORS.coral, textDecoration: "underline",
+              fontSize: "11px", cursor: "pointer", fontFamily: FONT,
+            }}
+          >
+            {t.privacy_link}
+          </button>
+          .
+          <br />
+          {t.spam}
+        </p>
       </div>
     </div>
   );
