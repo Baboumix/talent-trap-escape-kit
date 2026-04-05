@@ -4,6 +4,8 @@ import { T, NEED_NAMES } from "../data/translations";
 import { getScore, getVerdict, topGaps, getClosingQuestion, getExplanation } from "../data/scoring";
 import { TENSION_PROFILES, ARCHETYPES, SIGNALS, SIGNAL_LABELS } from "../data/signals";
 import { DIRECTION } from "../data/direction";
+import ShareModal from "./ShareModal";
+import { buildShareUrl } from "../lib/shareLink";
 
 const R_TEXT = {
   fr: {
@@ -29,6 +31,8 @@ const R_TEXT = {
     share_label: "Ton résumé",
     share_hint: "Envoie ce diagnostic à un ami créatif qui en a besoin.",
     share_link: "Fais le test → kit.monexpansion.com",
+    share_btn: "Partager mon profil →",
+    share_btn_sub: "Envoie-le à quelqu'un qui te connaît bien. Demande-lui ce qu'il en pense.",
 
     d90_title: "Refais ce diagnostic dans 90 jours.",
     d90_sub: "Pour mesurer ta progression.",
@@ -71,6 +75,8 @@ const R_TEXT = {
     share_label: "Your summary",
     share_hint: "Send this diagnostic to a creative friend who needs it.",
     share_link: "Take the test → kit.monexpansion.com",
+    share_btn: "Share my profile →",
+    share_btn_sub: "Send it to someone who knows you well. Ask them what they think.",
 
     d90_title: "Retake this diagnostic in 90 days.",
     d90_sub: "To measure your progress.",
@@ -92,8 +98,9 @@ const R_TEXT = {
   },
 };
 
-export default function Results({ lang, progress, onBack }) {
+export default function Results({ lang, progress, firstName, onBack }) {
   const [vis, setVis] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const t = R_TEXT[lang];
   const tLang = T[lang];
   const d = DIRECTION[lang];
@@ -376,6 +383,23 @@ export default function Results({ lang, progress, onBack }) {
           </div>
         </div>
 
+        {/* Share button — generates URL-encoded link to send to close friends */}
+        <div style={{
+          ...section, marginBottom: "16px", textAlign: "center",
+          background: `linear-gradient(135deg, ${COLORS.coral}12, ${COLORS.coral}06)`,
+          border: `1px solid ${COLORS.borderAccent}`,
+        }}>
+          <div style={{ fontSize: "16px", fontWeight: 700, color: COLORS.textPrimary, marginBottom: "4px", fontFamily: FONT }}>
+            {t.share_btn}
+          </div>
+          <div style={{ fontSize: "13px", color: COLORS.textSecondary, marginBottom: "14px", lineHeight: 1.5 }}>
+            {t.share_btn_sub}
+          </div>
+          <button style={styles.btn} onClick={() => setShowShare(true)}>
+            🔗 {t.share_btn}
+          </button>
+        </div>
+
         {/* 90-day reminder */}
         <div style={{ ...section, background: "#0f0f1a", border: "1px solid #2a2a3a", textAlign: "center" }}>
           <div style={{ fontSize: "20px", marginBottom: "8px" }}>📅</div>
@@ -433,6 +457,15 @@ export default function Results({ lang, progress, onBack }) {
           Julien Klein · monexpansion.com
         </p>
       </div>
+
+      {/* Share Modal */}
+      {showShare && (
+        <ShareModal
+          lang={lang}
+          url={buildShareUrl(progress, firstName, lang)}
+          onClose={() => setShowShare(false)}
+        />
+      )}
     </div>
   );
 }

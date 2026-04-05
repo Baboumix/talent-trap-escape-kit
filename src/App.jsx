@@ -7,7 +7,9 @@ import Module3 from "./components/Module3";
 import Results from "./components/Results";
 import CookieBanner from "./components/CookieBanner";
 import PrivacyModal from "./components/PrivacyModal";
+import SharedView from "./components/SharedView";
 import { initConsent, trackPageView, trackModuleStarted, trackModuleCompleted, trackLanguageChanged } from "./lib/analytics";
+import { getSharedDataFromUrl, decodeProfile } from "./lib/shareLink";
 
 const LS_KEY = "escape-kit-progress";
 
@@ -53,13 +55,41 @@ const WELCOME_TEXT = {
   },
 };
 
+// Check for shared profile URL at module load (before React mounts)
+const sharedProfileData = (() => {
+  const encoded = getSharedDataFromUrl();
+  return encoded ? decodeProfile(encoded) : null;
+})();
+
 export default function App() {
-  const [lang, setLang] = useState("fr");
+  const [lang, setLang] = useState(sharedProfileData?.lang || "fr");
   const [screen, setScreen] = useState("welcome");
   const [progress, setProgress] = useState({ module1: null, module2: null, module3: null });
   const [userData, setUserData] = useState({ email: null, firstName: null });
   const [hydrated, setHydrated] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+
+  // If we're viewing a shared profile, render that view in isolation
+  if (sharedProfileData) {
+    return (
+      <div style={{ background: COLORS.bg, color: COLORS.textPrimary, fontFamily: FONT, minHeight: "100vh", position: "relative" }}>
+        <SharedView data={sharedProfileData} />
+        <button
+          onClick={() => setShowPrivacy(true)}
+          style={{
+            position: "fixed", bottom: "8px", left: "12px", zIndex: 90,
+            background: "transparent", border: "none",
+            color: COLORS.textMuted, fontSize: "10px",
+            cursor: "pointer", fontFamily: FONT,
+            textDecoration: "underline", padding: "4px 8px", opacity: 0.6,
+          }}
+        >
+          {sharedProfileData.lang === "en" ? "Privacy" : "Confidentialité"}
+        </button>
+        {showPrivacy && <PrivacyModal lang={sharedProfileData.lang} onClose={() => setShowPrivacy(false)} />}
+      </div>
+    );
+  }
 
   // Load saved progress on mount
   useEffect(() => {
@@ -283,7 +313,7 @@ export default function App() {
 
       {/* ── RESULTS ── */}
       {screen === "results" && (
-        <Results lang={lang} progress={progress} onBack={goToHub} />
+        <Results lang={lang} progress={progress} firstName={userData.firstName} onBack={goToHub} />
       )}
 
       {/* Cookie Banner (Loi 25 / Consent Mode v2) */}
