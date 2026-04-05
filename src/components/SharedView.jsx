@@ -4,6 +4,7 @@ import { T, NEED_NAMES } from "../data/translations";
 import { getScore, getVerdict, topGaps } from "../data/scoring";
 import { TENSION_PROFILES, ARCHETYPES, SIGNALS, SIGNAL_LABELS } from "../data/signals";
 import { DIRECTION } from "../data/direction";
+import { buildSharedNarrative, getCharacterPattern, pickReflection } from "../data/synthesis";
 
 const S_TEXT = {
   fr: {
@@ -20,6 +21,11 @@ const S_TEXT = {
 
     sec_needs: "Carte des besoins",
     sec_gaps: "Là où ça coince",
+
+    sec_narrative: "Son portrait",
+    sec_pattern: "Il/elle ressemble à",
+    pattern_moment_label: "Le moment",
+    pattern_unlock_label: "Ce qui a débloqué",
 
     sec_reflections: "Ses réflexions",
     no_reflection: "—",
@@ -62,6 +68,11 @@ const S_TEXT = {
 
     sec_needs: "Needs map",
     sec_gaps: "Where it breaks down",
+
+    sec_narrative: "Their portrait",
+    sec_pattern: "They resemble",
+    pattern_moment_label: "The moment",
+    pattern_unlock_label: "What unlocked them",
 
     sec_reflections: "Their reflections",
     no_reflection: "—",
@@ -124,6 +135,18 @@ export default function SharedView({ data }) {
   const reflections = module3?.reflections || {};
   const hasReflections = Object.values(reflections).some((v) => v?.trim());
 
+  // ── Synthesis data (shared view is 3rd person) ──
+  const pickedReflection = pickReflection(reflections);
+  const topNeedNames = gaps.slice(0, 2).map((g) => NEED_NAMES[lang][g.id]);
+  const sharedNarrative = module1 && module2 ? buildSharedNarrative({
+    firstName, lang, archetype,
+    tensionProfileKey: module1.tensionProfile,
+    score: module2.score,
+    topNeedNames,
+    reflection: pickedReflection,
+  }) : null;
+  const pattern = module1 ? getCharacterPattern(module1.archetype, lang) : null;
+
   const section = { ...styles.card, marginBottom: "16px" };
   const sectionLabel = {
     fontSize: "10px", color: COLORS.coral, fontWeight: 700,
@@ -151,6 +174,63 @@ export default function SharedView({ data }) {
           </h1>
           <p style={{ fontSize: "14px", color: COLORS.textSecondary, margin: 0, lineHeight: 1.6 }}>{t.sub}</p>
         </div>
+
+        {/* Narrative Portrait */}
+        {sharedNarrative && (
+          <div style={{
+            ...styles.card, marginBottom: "16px",
+            background: `linear-gradient(135deg, ${COLORS.coral}08, ${COLORS.coral}03)`,
+            border: `1px solid ${COLORS.borderAccent}`,
+            padding: "24px 20px",
+          }}>
+            <div style={sectionLabel}>{t.sec_narrative}</div>
+            <div style={{
+              fontSize: "15px", color: COLORS.textPrimary,
+              lineHeight: 1.7, whiteSpace: "pre-wrap",
+            }}
+            dangerouslySetInnerHTML={{
+              __html: sharedNarrative
+                .replace(/\*\*(.*?)\*\*/g, `<strong style="color:${COLORS.coral}">$1</strong>`)
+                .replace(/\n\n/g, "<br><br>"),
+            }}
+            />
+          </div>
+        )}
+
+        {/* Pattern Match */}
+        {pattern && archetype && (
+          <div style={{
+            ...styles.card, marginBottom: "16px", padding: "20px",
+            background: "#0f0f0f", border: `1px solid ${COLORS.border}`,
+          }}>
+            <div style={sectionLabel}>{t.sec_pattern}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
+              <div style={{ fontSize: "26px" }}>{archetype.icon}</div>
+              <div>
+                <div style={{ fontSize: "18px", fontWeight: 800, color: COLORS.textPrimary, fontFamily: FONT, lineHeight: 1.1 }}>
+                  {pattern.name}
+                </div>
+                <div style={{ fontSize: "11px", color: COLORS.textSecondary, marginTop: "2px" }}>{pattern.role}</div>
+              </div>
+            </div>
+            <div style={{ marginBottom: "12px", paddingLeft: "10px", borderLeft: `2px solid ${COLORS.coral}` }}>
+              <div style={{ fontSize: "9px", color: COLORS.coral, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+                {t.pattern_moment_label}
+              </div>
+              <div style={{ fontSize: "13px", color: COLORS.textSecondary, lineHeight: 1.6, fontStyle: "italic" }}>
+                {pattern.moment}
+              </div>
+            </div>
+            <div style={{ paddingLeft: "10px", borderLeft: `2px solid ${COLORS.green}` }}>
+              <div style={{ fontSize: "9px", color: COLORS.green, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+                {t.pattern_unlock_label}
+              </div>
+              <div style={{ fontSize: "13px", color: COLORS.textSecondary, lineHeight: 1.6 }}>
+                {pattern.unlock}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Module 1 — Tension */}
         {module1 && tension && archetype && (

@@ -6,6 +6,7 @@ import { TENSION_PROFILES, ARCHETYPES, SIGNALS, SIGNAL_LABELS } from "../data/si
 import { DIRECTION } from "../data/direction";
 import ShareModal from "./ShareModal";
 import { buildShareUrl } from "../lib/shareLink";
+import { buildNarrative, getSittingQuestion, getCharacterPattern, pickReflection } from "../data/synthesis";
 
 const R_TEXT = {
   fr: {
@@ -14,6 +15,16 @@ const R_TEXT = {
     sub: "Les 3 modules combinés, pour te garder avec toi-même.",
     date_label: "Complété le",
     back: "← Retour au parcours",
+
+    sec_narrative: "Ton portrait",
+    sec_pattern: "Tu ressembles à",
+    pattern_moment_label: "Le moment",
+    pattern_unlock_label: "Ce qui a débloqué",
+    sec_tension_viz: "Ce que tu veux · ce que tu as",
+    tension_viz_sub: "Plus l'écart est grand, plus la tension est forte.",
+    tension_viz_want: "Essentiel",
+    tension_viz_have: "Satisfait",
+    sec_sitting: "La question à garder avec toi pendant 7 jours",
 
     sec_tension: "Module 1 · Profil de tension",
     sec_archetype: "Ton archétype",
@@ -59,6 +70,16 @@ const R_TEXT = {
     sub: "The 3 modules combined, to keep with yourself.",
     date_label: "Completed on",
     back: "← Back to journey",
+
+    sec_narrative: "Your portrait",
+    sec_pattern: "You resemble",
+    pattern_moment_label: "The moment",
+    pattern_unlock_label: "What unlocked them",
+    sec_tension_viz: "What you want · what you have",
+    tension_viz_sub: "The bigger the gap, the stronger the tension.",
+    tension_viz_want: "Essential",
+    tension_viz_have: "Satisfied",
+    sec_sitting: "The question to sit with for 7 days",
 
     sec_tension: "Module 1 · Tension profile",
     sec_archetype: "Your archetype",
@@ -150,6 +171,26 @@ export default function Results({ lang, progress, firstName, onBack }) {
   const reflections = module3.reflections || {};
   const questions = d.questions;
 
+  // ── Synthesis data ──
+  const pickedReflection = pickReflection(reflections);
+  const topNeedNames = gaps.slice(0, 2).map((g) => NEED_NAMES[lang][g.id]);
+  const narrative = buildNarrative({
+    firstName,
+    lang,
+    archetype,
+    tensionProfileKey: module1.tensionProfile,
+    verdictLevel: getVerdict(sat, imp, lang).level,
+    score,
+    topNeedNames,
+    reflection: pickedReflection,
+  });
+  const sittingQuestion = getSittingQuestion(
+    module1.archetype,
+    gaps[0]?.id || "",
+    lang
+  );
+  const pattern = getCharacterPattern(module1.archetype, lang);
+
   // Date
   const today = new Date().toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US", {
     day: "numeric", month: "long", year: "numeric",
@@ -174,6 +215,147 @@ export default function Results({ lang, progress, firstName, onBack }) {
           </h1>
           <p style={{ fontSize: "15px", color: COLORS.textSecondary, margin: "0 0 8px", lineHeight: 1.5 }}>{t.sub}</p>
           <p style={{ fontSize: "12px", color: COLORS.textMuted }}>{t.date_label} {today}</p>
+        </div>
+
+        {/* ═══ PISTE 1 · NARRATIVE DE SYNTHÈSE ═══ */}
+        <div style={{
+          ...styles.card, marginBottom: "16px",
+          background: `linear-gradient(135deg, ${COLORS.coral}08, ${COLORS.coral}03)`,
+          border: `1px solid ${COLORS.borderAccent}`,
+          padding: "28px 24px",
+        }}>
+          <div style={sectionLabel}>{t.sec_narrative}</div>
+          <div style={{
+            fontSize: "16px", color: COLORS.textPrimary,
+            lineHeight: 1.7, whiteSpace: "pre-wrap",
+          }}
+          dangerouslySetInnerHTML={{
+            __html: narrative
+              .replace(/\*\*(.*?)\*\*/g, `<strong style="color:${COLORS.coral}">$1</strong>`)
+              .replace(/\n\n/g, "<br><br>"),
+          }}
+          />
+        </div>
+
+        {/* ═══ PISTE 5 · PATTERN MATCH ═══ */}
+        {pattern && (
+          <div style={{
+            ...styles.card, marginBottom: "16px", padding: "24px 20px",
+            background: "#0f0f0f", border: `1px solid ${COLORS.border}`,
+          }}>
+            <div style={sectionLabel}>{t.sec_pattern}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "16px" }}>
+              <div style={{ fontSize: "32px" }}>{archetype.icon}</div>
+              <div>
+                <div style={{ fontSize: "20px", fontWeight: 800, color: COLORS.textPrimary, fontFamily: FONT, lineHeight: 1.1 }}>
+                  {pattern.name}
+                </div>
+                <div style={{ fontSize: "12px", color: COLORS.textSecondary, marginTop: "2px" }}>{pattern.role}</div>
+              </div>
+            </div>
+
+            {/* Moment */}
+            <div style={{ marginBottom: "14px", paddingLeft: "12px", borderLeft: `2px solid ${COLORS.coral}` }}>
+              <div style={{ fontSize: "10px", color: COLORS.coral, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "6px" }}>
+                {t.pattern_moment_label}
+              </div>
+              <div style={{ fontSize: "14px", color: COLORS.textSecondary, lineHeight: 1.6, fontStyle: "italic" }}>
+                {pattern.moment}
+              </div>
+            </div>
+
+            {/* Unlock */}
+            <div style={{ paddingLeft: "12px", borderLeft: `2px solid ${COLORS.green}` }}>
+              <div style={{ fontSize: "10px", color: COLORS.green, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "6px" }}>
+                {t.pattern_unlock_label}
+              </div>
+              <div style={{ fontSize: "14px", color: COLORS.textSecondary, lineHeight: 1.6 }}>
+                {pattern.unlock}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ═══ PISTE 4 · TENSION VISUALIZER ═══ */}
+        <div style={{ ...section, padding: "24px 20px" }}>
+          <div style={sectionLabel}>{t.sec_tension_viz}</div>
+          <div style={{ fontSize: "12px", color: COLORS.textSecondary, marginBottom: "18px", lineHeight: 1.5 }}>
+            {t.tension_viz_sub}
+          </div>
+
+          {/* Legend */}
+          <div style={{ display: "flex", gap: "16px", marginBottom: "14px", fontSize: "10px", color: COLORS.textTertiary }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: COLORS.coral }} />
+              {t.tension_viz_want}
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <div style={{ width: "10px", height: "10px", borderRadius: "2px", background: COLORS.textSecondary, opacity: 0.4 }} />
+              {t.tension_viz_have}
+            </div>
+          </div>
+
+          {/* For each of 6 needs: two horizontal bars (importance vs satisfaction) */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {Object.keys(imp).map((needId) => {
+              const importance = imp[needId] || 0; // 1-3
+              const satisfaction = sat[needId] || 0; // 1-5
+              // Normalize importance to 0-100% (3 = 100%)
+              const wantPct = (importance / 3) * 100;
+              // Normalize satisfaction to 0-100% (5 = 100%)
+              const havePct = (satisfaction / 5) * 100;
+              // Gap size — used for color intensity
+              const gap = Math.abs(wantPct - havePct);
+              const tensionColor = gap > 40 ? COLORS.coral : gap > 20 ? COLORS.orange : COLORS.green;
+
+              return (
+                <div key={needId}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <span style={{ fontSize: "13px", fontWeight: 600, color: COLORS.textPrimary }}>
+                      {NEED_NAMES[lang][needId]}
+                    </span>
+                    {importance >= 2 && satisfaction > 0 && (
+                      <span style={{ fontSize: "10px", fontWeight: 700, color: tensionColor }}>
+                        {gap > 40 ? (lang === "fr" ? "TENSION FORTE" : "HIGH TENSION") : gap > 20 ? (lang === "fr" ? "TENSION" : "TENSION") : (lang === "fr" ? "OK" : "OK")}
+                      </span>
+                    )}
+                  </div>
+                  {/* Importance bar (coral, what you want) */}
+                  <div style={{ position: "relative", height: "6px", borderRadius: "3px", background: "#1a1a1a", marginBottom: "3px", overflow: "hidden" }}>
+                    <div style={{
+                      position: "absolute", left: 0, top: 0, bottom: 0,
+                      width: `${wantPct}%`, borderRadius: "3px",
+                      background: COLORS.coral,
+                    }} />
+                  </div>
+                  {/* Satisfaction bar (grey, what you have) */}
+                  <div style={{ position: "relative", height: "6px", borderRadius: "3px", background: "#1a1a1a", overflow: "hidden" }}>
+                    <div style={{
+                      position: "absolute", left: 0, top: 0, bottom: 0,
+                      width: `${havePct}%`, borderRadius: "3px",
+                      background: COLORS.textSecondary, opacity: 0.5,
+                    }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ═══ PISTE 2 · LA QUESTION QUI RESTE ═══ */}
+        <div style={{
+          ...styles.cardAccent, marginBottom: "28px", padding: "28px 24px", textAlign: "center",
+          background: `linear-gradient(135deg, ${COLORS.coral}12, ${COLORS.coral}04)`,
+        }}>
+          <div style={{ fontSize: "11px", color: COLORS.coral, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "18px" }}>
+            {t.sec_sitting}
+          </div>
+          <p style={{
+            fontSize: "20px", fontWeight: 600, color: COLORS.textPrimary,
+            lineHeight: 1.5, margin: 0, fontStyle: "italic", fontFamily: FONT,
+          }}>
+            «&nbsp;{sittingQuestion}&nbsp;»
+          </p>
         </div>
 
         {/* ═══ MODULE 1 · TENSION ═══ */}
