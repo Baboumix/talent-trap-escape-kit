@@ -197,7 +197,46 @@ export default function App() {
   return (
     <div style={{ background: COLORS.bg, color: COLORS.textPrimary, fontFamily: FONT, minHeight: "100vh", position: "relative" }}>
 
-      {/* ── Top bar: Share + Language switch ── */}
+      {/* ── Top bar LEFT: Parcours button (not on welcome) ── */}
+      {screen !== "welcome" && (
+        <div style={{ position: "fixed", top: 12, left: 20, zIndex: 200 }}>
+          <button
+            onClick={goToHub}
+            title={lang === "fr" ? "Retour au parcours" : "Back to journey"}
+            aria-label={lang === "fr" ? "Retour au parcours" : "Back to journey"}
+            style={{
+              display: "flex", alignItems: "center", gap: "6px",
+              background: screen === "hub" ? `${COLORS.coral}18` : "transparent",
+              color: screen === "hub" ? COLORS.coral : COLORS.textSecondary,
+              border: `1px solid ${screen === "hub" ? `${COLORS.coral}40` : COLORS.border}`,
+              borderRadius: "8px", padding: "4px 10px", fontSize: "12px",
+              fontWeight: 600, cursor: "pointer", fontFamily: FONT,
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              if (screen !== "hub") {
+                e.currentTarget.style.background = `${COLORS.coral}12`;
+                e.currentTarget.style.color = COLORS.coral;
+                e.currentTarget.style.borderColor = `${COLORS.coral}40`;
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (screen !== "hub") {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = COLORS.textSecondary;
+                e.currentTarget.style.borderColor = COLORS.border;
+              }
+            }}
+          >
+            <span style={{ fontSize: "13px" }}>🎯</span>
+            <span className="share-label">
+              {lang === "fr" ? "Parcours" : "Journey"}
+            </span>
+          </button>
+        </div>
+      )}
+
+      {/* ── Top bar RIGHT: Share + Language switch ── */}
       <div style={{ position: "fixed", top: 12, right: 20, zIndex: 200, display: "flex", gap: "8px", alignItems: "center" }}>
         {/* Share button — visible when Module 1 is complete */}
         {progress.module1 && (
