@@ -28,7 +28,7 @@ export const T = {
     sec_gaps: "L\u00e0 o\u00f9 \u00e7a coince", sec_gaps_sub: "Plus un besoin est important et insatisfait, plus le pi\u00e8ge se resserre.",
     missing: "CE QUI MANQUE", at_risk: "\u00c0 RISQUE",
     sec_works: "Ce qui fonctionne", sec_vigil: "Zone de vigilance",
-    vigil_text: "n'est pas en danger, mais garde un oeil dessus.",
+    vigil_text: "n'est pas en danger, mais garde un œil dessus.",
     sec_surface: "Ce qui se passe sous la surface", healthy: "Sain", destructive: "Destructif",
     sec_why: "Pourquoi tu es l\u00e0", sec_observe: "Ce qu'on observe",
     sec_pistes: "Pistes pour am\u00e9liorer ton alignement", today: "Aujourd'hui :", objective: "L'objectif :",
