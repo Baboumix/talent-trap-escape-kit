@@ -8,8 +8,9 @@ import Results from "./components/Results";
 import CookieBanner from "./components/CookieBanner";
 import PrivacyModal from "./components/PrivacyModal";
 import SharedView from "./components/SharedView";
-import { initConsent, trackPageView, trackModuleStarted, trackModuleCompleted, trackLanguageChanged } from "./lib/analytics";
-import { getSharedDataFromUrl, decodeProfile } from "./lib/shareLink";
+import ShareModal from "./components/ShareModal";
+import { initConsent, trackPageView, trackModuleStarted, trackModuleCompleted, trackLanguageChanged, track } from "./lib/analytics";
+import { getSharedDataFromUrl, decodeProfile, buildShareUrl } from "./lib/shareLink";
 
 const LS_KEY = "escape-kit-progress";
 
@@ -68,6 +69,7 @@ export default function App() {
   const [userData, setUserData] = useState({ email: null, firstName: null });
   const [hydrated, setHydrated] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showShare, setShowShare] = useState(false);
 
   // If we're viewing a shared profile, render that view in isolation
   if (sharedProfileData) {
@@ -194,23 +196,51 @@ export default function App() {
   return (
     <div style={{ background: COLORS.bg, color: COLORS.textPrimary, fontFamily: FONT, minHeight: "100vh", position: "relative" }}>
 
-      {/* ── Language switch ── */}
-      <div style={{ position: "fixed", top: 12, right: 20, zIndex: 200, display: "flex", gap: "4px" }}>
-        {["fr", "en"].map((l) => (
-          <button key={l}
-            onClick={() => handleLangChange(l)}
+      {/* ── Top bar: Share + Language switch ── */}
+      <div style={{ position: "fixed", top: 12, right: 20, zIndex: 200, display: "flex", gap: "8px", alignItems: "center" }}>
+        {/* Share button — visible when Module 1 is complete */}
+        {progress.module1 && (
+          <button
+            onClick={() => { track("share_opened", { location: "topbar" }); setShowShare(true); }}
+            title={lang === "fr" ? "Partager mon profil" : "Share my profile"}
+            aria-label={lang === "fr" ? "Partager mon profil" : "Share my profile"}
             style={{
-              background: lang === l ? COLORS.coral : "transparent",
-              color: lang === l ? "#fff" : COLORS.textMuted,
-              border: `1px solid ${lang === l ? COLORS.coral : COLORS.border}`,
+              display: "flex", alignItems: "center", gap: "6px",
+              background: `${COLORS.coral}18`,
+              color: COLORS.coral,
+              border: `1px solid ${COLORS.coral}40`,
               borderRadius: "8px", padding: "4px 10px", fontSize: "12px",
-              fontWeight: 700, cursor: "pointer", fontFamily: FONT,
-              textTransform: "uppercase", transition: "all 0.2s",
+              fontWeight: 600, cursor: "pointer", fontFamily: FONT,
+              transition: "all 0.2s",
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = `${COLORS.coral}30`; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = `${COLORS.coral}18`; }}
           >
-            {l}
+            <span style={{ fontSize: "13px" }}>🔗</span>
+            <span style={{ display: "inline-block" }} className="share-label">
+              {lang === "fr" ? "Partager" : "Share"}
+            </span>
           </button>
-        ))}
+        )}
+
+        {/* Language switch */}
+        <div style={{ display: "flex", gap: "4px" }}>
+          {["fr", "en"].map((l) => (
+            <button key={l}
+              onClick={() => handleLangChange(l)}
+              style={{
+                background: lang === l ? COLORS.coral : "transparent",
+                color: lang === l ? "#fff" : COLORS.textMuted,
+                border: `1px solid ${lang === l ? COLORS.coral : COLORS.border}`,
+                borderRadius: "8px", padding: "4px 10px", fontSize: "12px",
+                fontWeight: 700, cursor: "pointer", fontFamily: FONT,
+                textTransform: "uppercase", transition: "all 0.2s",
+              }}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* ── Global progress bar ── */}
@@ -336,6 +366,15 @@ export default function App() {
 
       {/* Privacy Modal */}
       {showPrivacy && <PrivacyModal lang={lang} onClose={() => setShowPrivacy(false)} />}
+
+      {/* Share Modal (global, accessible from top bar) */}
+      {showShare && (
+        <ShareModal
+          lang={lang}
+          url={buildShareUrl(progress, userData.firstName, lang)}
+          onClose={() => setShowShare(false)}
+        />
+      )}
     </div>
   );
 }

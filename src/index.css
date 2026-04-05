@@ -39,3 +39,10 @@ button {
 #root {
   min-height: 100vh;
 }
+
+/* Hide share button label on very narrow screens */
+@media (max-width: 380px) {
+  .share-label {
+    display: none !important;
+  }
+}
