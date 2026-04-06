@@ -196,9 +196,6 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
     const profiles = tLang.profiles;
     return (
       <div style={{ ...styles.page, ...fadeStyle(vis) }}>
-        <button onClick={onBack} style={{ ...styles.btnGhost, position: "fixed", top: 12, left: 20, zIndex: 100 }}>
-          {t.back}
-        </button>
         <div style={{ maxWidth: 520, width: "100%" }}>
           <div style={{ ...styles.surtitre, marginBottom: "4px", textAlign: "center" }}>{t.step1_label}</div>
           <h2 style={{ fontSize: "24px", fontWeight: 800, color: COLORS.textPrimary, textAlign: "center", margin: "0 0 4px", fontFamily: FONT }}>
@@ -245,15 +242,8 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
     return (
       <div style={{ ...styles.page, ...fadeStyle(vis) }}>
         {/* Back */}
-        <button onClick={() => fade(() => {
-          if (needIdx > 0) setNeedIdx(needIdx - 1);
-          else setPhase("profile");
-          window.scrollTo(0, 0);
-        })} style={{ ...styles.btnGhost, position: "fixed", top: 12, left: 20, zIndex: 100 }}>
-          {t.back}
-        </button>
         {/* Counter */}
-        <div style={{ position: "fixed", top: 14, right: 20, fontSize: "13px", color: COLORS.textMuted, zIndex: 100 }}>
+        <div style={{ position: "fixed", top: 14, right: 100, fontSize: "13px", color: COLORS.textMuted, zIndex: 100 }}>
           {needIdx + 1}/6
         </div>
 

@@ -118,16 +118,8 @@ export default function Module3({ lang, onComplete, onBack, savedData, module1Da
   if (phase === "questions") {
     return (
       <div style={{ ...styles.page, ...fadeStyle(vis) }}>
-        {/* Back */}
-        <button onClick={() => fade(() => {
-          if (qIdx > 0) setQIdx(qIdx - 1);
-          else setPhase("intro");
-          window.scrollTo(0, 0);
-        })} style={{ ...styles.btnGhost, position: "fixed", top: 12, left: 20, zIndex: 100 }}>
-          {d.backBtn}
-        </button>
         {/* Counter */}
-        <div style={{ position: "fixed", top: 14, right: 20, fontSize: "13px", color: COLORS.textMuted, zIndex: 100 }}>
+        <div style={{ position: "fixed", top: 14, right: 100, fontSize: "13px", color: COLORS.textMuted, zIndex: 100 }}>
           {qIdx + 1}/5
         </div>
 

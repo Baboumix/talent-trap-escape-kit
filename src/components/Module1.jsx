@@ -141,12 +141,8 @@ export default function Module1({ lang, onComplete, onBack, savedData }) {
   if (phase === "signals") {
     return (
       <div style={{ ...styles.page, ...fadeStyle(vis) }}>
-        {/* Back button */}
-        <button onClick={prevSignal} style={{ ...styles.btnGhost, position: "fixed", top: 12, left: 20, zIndex: 100 }}>
-          {t.back}
-        </button>
         {/* Counter */}
-        <div style={{ position: "fixed", top: 14, right: 20, fontSize: "13px", color: COLORS.textMuted, zIndex: 100 }}>
+        <div style={{ position: "fixed", top: 14, right: 100, fontSize: "13px", color: COLORS.textMuted, zIndex: 100 }}>
           {sigIdx + 1}/10
         </div>
 
