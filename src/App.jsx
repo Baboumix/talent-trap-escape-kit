@@ -329,9 +329,6 @@ export default function App() {
               </button>
             )}
 
-            <p style={{ fontSize: "12px", color: COLORS.textMuted, marginTop: "48px", lineHeight: 1.5 }}>
-              Julien Klein · monexpansion.com
-            </p>
           </div>
         </div>
       )}

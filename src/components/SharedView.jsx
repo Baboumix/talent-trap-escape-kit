@@ -52,7 +52,7 @@ const S_TEXT = {
     escape_lab_url: "https://monexpansion.com/fr/escape-lab/",
 
     footer: "Basé sur les Six Besoins Humains Essentiels · Robbins-Madanes Training",
-    footer2: "Julien Klein · monexpansion.com",
+    footer2: "",
   },
   en: {
     surtitre: "SHARED PROFILE",
@@ -99,7 +99,7 @@ const S_TEXT = {
     escape_lab_url: "https://monexpansion.com/en/escape-lab/",
 
     footer: "Based on the Six Core Human Needs · Robbins-Madanes Training",
-    footer2: "Julien Klein · monexpansion.com",
+    footer2: "",
   },
 };
 
@@ -437,10 +437,6 @@ export default function SharedView({ data }) {
           </a>
         </div>
 
-        {/* Footer */}
-        <p style={{ fontSize: "11px", color: COLORS.textMuted, textAlign: "center", lineHeight: 1.5, marginTop: "24px" }}>
-          {t.footer}<br />{t.footer2}
-        </p>
       </div>
     </div>
   );

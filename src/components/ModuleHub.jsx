@@ -221,10 +221,6 @@ export default function ModuleHub({ lang, progress, onSelectModule, onViewResult
           </div>
         )}
 
-        {/* Footer */}
-        <p style={{ fontSize: "12px", color: COLORS.textMuted, marginTop: "40px", lineHeight: 1.5, textAlign: "center" }}>
-          Julien Klein · monexpansion.com
-        </p>
       </div>
     </div>
   );

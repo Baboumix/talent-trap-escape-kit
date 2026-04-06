@@ -588,10 +588,6 @@ export default function Results({ lang, progress, firstName, onBack }) {
           <button style={styles.btnGhost} onClick={onBack}>{t.back}</button>
         </div>
 
-        {/* Footer */}
-        <p style={{ fontSize: "11px", color: COLORS.textMuted, textAlign: "center", lineHeight: 1.5 }}>
-          Julien Klein · monexpansion.com
-        </p>
       </div>
 
       {/* Share Modal */}
