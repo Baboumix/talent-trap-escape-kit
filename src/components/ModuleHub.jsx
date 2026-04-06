@@ -90,7 +90,7 @@ export default function ModuleHub({ lang, progress, onSelectModule, onViewResult
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <div style={{ ...styles.surtitre, marginBottom: "12px" }}>{t.surtitre}</div>
-          <h1 style={{ fontSize: "clamp(28px,6vw,38px)", fontWeight: 800, color: COLORS.textPrimary, lineHeight: 1.2, margin: "0 0 8px", fontFamily: FONT }}>
+          <h1 style={{ fontSize: "clamp(32px,7vw,44px)", fontWeight: 800, color: COLORS.textPrimary, lineHeight: 1.2, margin: "0 0 8px", fontFamily: FONT }}>
             {t.title}
           </h1>
           <p style={{ fontSize: "15px", color: COLORS.textSecondary, margin: 0 }}>{t.sub}</p>
@@ -175,7 +175,7 @@ export default function ModuleHub({ lang, progress, onSelectModule, onViewResult
                             <span style={{ fontSize: "11px", color: COLORS.textTertiary, opacity: 0.6 }}>·</span>
                             <span style={{ fontSize: "11px", color: COLORS.textTertiary }}>{mod.duration}</span>
                           </div>
-                          <div style={{ fontSize: "17px", fontWeight: 700, color: COLORS.textPrimary, lineHeight: 1.2 }}>
+                          <div style={{ fontSize: "19px", fontWeight: 700, color: COLORS.textPrimary, lineHeight: 1.2 }}>
                             {mod.name}
                           </div>
                         </div>
@@ -202,7 +202,7 @@ export default function ModuleHub({ lang, progress, onSelectModule, onViewResult
                       )}
                     </div>
 
-                    <div style={{ fontSize: "13px", color: COLORS.textSecondary, lineHeight: 1.5, paddingLeft: "32px" }}>
+                    <div style={{ fontSize: "14px", color: COLORS.textSecondary, lineHeight: 1.5, paddingLeft: "32px" }}>
                       {isDone ? mod.done : mod.desc}
                     </div>
                   </div>
@@ -223,7 +223,7 @@ export default function ModuleHub({ lang, progress, onSelectModule, onViewResult
 
         {/* Footer */}
         <p style={{ fontSize: "12px", color: COLORS.textMuted, marginTop: "40px", lineHeight: 1.5, textAlign: "center" }}>
-          {t.footer}<br />{t.footer2}
+          Julien Klein · monexpansion.com
         </p>
       </div>
     </div>

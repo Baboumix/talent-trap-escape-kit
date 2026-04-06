@@ -301,7 +301,7 @@ export default function App() {
         <div style={{ ...styles.page, ...fadeStyle(true) }}>
           <div style={{ maxWidth: 560, textAlign: "center" }}>
             <div style={{ ...styles.surtitre, marginBottom: "16px" }}>{tw.surtitre}</div>
-            <h1 style={{ fontSize: "clamp(32px,8vw,52px)", fontWeight: 800, color: COLORS.textPrimary, lineHeight: 1.1, margin: "0 0 16px", fontFamily: FONT }}>
+            <h1 style={{ fontSize: "clamp(40px,10vw,64px)", fontWeight: 800, color: COLORS.textPrimary, lineHeight: 1.1, margin: "0 0 16px", fontFamily: FONT }}>
               {tw.h1_1}
               <span style={{ background: COLORS.coralGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                 {tw.h1_prop}
@@ -312,7 +312,7 @@ export default function App() {
               </span>
               {tw.h1_q}
             </h1>
-            <p style={{ fontSize: "16px", color: COLORS.textSecondary, margin: "0 0 32px", lineHeight: 1.6 }}>{tw.sub}</p>
+            <p style={{ fontSize: "18px", color: COLORS.textSecondary, margin: "0 0 32px", lineHeight: 1.6 }}>{tw.sub}</p>
 
             {hasSomeProgress ? (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "center" }}>
@@ -330,7 +330,7 @@ export default function App() {
             )}
 
             <p style={{ fontSize: "12px", color: COLORS.textMuted, marginTop: "48px", lineHeight: 1.5 }}>
-              {tw.footer}<br />{tw.footer2}
+              Julien Klein · monexpansion.com
             </p>
           </div>
         </div>

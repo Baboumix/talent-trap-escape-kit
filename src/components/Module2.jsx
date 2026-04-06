@@ -269,7 +269,7 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
           )}
 
           {/* Need name */}
-          <h2 style={{ fontSize: "clamp(28px,6vw,36px)", fontWeight: 800, color: COLORS.textPrimary, textAlign: "center", margin: "0 0 12px", fontFamily: FONT }}>
+          <h2 style={{ fontSize: "clamp(32px,7vw,40px)", fontWeight: 800, color: COLORS.textPrimary, textAlign: "center", margin: "0 0 12px", fontFamily: FONT }}>
             {needNames[currentNeed]}
           </h2>
 
@@ -282,7 +282,7 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
 
           {/* Importance */}
           <div style={{ marginBottom: "24px" }}>
-            <div style={{ fontSize: "13px", fontWeight: 600, color: COLORS.textPrimary, marginBottom: "12px", textAlign: "center" }}>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: COLORS.textPrimary, marginBottom: "12px", textAlign: "center" }}>
               {tLang.imp_q}
             </div>
             <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
@@ -314,7 +314,7 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
 
           {/* Satisfaction */}
           <div style={{ marginBottom: "28px" }}>
-            <div style={{ fontSize: "13px", fontWeight: 600, color: COLORS.textPrimary, marginBottom: "12px", textAlign: "center" }}>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: COLORS.textPrimary, marginBottom: "12px", textAlign: "center" }}>
               {tLang.sat_q}
             </div>
             <div style={{ display: "flex", gap: "4px", borderRadius: "12px", overflow: "hidden" }}>

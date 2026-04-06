@@ -166,7 +166,7 @@ export default function Module1({ lang, onComplete, onBack, savedData }) {
             <div style={{ fontSize: "13px", color: COLORS.textSecondary, fontWeight: 600, marginBottom: "16px" }}>
               {currentSignal.label}
             </div>
-            <p style={{ fontSize: "17px", color: COLORS.textPrimary, lineHeight: 1.7, margin: "0 0 16px", fontWeight: 500 }}>
+            <p style={{ fontSize: "19px", color: COLORS.textPrimary, lineHeight: 1.7, margin: "0 0 16px", fontWeight: 500 }}>
               {currentSignal.statement}
             </p>
             <p style={{ fontSize: "13px", color: COLORS.textTertiary, lineHeight: 1.6, margin: 0, fontStyle: "italic", borderLeft: `2px solid ${COLORS.border}`, paddingLeft: "12px" }}>
@@ -176,7 +176,7 @@ export default function Module1({ lang, onComplete, onBack, savedData }) {
 
           {/* Rating */}
           <div style={{ marginBottom: "28px" }}>
-            <div style={{ fontSize: "13px", fontWeight: 600, color: COLORS.textPrimary, marginBottom: "14px", textAlign: "center" }}>
+            <div style={{ fontSize: "15px", fontWeight: 600, color: COLORS.textPrimary, marginBottom: "14px", textAlign: "center" }}>
               {t.signal_q}
             </div>
             <div style={{ display: "flex", gap: "4px", borderRadius: "12px", overflow: "hidden" }}>

@@ -7,7 +7,7 @@ const PRIVACY_TEXT = {
     sections: [
       {
         title: "Qui collecte tes données",
-        body: "Julien Klein (monExpansion), coach certifié basé au Québec. Contact : julien@monexpansion.com. Je suis aussi le responsable de la protection des renseignements personnels.",
+        body: "Julien Klein (monExpansion), coach certifié Robbins-Madanes Training, basé au Québec. Contact : julien@monexpansion.com. Je suis aussi le responsable de la protection des renseignements personnels. Ce kit est basé sur les Six Besoins Humains Essentiels (Robbins-Madanes Training).",
       },
       {
         title: "Ce que je collecte",
@@ -38,7 +38,7 @@ const PRIVACY_TEXT = {
     sections: [
       {
         title: "Who collects your data",
-        body: "Julien Klein (monExpansion), certified coach based in Quebec, Canada. Contact: julien@monexpansion.com. I'm also the privacy officer responsible for your data.",
+        body: "Julien Klein (monExpansion), Robbins-Madanes Training certified coach, based in Quebec, Canada. Contact: julien@monexpansion.com. I'm also the privacy officer responsible for your data. This kit is based on the Six Core Human Needs (Robbins-Madanes Training).",
       },
       {
         title: "What I collect",

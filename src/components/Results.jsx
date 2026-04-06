@@ -590,7 +590,6 @@ export default function Results({ lang, progress, firstName, onBack }) {
 
         {/* Footer */}
         <p style={{ fontSize: "11px", color: COLORS.textMuted, textAlign: "center", lineHeight: 1.5 }}>
-          Six Besoins Humains Essentiels · Robbins-Madanes Training<br />
           Julien Klein · monexpansion.com
         </p>
       </div>
