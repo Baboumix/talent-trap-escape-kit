@@ -383,21 +383,23 @@ function escapeBlocks(t, labUrl, nowUrl) {
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
       <tr>
         <td width="50%" valign="top" style="padding-right:8px;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid ${BRAND.border};border-radius:16px;padding:20px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid ${BRAND.border};border-radius:16px;padding:24px 16px;">
             <tr><td align="center">
-              <div style="font-size:24px;margin-bottom:8px;">🧪</div>
-              <div style="font-size:15px;font-weight:700;color:${BRAND.textPrimary};margin-bottom:6px;">${t.lab_title}</div>
-              <div style="font-size:12px;color:${BRAND.textSecondary};line-height:1.5;margin-bottom:12px;">${t.lab_body}</div>
+              <div style="font-size:40px;margin-bottom:10px;">🧪</div>
+              <div style="font-size:16px;font-weight:700;color:${BRAND.textPrimary};margin-bottom:6px;">${t.lab_title}</div>
+              <div style="display:inline-block;background:${BRAND.bgCard};color:${BRAND.textMuted};font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;">Cohorte</div>
+              <div style="font-size:12px;color:${BRAND.textSecondary};line-height:1.5;margin-bottom:14px;">${t.lab_body}</div>
               <a href="${labUrl}" style="display:inline-block;background:${BRAND.coral};color:#fff;text-decoration:none;padding:10px 20px;border-radius:16px;font-size:13px;font-weight:600;">${t.lab_cta} →</a>
             </td></tr>
           </table>
         </td>
         <td width="50%" valign="top" style="padding-left:8px;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid ${BRAND.coral}30;border-radius:16px;padding:20px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid ${BRAND.coral}30;border-radius:16px;padding:24px 16px;">
             <tr><td align="center">
-              <div style="font-size:24px;margin-bottom:8px;">🚀</div>
-              <div style="font-size:15px;font-weight:700;color:${BRAND.textPrimary};margin-bottom:6px;">${t.now_title}</div>
-              <div style="font-size:12px;color:${BRAND.textSecondary};line-height:1.5;margin-bottom:12px;">${t.now_body}</div>
+              <div style="font-size:40px;margin-bottom:10px;">🚀</div>
+              <div style="font-size:16px;font-weight:700;color:${BRAND.textPrimary};margin-bottom:6px;">${t.now_title}</div>
+              <div style="display:inline-block;background:${BRAND.bgCard};color:${BRAND.textMuted};font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;">Coaching 1:1</div>
+              <div style="font-size:12px;color:${BRAND.textSecondary};line-height:1.5;margin-bottom:14px;">${t.now_body}</div>
               <a href="${nowUrl}" style="display:inline-block;background:transparent;color:${BRAND.coral};text-decoration:none;padding:10px 20px;border-radius:16px;font-size:13px;font-weight:600;border:1px solid ${BRAND.coral};">${t.now_cta} →</a>
             </td></tr>
           </table>
