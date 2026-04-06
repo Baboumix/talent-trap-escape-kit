@@ -2,7 +2,12 @@
 // Protects the API key server-side
 
 const BREVO_KEY = process.env.BREVO_API_KEY;
-const LIST_ID = 2; // Escape Kit list in Brevo
+
+// Brevo list IDs — route by language
+const LIST_IDS = {
+  fr: [11],  // Etest_FR — Kit français
+  en: [12],  // Etest_EN — Kit anglais
+};
 
 // Simple in-memory rate limiting (per instance)
 const rateMap = new Map();
@@ -84,7 +89,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         email: data.email,
-        listIds: [LIST_ID],
+        listIds: LIST_IDS[data.lang] || LIST_IDS.fr,
         attributes,
         updateEnabled: true,
       }),
@@ -103,7 +108,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           attributes,
-          listIds: [LIST_ID],
+          listIds: LIST_IDS[data.lang] || LIST_IDS.fr,
         }),
       });
     }
