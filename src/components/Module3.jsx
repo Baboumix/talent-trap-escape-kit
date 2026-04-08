@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { COLORS, FONT, styles, fadeStyle } from "./SharedStyles";
 import { DIRECTION } from "../data/direction";
+import { buildResumeUrl } from "../lib/shareLink";
 
 const LS_KEY = "escape-kit-m3-reflections";
 
@@ -42,6 +43,12 @@ export default function Module3({ lang, onComplete, onBack, savedData, module1Da
       score: module2Data.score,
       verdict: module2Data.verdict,
     } : { score: 0, verdict: "—" };
+    const progressForResume = {
+      module1: module1Data || null,
+      module2: module2Data || null,
+      module3: { reflections },
+    };
+    const resumeUrl = buildResumeUrl(progressForResume, userData.firstName, lang);
     fetch("/api/send-result-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -52,6 +59,7 @@ export default function Module3({ lang, onComplete, onBack, savedData, module1Da
         module: 3,
         ...tensionData,
         ...scoreData,
+        resumeUrl,
       }),
     }).catch(() => {});
   }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps

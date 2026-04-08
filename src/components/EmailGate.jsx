@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { COLORS, FONT, styles } from "./SharedStyles";
+import { buildResumeUrl } from "../lib/shareLink";
 
 const GATE_TEXT = {
   fr: {
@@ -38,7 +39,7 @@ const GATE_TEXT = {
   },
 };
 
-export default function EmailGate({ lang, onUnlock, moduleData, emailData }) {
+export default function EmailGate({ lang, onUnlock, moduleData, emailData, currentProgress }) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [err, setErr] = useState("");
@@ -64,12 +65,15 @@ export default function EmailGate({ lang, onUnlock, moduleData, emailData }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, ...moduleData }),
       });
-      // Send result email
+      // Send result email with magic resume link
       if (emailData) {
+        const resumeUrl = currentProgress
+          ? buildResumeUrl(currentProgress, firstName.trim(), lang)
+          : null;
         fetch("/api/send-result-email", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...payload, ...emailData }),
+          body: JSON.stringify({ ...payload, ...emailData, resumeUrl }),
         }).catch(() => {});
       }
     } catch { /* silent fail — don't block the user */ }

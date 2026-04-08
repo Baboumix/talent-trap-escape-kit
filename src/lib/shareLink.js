@@ -134,10 +134,25 @@ export function buildShareUrl(progress, firstName, lang) {
   return `${base}/p/${encoded}`;
 }
 
-// Get encoded data from current URL path (returns null if not on /p/ route)
+export function buildResumeUrl(progress, firstName, lang) {
+  const encoded = encodeProfile(progress, firstName, lang);
+  const base = typeof window !== "undefined"
+    ? `${window.location.protocol}//${window.location.host}`
+    : "https://kit.monexpansion.com";
+  return `${base}/resume/${encoded}`;
+}
+
+// Get encoded data from current URL path (returns null if not on /p/ or /resume/ route)
 export function getSharedDataFromUrl() {
   if (typeof window === "undefined") return null;
   const match = window.location.pathname.match(/^\/p\/(.+)$/);
+  if (!match) return null;
+  return match[1];
+}
+
+export function getResumeDataFromUrl() {
+  if (typeof window === "undefined") return null;
+  const match = window.location.pathname.match(/^\/resume\/(.+)$/);
   if (!match) return null;
   return match[1];
 }

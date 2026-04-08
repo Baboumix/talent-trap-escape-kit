@@ -10,7 +10,7 @@ import PrivacyModal from "./components/PrivacyModal";
 import SharedView from "./components/SharedView";
 import ShareModal from "./components/ShareModal";
 import { initConsent, trackPageView, trackModuleStarted, trackModuleCompleted, trackLanguageChanged, track } from "./lib/analytics";
-import { getSharedDataFromUrl, decodeProfile, buildShareUrl } from "./lib/shareLink";
+import { getSharedDataFromUrl, getResumeDataFromUrl, decodeProfile, buildShareUrl } from "./lib/shareLink";
 
 const LS_KEY = "escape-kit-progress";
 
@@ -56,18 +56,24 @@ const WELCOME_TEXT = {
   },
 };
 
-// Check for shared profile URL at module load (before React mounts)
+// Check for shared profile or resume URL at module load (before React mounts)
 const sharedProfileData = (() => {
   const encoded = getSharedDataFromUrl();
   return encoded ? decodeProfile(encoded) : null;
 })();
 
+const resumeData = (() => {
+  const encoded = getResumeDataFromUrl();
+  return encoded ? decodeProfile(encoded) : null;
+})();
+
 export default function App() {
-  const [lang, setLang] = useState(sharedProfileData?.lang || "fr");
-  const [screen, setScreen] = useState("welcome");
-  const [progress, setProgress] = useState({ module1: null, module2: null, module3: null });
-  const [userData, setUserData] = useState({ email: null, firstName: null });
+  const [lang, setLang] = useState(sharedProfileData?.lang || resumeData?.lang || "fr");
+  const [screen, setScreen] = useState(resumeData ? "hub" : "welcome");
+  const [progress, setProgress] = useState(resumeData?.progress || { module1: null, module2: null, module3: null });
+  const [userData, setUserData] = useState(resumeData ? { email: null, firstName: resumeData.firstName } : { email: null, firstName: null });
   const [hydrated, setHydrated] = useState(false);
+  const [resumed, setResumed] = useState(!!resumeData);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showShare, setShowShare] = useState(false);
 
@@ -93,8 +99,14 @@ export default function App() {
     );
   }
 
-  // Load saved progress on mount
+  // Load saved progress on mount (skip if resumed from magic link)
   useEffect(() => {
+    if (resumed) {
+      // Clean URL after resume (remove /resume/...)
+      window.history.replaceState(null, "", "/");
+      setHydrated(true);
+      return;
+    }
     const saved = loadProgress();
     if (saved) {
       setProgress(saved.progress || { module1: null, module2: null, module3: null });
@@ -324,9 +336,16 @@ export default function App() {
                 </button>
               </div>
             ) : (
-              <button style={styles.btn} onClick={goToHub}>
-                {tw.cta}
-              </button>
+              <>
+                <button style={styles.btn} onClick={goToHub}>
+                  {tw.cta}
+                </button>
+                <p style={{ fontSize: "12px", color: COLORS.textMuted, marginTop: "24px" }}>
+                  {lang === "fr"
+                    ? "Déjà commencé ? Cherche l'email de monExpansion dans ta boîte."
+                    : "Already started? Check your inbox for the monExpansion email."}
+                </p>
+              </>
             )}
 
           </div>

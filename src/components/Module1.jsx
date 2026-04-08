@@ -247,6 +247,11 @@ export default function Module1({ lang, onComplete, onBack, savedData }) {
                 archetypeDesc: archetype.desc,
                 archetypeIcon: archetype.icon,
               }}
+              currentProgress={{
+                module1: { signalCount, tensionProfile: tension.key, archetype: archetype.key, ratings },
+                module2: null,
+                module3: null,
+              }}
             />
           )}
 

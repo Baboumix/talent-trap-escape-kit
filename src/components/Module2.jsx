@@ -6,6 +6,7 @@ import {
   getScore, getVerdict, topGaps, topStrengths, vigilanceNeeds,
   getPatterns, getSolutions, getClosingQuestion, getExplanation,
 } from "../data/scoring";
+import { buildResumeUrl } from "../lib/shareLink";
 
 const M2_TEXT = {
   fr: {
@@ -139,6 +140,12 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
       name: NEED_NAMES[lang][g.id],
       status: tLang.sat[g.sat - 1].label,
     }));
+    const progressForResume = {
+      module1: module1Data || null,
+      module2: { profile, sat, imp, score, verdict: verdict.level },
+      module3: null,
+    };
+    const resumeUrl = buildResumeUrl(progressForResume, userData.firstName, lang);
     fetch("/api/send-result-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -152,6 +159,7 @@ export default function Module2({ lang, onComplete, onBack, savedData, module1Da
         verdictSub: verdict.sub,
         verdictColor: verdict.color,
         topGaps: gapsForEmail,
+        resumeUrl,
       }),
     }).catch(() => {});
   }, [phase]); // eslint-disable-line react-hooks/exhaustive-deps

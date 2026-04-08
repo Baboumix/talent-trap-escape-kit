@@ -20,7 +20,7 @@ const BRAND = {
 
 // ─────────────── TEMPLATES ───────────────
 
-function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signalCount, archetypeLabel, archetypeDesc, archetypeIcon, lang }) {
+function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signalCount, archetypeLabel, archetypeDesc, archetypeIcon, lang, resumeUrl }) {
   const t = lang === "fr" ? {
     subject: `${firstName}, ton profil de tension est prêt`,
     hi: `Bonjour ${firstName},`,
@@ -107,6 +107,8 @@ function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signa
 
       <p style="text-align:center;color:${BRAND.textMuted};margin:32px 0;letter-spacing:4px;">${t.divider}</p>
 
+      ${resumeBlock(resumeUrl, lang)}
+
       ${escapeBlocks(t, labUrl, nowUrl)}
 
       ${signature(t)}
@@ -114,7 +116,7 @@ function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signa
   };
 }
 
-function module2Email({ firstName, score, verdict, verdictSub, verdictColor, topGaps, lang }) {
+function module2Email({ firstName, score, verdict, verdictSub, verdictColor, topGaps, lang, resumeUrl }) {
   const t = lang === "fr" ? {
     subject: `${firstName}, ta carte des besoins est prête`,
     hi: `Bonjour ${firstName},`,
@@ -207,6 +209,8 @@ function module2Email({ firstName, score, verdict, verdictSub, verdictColor, top
 
       <p style="text-align:center;color:${BRAND.textMuted};margin:32px 0;letter-spacing:4px;">${t.divider}</p>
 
+      ${resumeBlock(resumeUrl, lang)}
+
       ${escapeBlocks(t, labUrl, nowUrl)}
 
       ${signature(t)}
@@ -214,7 +218,7 @@ function module2Email({ firstName, score, verdict, verdictSub, verdictColor, top
   };
 }
 
-function module3Email({ firstName, tensionLabel, signalCount, score, verdict, lang }) {
+function module3Email({ firstName, tensionLabel, signalCount, score, verdict, lang, resumeUrl }) {
   const t = lang === "fr" ? {
     subject: `${firstName}, ton profil d'expansion est complet`,
     hi: `Bonjour ${firstName},`,
@@ -316,6 +320,8 @@ function module3Email({ firstName, tensionLabel, signalCount, score, verdict, la
 
       <p style="text-align:center;color:${BRAND.textMuted};margin:0 0 32px;letter-spacing:4px;">${t.divider}</p>
 
+      ${resumeBlock(resumeUrl, lang)}
+
       ${escapeBlocks(t, labUrl, nowUrl)}
 
       ${signature(t)}
@@ -400,6 +406,23 @@ function escapeBlocks(t, labUrl, nowUrl) {
   `;
 }
 
+function resumeBlock(resumeUrl, lang) {
+  if (!resumeUrl) return "";
+  const label = lang === "fr" ? "Reprendre mon parcours" : "Resume my journey";
+  const sub = lang === "fr"
+    ? "Ce lien restaure ta progression. Garde cet email — c'est ton accès permanent."
+    : "This link restores your progress. Keep this email — it's your permanent access.";
+  return `
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:${BRAND.bgLight};border:1px solid ${BRAND.border};border-radius:16px;padding:20px;margin-bottom:24px;">
+      <tr><td align="center">
+        <div style="font-size:20px;margin-bottom:8px;">🔗</div>
+        <div style="font-size:12px;color:${BRAND.textSecondary};line-height:1.5;margin-bottom:12px;">${sub}</div>
+        <a href="${resumeUrl}" style="display:inline-block;background:${BRAND.coral};color:#fff;text-decoration:none;padding:12px 24px;border-radius:20px;font-size:14px;font-weight:600;">${label} →</a>
+      </td></tr>
+    </table>
+  `;
+}
+
 function signature(t) {
   return `
     <p style="font-size:15px;color:${BRAND.textPrimary};margin:0 0 8px;">${t.signoff}</p>
@@ -429,10 +452,13 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
+    // Build resume URL from progress data (same base64 encoding as client)
+    const resumeUrl = data.resumeUrl || null;
+
     let email;
-    if (data.module === 1) email = module1Email(data);
-    else if (data.module === 2) email = module2Email(data);
-    else if (data.module === 3) email = module3Email(data);
+    if (data.module === 1) email = module1Email({ ...data, resumeUrl });
+    else if (data.module === 2) email = module2Email({ ...data, resumeUrl });
+    else if (data.module === 3) email = module3Email({ ...data, resumeUrl });
     else return res.status(400).json({ error: "Invalid module" });
 
     const response = await fetch("https://api.brevo.com/v3/smtp/email", {
