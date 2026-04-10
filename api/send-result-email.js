@@ -33,13 +33,13 @@ function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signa
     next_cta: "Continuer le parcours",
     divider: "— — —",
     lab_title: "🧪 Escape Lab",
-    lab_body: "Une cohorte de 12 créatifs dans la même situation. 3 mois. Sessions live avec Julien. Groupe privé. Le format bootcamp pour sortir du piège avec des pairs qui comprennent.",
+    lab_body: "Une cohorte de créatifs dans la même situation. 3 mois. Sessions live avec Julien. Groupe privé. Le format bootcamp pour sortir du piège avec des pairs qui comprennent.",
     lab_cta: "Découvrir l'Escape Lab",
     now_title: "🚀 Escape Now!",
     now_body: "4 sessions de coaching individuel intensif avec Julien, calibrées sur ton diagnostic. Pour ceux qui veulent régler ça maintenant, en 1:1. Appel de découverte gratuit.",
     now_cta: "Réserver un appel gratuit",
     signoff: "À bientôt,",
-    signature: "Julien Klein\nCoach certifié Robbins-Madanes Training",
+    signature: "Julien",
     ps_title: "P.S.",
     ps_body: "Tu peux revenir au kit à tout moment. Ta progression est sauvegardée grâce à ton email. Il suffit de retourner sur kit.monexpansion.com.",
   } : {
@@ -54,19 +54,19 @@ function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signa
     next_cta: "Continue the journey",
     divider: "— — —",
     lab_title: "🧪 Escape Lab",
-    lab_body: "A cohort of 12 creatives in the same situation. 3 months. Live sessions with Julien. Private group. A bootcamp format to escape the trap with peers who get it.",
+    lab_body: "A cohort of creatives in the same situation. 3 months. Live sessions with Julien. Private group. A bootcamp format to escape the trap with peers who get it.",
     lab_cta: "Discover the Escape Lab",
     now_title: "🚀 Escape Now!",
     now_body: "4 intensive 1:1 coaching sessions with Julien, calibrated to your diagnostic. For those who want to fix this now, privately. Free discovery call.",
     now_cta: "Book a free call",
     signoff: "Talk soon,",
-    signature: "Julien Klein\nRobbins-Madanes Training Certified Coach",
+    signature: "Julien",
     ps_title: "P.S.",
     ps_body: "You can return to the kit anytime. Your progress is saved via your email. Just go back to kit.monexpansion.com.",
   };
 
   const labUrl = lang === "fr" ? "https://monexpansion.com/fr/escape-lab/" : "https://monexpansion.com/en/escape-lab/";
-  const nowUrl = lang === "fr" ? "https://tidycal.com/julienklein/decouverte" : "https://tidycal.com/julienklein/discovery";
+  const nowUrl = "https://www.monexpansion.com/escape-now/";
   const kitUrl = "https://kit.monexpansion.com";
 
   return {
@@ -128,13 +128,13 @@ function module2Email({ firstName, score, verdict, verdictSub, verdictColor, top
     next_cta: "Finir le parcours",
     divider: "— — —",
     lab_title: "🧪 Escape Lab",
-    lab_body: "Une cohorte de 12 créatifs dans la même situation. 3 mois. Sessions live avec Julien. Groupe privé. Le format bootcamp pour sortir du piège avec des pairs qui comprennent.",
+    lab_body: "Une cohorte de créatifs dans la même situation. 3 mois. Sessions live avec Julien. Groupe privé. Le format bootcamp pour sortir du piège avec des pairs qui comprennent.",
     lab_cta: "Découvrir l'Escape Lab",
     now_title: "🚀 Escape Now!",
     now_body: "4 sessions de coaching individuel intensif avec Julien, calibrées sur ton diagnostic. Pour ceux qui veulent régler ça maintenant, en 1:1. Appel de découverte gratuit.",
     now_cta: "Réserver un appel gratuit",
     signoff: "À bientôt,",
-    signature: "Julien Klein\nCoach certifié Robbins-Madanes Training",
+    signature: "Julien",
     ps_title: "P.S.",
     ps_body: "Ta progression est sauvegardée. Reprends quand tu veux sur kit.monexpansion.com.",
   } : {
@@ -148,19 +148,19 @@ function module2Email({ firstName, score, verdict, verdictSub, verdictColor, top
     next_cta: "Finish the journey",
     divider: "— — —",
     lab_title: "🧪 Escape Lab",
-    lab_body: "A cohort of 12 creatives in the same situation. 3 months. Live sessions with Julien. Private group. A bootcamp format to escape the trap with peers who get it.",
+    lab_body: "A cohort of creatives in the same situation. 3 months. Live sessions with Julien. Private group. A bootcamp format to escape the trap with peers who get it.",
     lab_cta: "Discover the Escape Lab",
     now_title: "🚀 Escape Now!",
     now_body: "4 intensive 1:1 coaching sessions with Julien, calibrated to your diagnostic. For those who want to fix this now, privately. Free discovery call.",
     now_cta: "Book a free call",
     signoff: "Talk soon,",
-    signature: "Julien Klein\nRobbins-Madanes Training Certified Coach",
+    signature: "Julien",
     ps_title: "P.S.",
     ps_body: "Your progress is saved. Come back anytime at kit.monexpansion.com.",
   };
 
   const labUrl = lang === "fr" ? "https://monexpansion.com/fr/escape-lab/" : "https://monexpansion.com/en/escape-lab/";
-  const nowUrl = lang === "fr" ? "https://tidycal.com/julienklein/decouverte" : "https://tidycal.com/julienklein/discovery";
+  const nowUrl = "https://www.monexpansion.com/escape-now/";
   const kitUrl = "https://kit.monexpansion.com";
 
   const gapsHtml = (topGaps || []).map((g) => `
@@ -233,13 +233,13 @@ function module3Email({ firstName, tensionLabel, signalCount, score, verdict, la
     next_body: "Tu as le diagnostic. Tu as la carte. Tu as commencé à identifier ta direction. La prochaine question c'est : qu'est-ce que tu fais de tout ça ? Deux options selon ton moment :",
     divider: "— — —",
     lab_title: "🧪 Escape Lab — Recommandé si tu veux un cadre",
-    lab_body: "Une cohorte de 12 créatifs dans la même situation. 3 mois, sessions live avec Julien, groupe privé Telegram, binômes de soutien. C'est le bootcamp pour sortir du piège avec des pairs qui comprennent. 197€.",
+    lab_body: "Une cohorte de créatifs dans la même situation. 3 mois, sessions live avec Julien, groupe privé Telegram, binômes de soutien. C'est le bootcamp pour sortir du piège avec des pairs qui comprennent. 197€.",
     lab_cta: "Découvrir l'Escape Lab",
     now_title: "🚀 Escape Now! — Recommandé si tu veux aller vite, en 1:1",
     now_body: "4 sessions de coaching individuel intensif avec Julien, calibrées sur ton diagnostic. Pour ceux qui veulent régler ça maintenant, privément. Appel de découverte gratuit pour voir si c'est pour toi.",
     now_cta: "Réserver un appel gratuit",
     signoff: "Ton parcours commence vraiment maintenant.",
-    signature: "Julien Klein\nCoach certifié Robbins-Madanes Training",
+    signature: "Julien",
     ps_title: "P.S.",
     ps_body: "Refais ce diagnostic dans 90 jours pour mesurer ta progression. Ta progression actuelle est sauvegardée sur kit.monexpansion.com.",
   } : {
@@ -256,19 +256,19 @@ function module3Email({ firstName, tensionLabel, signalCount, score, verdict, la
     next_body: "You have the diagnostic. You have the map. You've started to identify your direction. The next question is: what do you do with all this? Two options depending on your moment:",
     divider: "— — —",
     lab_title: "🧪 Escape Lab — Recommended if you want a framework",
-    lab_body: "A cohort of 12 creatives in the same situation. 3 months, live sessions with Julien, private Telegram group, peer pairs. It's the bootcamp to escape the trap with peers who get it. €197.",
+    lab_body: "A cohort of creatives in the same situation. 3 months, live sessions with Julien, private Telegram group, peer pairs. It's the bootcamp to escape the trap with peers who get it. €197.",
     lab_cta: "Discover the Escape Lab",
     now_title: "🚀 Escape Now! — Recommended if you want to move fast, 1:1",
     now_body: "4 intensive 1:1 coaching sessions with Julien, calibrated to your diagnostic. For those who want to fix this now, privately. Free discovery call to see if it's for you.",
     now_cta: "Book a free call",
     signoff: "Your real journey starts now.",
-    signature: "Julien Klein\nRobbins-Madanes Training Certified Coach",
+    signature: "Julien",
     ps_title: "P.S.",
     ps_body: "Retake this diagnostic in 90 days to measure your progress. Your current progress is saved at kit.monexpansion.com.",
   };
 
   const labUrl = lang === "fr" ? "https://monexpansion.com/fr/escape-lab/" : "https://monexpansion.com/en/escape-lab/";
-  const nowUrl = lang === "fr" ? "https://tidycal.com/julienklein/decouverte" : "https://tidycal.com/julienklein/discovery";
+  const nowUrl = "https://www.monexpansion.com/escape-now/";
 
   return {
     subject: t.subject,
