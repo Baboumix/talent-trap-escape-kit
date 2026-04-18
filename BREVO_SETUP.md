@@ -1,4 +1,4 @@
-# Configuration Brevo — Talent Trap Escape Kit
+# Configuration Brevo — Sortir du piège
 
 ## 🔑 Ce qui est déjà configuré
 

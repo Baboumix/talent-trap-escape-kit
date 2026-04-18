@@ -1,6 +1,6 @@
 export const T = {
   fr: {
-    surtitre: "TALENT TRAP ESCAPE KIT",
+    surtitre: "SORTIR DU PIÈGE",
     h1_1: "Ton talent te ", h1_prop: "propulse", h1_2: " ou te ", h1_piege: "piège", h1_q: " ?",
     sub: "5 minutes pour le savoir.",
     cta_start: "Faire mon check-up \u2192",
@@ -47,7 +47,7 @@ export const T = {
     prev_result_redo: "Refaire le test",
   },
   en: {
-    surtitre: "TALENT TRAP ESCAPE KIT",
+    surtitre: "ESCAPE THE TRAP",
     h1_1: "Is your talent ", h1_prop: "propelling", h1_2: " you or ", h1_piege: "trapping", h1_q: " you?",
     sub: "5 minutes to find out.",
     cta_start: "Take the check-up \u2192",

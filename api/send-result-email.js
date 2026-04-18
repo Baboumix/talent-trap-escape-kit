@@ -24,7 +24,7 @@ function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signa
   const t = lang === "fr" ? {
     subject: `${firstName}, ton profil de tension est prêt`,
     hi: `Bonjour ${firstName},`,
-    intro: "Tu viens de compléter le Module 1 du Talent Trap Escape Kit. Voici ton résultat complet, à garder dans ta boîte mail.",
+    intro: "Tu viens de compléter le Module 1 de Sortir du piège. Voici ton résultat complet, à garder dans ta boîte mail.",
     profile_label: "TON PROFIL DE TENSION",
     signals: "signaux détectés sur 10",
     archetype_label: "TON ARCHÉTYPE",
@@ -45,7 +45,7 @@ function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signa
   } : {
     subject: `${firstName}, your tension profile is ready`,
     hi: `Hi ${firstName},`,
-    intro: "You just completed Module 1 of the Talent Trap Escape Kit. Here's your full result, saved to your inbox.",
+    intro: "You just completed Module 1 of Escape the Trap. Here's your full result, saved to your inbox.",
     profile_label: "YOUR TENSION PROFILE",
     signals: "signals detected out of 10",
     archetype_label: "YOUR ARCHETYPE",
@@ -112,7 +112,7 @@ function module1Email({ firstName, tensionLabel, tensionSub, tensionColor, signa
       ${escapeBlocks(t, labUrl, nowUrl)}
 
       ${signature(t)}
-    `),
+    `, lang),
   };
 }
 
@@ -214,7 +214,7 @@ function module2Email({ firstName, score, verdict, verdictSub, verdictColor, top
       ${escapeBlocks(t, labUrl, nowUrl)}
 
       ${signature(t)}
-    `),
+    `, lang),
   };
 }
 
@@ -325,19 +325,21 @@ function module3Email({ firstName, tensionLabel, signalCount, score, verdict, la
       ${escapeBlocks(t, labUrl, nowUrl)}
 
       ${signature(t)}
-    `),
+    `, lang),
   };
 }
 
 // ─────────────── SHARED TEMPLATE HELPERS ───────────────
 
-function emailWrapper(bodyHtml) {
+function emailWrapper(bodyHtml, lang = "fr") {
+  const brandTitle = lang === "fr" ? "Sortir du piège" : "Escape the Trap";
+  const brandSurtitre = lang === "fr" ? "SORTIR DU PIÈGE" : "ESCAPE THE TRAP";
   return `<!DOCTYPE html>
-<html lang="fr">
+<html lang="${lang}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Talent Trap Escape Kit</title>
+<title>${brandTitle}</title>
 </head>
 <body style="margin:0;padding:0;background:${BRAND.bgLight};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:${BRAND.bgLight};padding:24px 16px;">
@@ -351,7 +353,7 @@ function emailWrapper(bodyHtml) {
         <!-- Header -->
         <tr>
           <td style="padding:28px 32px 20px;border-bottom:1px solid ${BRAND.border};">
-            <div style="font-size:10px;letter-spacing:3px;color:${BRAND.coral};font-weight:700;text-transform:uppercase;margin-bottom:4px;">TALENT TRAP ESCAPE KIT</div>
+            <div style="font-size:10px;letter-spacing:3px;color:${BRAND.coral};font-weight:700;text-transform:uppercase;margin-bottom:4px;">${brandSurtitre}</div>
             <div style="font-size:14px;color:${BRAND.textMuted};">monexpansion.com</div>
           </td>
         </tr>

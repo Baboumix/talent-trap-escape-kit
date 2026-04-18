@@ -27,7 +27,7 @@ function saveProgressToLS(p) {
 
 const WELCOME_TEXT = {
   fr: {
-    surtitre: "TALENT TRAP ESCAPE KIT",
+    surtitre: "SORTIR DU PIÈGE",
     h1_1: "Ton talent te ",
     h1_prop: "propulse",
     h1_2: " ou te ",
@@ -41,7 +41,7 @@ const WELCOME_TEXT = {
     footer2: "Julien Klein \u00b7 Coach certifi\u00e9 RMT \u00b7 monexpansion.com",
   },
   en: {
-    surtitre: "TALENT TRAP ESCAPE KIT",
+    surtitre: "ESCAPE THE TRAP",
     h1_1: "Is your talent ",
     h1_prop: "propelling",
     h1_2: " you or ",

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const HUB_TEXT = {
   fr: {
-    surtitre: "TALENT TRAP ESCAPE KIT",
+    surtitre: "SORTIR DU PIÈGE",
     title: "Ton parcours de sortie.",
     sub: "3 étapes. Chacune t'emmène plus profond.",
     modules: [
@@ -31,7 +31,7 @@ const HUB_TEXT = {
     footer2: "Julien Klein · Coach certifié RMT · monexpansion.com",
   },
   en: {
-    surtitre: "TALENT TRAP ESCAPE KIT",
+    surtitre: "ESCAPE THE TRAP",
     title: "Your escape path.",
     sub: "3 steps. Each takes you deeper.",
     modules: [
