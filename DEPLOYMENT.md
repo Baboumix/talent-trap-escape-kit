@@ -38,7 +38,7 @@ Créer une image OG de 1200x630px pour les partages sociaux :
 ### 1. Pousser sur GitHub
 
 ```bash
-cd /Users/babs/talent-trap-escape-kit
+cd /Users/babs/sortir-du-piege
 git remote add origin <url-du-repo>  # si pas déjà fait
 git push -u origin main
 ```
@@ -47,7 +47,7 @@ git push -u origin main
 
 1. Aller sur https://vercel.com
 2. "Add New Project" → Import depuis GitHub
-3. Sélectionner le repo `talent-trap-escape-kit`
+3. Sélectionner le repo `sortir-du-piege`
 4. **Framework Preset** : Vite (auto-detecté)
 5. **Environment Variables** : ajouter
    - `BREVO_API_KEY` = ta clé Brevo

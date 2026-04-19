@@ -475,7 +475,7 @@ export default function Results({ lang, progress, firstName, onBack }) {
           }}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "3px", background: COLORS.coralGradient }} />
             <div style={{ fontSize: "10px", color: COLORS.textMuted, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "12px" }}>
-              TALENT TRAP ESCAPE KIT · {today}
+              {tLang.surtitre} · {today}
             </div>
             <div style={{ fontSize: "20px", fontWeight: 800, color: tension.color, marginBottom: "4px" }}>
               {tension.label}
