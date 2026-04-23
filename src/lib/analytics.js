@@ -11,7 +11,7 @@
 // ══════════════════════════════════════════
 
 const GA_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
-const CONSENT_KEY = "escape-kit-consent";
+const CONSENT_KEY = "auto-coach-kit-consent";
 
 function isBrowser() {
   return typeof window !== "undefined";
@@ -97,26 +97,11 @@ export function track(eventName, params = {}) {
 
 export function trackPageView(screenName, extra = {}) {
   track("page_view", {
-    page_title: `Escape Kit · ${screenName}`,
+    page_title: `Auto-Coach Kit · ${screenName}`,
     page_location: window.location.href,
     screen_name: screenName,
     ...extra,
   });
-}
-
-export function trackModuleStarted(moduleNum) {
-  track("module_started", { module_num: moduleNum });
-}
-
-export function trackModuleCompleted(moduleNum, data) {
-  track("module_completed", {
-    module_num: moduleNum,
-    ...data,
-  });
-}
-
-export function trackEmailSubmitted(moduleNum, lang) {
-  track("email_submitted", { module_num: moduleNum, lang });
 }
 
 export function trackCtaClick(destination, location) {

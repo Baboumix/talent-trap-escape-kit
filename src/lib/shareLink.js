@@ -1,94 +1,34 @@
-// ══════════════════════════════════════════
-// Share Link — encode/decode profile data into URL
-// Zero backend: profile data travels in the URL itself
-// URL-safe base64 encoding of compact JSON
-// ══════════════════════════════════════════
+// Share Link — encode/decode Auto-Coach Kit quiz answers into URL.
+// Zero backend: data travels in the URL itself (URL-safe base64 of compact JSON).
 
-const VERSION = 1;
+import { QUESTIONS } from "../data/questions";
 
-// Compact the profile data into minimal keys to keep URLs short
-function compactProfile(progress, firstName, lang) {
-  const d = { v: VERSION, n: firstName || "", l: lang || "fr" };
+const VERSION = 2; // bump: v1 was Talent Trap schema (modules), v2 is Auto-Coach (answers)
+const ANSWER_CODES = { yes: 2, partly: 1, no: 0 };
+const ANSWER_DECODE = { 2: "yes", 1: "partly", 0: "no" };
 
-  if (progress.module1) {
-    d.m1 = {
-      s: progress.module1.signalCount,
-      t: progress.module1.tensionProfile,
-      a: progress.module1.archetype,
-    };
-    // Optionally include ratings (compact: array of 10 numbers)
-    if (progress.module1.ratings) {
-      const ids = ["sunday_anxiety", "boreout", "invisibility", "impostor", "physical", "retreat", "quiet_quit", "identity", "meaning", "cynicism"];
-      d.m1.r = ids.map((id) => progress.module1.ratings[id] || 0);
-    }
-  }
-
-  if (progress.module2) {
-    d.m2 = {
-      p: progress.module2.profile,
-      sc: progress.module2.score,
-      v: progress.module2.verdict,
-    };
-    if (progress.module2.sat && progress.module2.imp) {
-      const needIds = ["stability", "stimulation", "recognition", "belonging", "growth", "impact"];
-      d.m2.sa = needIds.map((id) => progress.module2.sat[id] || 0);
-      d.m2.im = needIds.map((id) => progress.module2.imp[id] || 0);
-    }
-  }
-
-  if (progress.module3?.reflections) {
-    d.m3 = { r: progress.module3.reflections };
-  }
-
-  return d;
+function compactAnswers(answers) {
+  // Preserve question order from QUESTIONS list; "_" = unanswered (should not happen
+  // for a completed quiz, but we keep positions aligned).
+  return QUESTIONS.map((q) => {
+    const v = answers?.[q.id];
+    return v === undefined ? "_" : String(ANSWER_CODES[v]);
+  }).join("");
 }
 
-function expandProfile(compact) {
-  if (!compact || compact.v !== VERSION) return null;
-
-  const progress = { module1: null, module2: null, module3: null };
-  const sigIds = ["sunday_anxiety", "boreout", "invisibility", "impostor", "physical", "retreat", "quiet_quit", "identity", "meaning", "cynicism"];
-  const needIds = ["stability", "stimulation", "recognition", "belonging", "growth", "impact"];
-
-  if (compact.m1) {
-    progress.module1 = {
-      signalCount: compact.m1.s,
-      tensionProfile: compact.m1.t,
-      archetype: compact.m1.a,
-      ratings: compact.m1.r
-        ? Object.fromEntries(sigIds.map((id, i) => [id, compact.m1.r[i] || 0]))
-        : {},
-    };
-  }
-
-  if (compact.m2) {
-    progress.module2 = {
-      profile: compact.m2.p,
-      score: compact.m2.sc,
-      verdict: compact.m2.v,
-      sat: compact.m2.sa
-        ? Object.fromEntries(needIds.map((id, i) => [id, compact.m2.sa[i] || 0]))
-        : {},
-      imp: compact.m2.im
-        ? Object.fromEntries(needIds.map((id, i) => [id, compact.m2.im[i] || 0]))
-        : {},
-    };
-  }
-
-  if (compact.m3) {
-    progress.module3 = { reflections: compact.m3.r || {} };
-  }
-
-  return {
-    progress,
-    firstName: compact.n || "",
-    lang: compact.l || "fr",
-  };
+function expandAnswers(str) {
+  if (typeof str !== "string") return {};
+  const out = {};
+  QUESTIONS.forEach((q, i) => {
+    const ch = str[i];
+    if (ch === "_" || ch === undefined) return;
+    const decoded = ANSWER_DECODE[parseInt(ch, 10)];
+    if (decoded) out[q.id] = decoded;
+  });
+  return out;
 }
 
-// URL-safe base64 (replaces +/= with -_. and removes padding)
 function urlSafeEncode(str) {
-  // Use TextEncoder + btoa to handle Unicode properly
   const bytes = new TextEncoder().encode(str);
   let binary = "";
   for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
@@ -97,7 +37,9 @@ function urlSafeEncode(str) {
 
 function urlSafeDecode(encoded) {
   try {
-    const base64 = encoded.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat((4 - encoded.length % 4) % 4);
+    const base64 =
+      encoded.replace(/-/g, "+").replace(/_/g, "/") +
+      "=".repeat((4 - (encoded.length % 4)) % 4);
     const binary = atob(base64);
     const bytes = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
@@ -107,12 +49,14 @@ function urlSafeDecode(encoded) {
   }
 }
 
-// ── Public API ──
-
-export function encodeProfile(progress, firstName, lang) {
-  const compact = compactProfile(progress, firstName, lang);
-  const json = JSON.stringify(compact);
-  return urlSafeEncode(json);
+export function encodeProfile(answers, firstName, lang) {
+  const compact = {
+    v: VERSION,
+    n: firstName || "",
+    l: lang || "fr",
+    a: compactAnswers(answers || {}),
+  };
+  return urlSafeEncode(JSON.stringify(compact));
 }
 
 export function decodeProfile(encoded) {
@@ -120,39 +64,39 @@ export function decodeProfile(encoded) {
   if (!json) return null;
   try {
     const compact = JSON.parse(json);
-    return expandProfile(compact);
+    if (compact.v !== VERSION) return null;
+    return {
+      answers: expandAnswers(compact.a),
+      firstName: compact.n || "",
+      lang: compact.l || "fr",
+    };
   } catch {
     return null;
   }
 }
 
-export function buildShareUrl(progress, firstName, lang) {
-  const encoded = encodeProfile(progress, firstName, lang);
-  const base = typeof window !== "undefined"
+function baseUrl() {
+  return typeof window !== "undefined"
     ? `${window.location.protocol}//${window.location.host}`
     : "https://kit.monexpansion.com";
-  return `${base}/p/${encoded}`;
 }
 
-export function buildResumeUrl(progress, firstName, lang) {
-  const encoded = encodeProfile(progress, firstName, lang);
-  const base = typeof window !== "undefined"
-    ? `${window.location.protocol}//${window.location.host}`
-    : "https://kit.monexpansion.com";
-  return `${base}/resume/${encoded}`;
+export function buildShareUrl(answers, firstName, lang) {
+  return `${baseUrl()}/p/${encodeProfile(answers, firstName, lang)}`;
 }
 
-// Get encoded data from current URL path (returns null if not on /p/ or /resume/ route)
+export function buildResumeUrl(answers, firstName, lang) {
+  return `${baseUrl()}/resume/${encodeProfile(answers, firstName, lang)}`;
+}
+
 export function getSharedDataFromUrl() {
   if (typeof window === "undefined") return null;
   const match = window.location.pathname.match(/^\/p\/(.+)$/);
-  if (!match) return null;
-  return match[1];
+  return match ? match[1] : null;
 }
 
 export function getResumeDataFromUrl() {
   if (typeof window === "undefined") return null;
   const match = window.location.pathname.match(/^\/resume\/(.+)$/);
-  if (!match) return null;
-  return match[1];
+  return match ? match[1] : null;
 }

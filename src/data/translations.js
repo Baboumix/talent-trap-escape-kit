@@ -1,105 +1,139 @@
+// Re-export canonical need identity from needs.js to avoid drift.
+export { NEED_IDS, NEEDS, getNeedName } from "./needs";
+import { NEEDS } from "./needs";
+
+export const NEED_NAMES = {
+  fr: Object.fromEntries(Object.entries(NEEDS).map(([id, v]) => [id, v.fr.name])),
+  en: Object.fromEntries(Object.entries(NEEDS).map(([id, v]) => [id, v.en.name])),
+};
+
+// UI strings shared across screens (landing, disclaimer, quiz, gate, results).
 export const T = {
   fr: {
-    surtitre: "SORTIR DU PIÈGE",
-    h1_1: "Ton talent te ", h1_prop: "propulse", h1_2: " ou te ", h1_piege: "piège", h1_q: " ?",
-    sub: "5 minutes pour le savoir.",
-    cta_start: "Faire mon check-up \u2192",
-    footer: "Bas\u00e9 sur les Six Besoins Humains Essentiels \u00b7 Robbins-Madanes Training",
-    footer2: "Julien Klein \u00b7 Coach certifi\u00e9 RMT \u00b7 monexpansion.com",
-    step1_label: "\u00c9tape 1", step1_title: "Ta situation actuelle.", step1_sub: "Choisis ce qui d\u00e9crit le mieux ta r\u00e9alit\u00e9.",
-    profiles: [
-      { id: "A", label: "Salari\u00e9", desc: "Tu travailles dans une entreprise cr\u00e9ative (VFX, jeux, design, tech, agence).", icon: "\ud83c\udfe2" },
-      { id: "B", label: "Ind\u00e9pendant", desc: "Freelance, entrepreneur, ou \u00e0 ton compte. Tu es ton propre boss.", icon: "\ud83d\ude80" },
-      { id: "C", label: "Manager / Lead", desc: "Tu g\u00e8res une \u00e9quipe ou un d\u00e9partement. Tu es pass\u00e9 du craft \u00e0 la gestion.", icon: "\ud83d\udc65" },
-    ],
-    deep_tag: "BESOIN PROFOND",
-    imp_q: "C'est important pour toi ?",
-    imp: [{ v: 1, label: "Secondaire", sub: "Pas prioritaire" }, { v: 2, label: "Important", sub: "\u00c7a compte" }, { v: 3, label: "Essentiel", sub: "Indispensable" }],
-    sat_q: "Ce besoin est satisfait ?",
-    sat: [{ v: 1, label: "En souffrance" }, { v: 2, label: "Insatisfait" }, { v: 3, label: "Neutre" }, { v: 4, label: "Plut\u00f4t bien" }, { v: 5, label: "\u00c9panoui" }],
-    next_need: "Besoin suivant \u2192", see_result: "Voir mon r\u00e9sultat \u2192", back: "\u2190 Retour",
-    gate_title: "Ton r\u00e9sultat est pr\u00eat.", gate_sub: "Entre ton email pour d\u00e9bloquer ton diagnostic.", gate_btn: "D\u00e9bloquer \u2192", gate_err: "Adresse email invalide.", gate_spam: "Un email par mois maximum. Z\u00e9ro spam.",
-    res_label: "TON R\u00c9SULTAT", score_label: "Score d'alignement", biggest_gap: "Plus gros d\u00e9calage",
-    essential: "essentiel", important_w: "important",
-    v_trap: "Pi\u00e8ge du Talent.", v_mis: "Talent sous-exploit\u00e9.", v_ok: "Propuls\u00e9 par le Talent.",
-    v_trap_sub: "Les besoins qui comptent le plus pour toi sont ceux que ta situation ignore le plus.",
-    v_mis_sub: "Certains besoins importants ne sont pas suffisamment combl\u00e9s.",
-    v_ok_sub: "Tes besoins les plus importants sont globalement satisfaits.",
-    sec_gaps: "L\u00e0 o\u00f9 \u00e7a coince", sec_gaps_sub: "Plus un besoin est important et insatisfait, plus le pi\u00e8ge se resserre.",
-    missing: "CE QUI MANQUE", at_risk: "\u00c0 RISQUE",
-    sec_works: "Ce qui fonctionne", sec_vigil: "Zone de vigilance",
-    vigil_text: "n'est pas en danger, mais garde un œil dessus.",
-    sec_surface: "Ce qui se passe sous la surface", healthy: "Sain", destructive: "Destructif",
-    sec_why: "Pourquoi tu es l\u00e0", sec_observe: "Ce qu'on observe",
-    sec_pistes: "Pistes pour am\u00e9liorer ton alignement", today: "Aujourd'hui :", objective: "L'objectif :",
-    sec_question: "La question \u00e0 garder avec toi",
-    share_label: "Ton r\u00e9sum\u00e9", share_link: "Fais le test \u2192 kit.monexpansion.com",
-    d90_title: "Refais ce test dans 90 jours.", d90_sub: "Compare tes r\u00e9sultats pour mesurer ta progression.",
-    esc_now_title: "Tu veux r\u00e9gler \u00e7a maintenant ?", esc_now_sub: "Le chemin le plus direct : 4 sessions de coaching intensif avec Julien, calibr\u00e9es sur ton diagnostic. Appel de d\u00e9couverte gratuit.",
-    esc_now_cta: "R\u00e9server un appel gratuit \u2192",
-    esc_lab_title: "Commence \u00e0 sortir du pi\u00e8ge. Avec un groupe.", esc_lab_sub: "12 cr\u00e9atifs dans la m\u00eame situation, 3 mois, sessions live avec Julien, groupe priv\u00e9.",
-    esc_lab_cta: "D\u00e9couvrir l'Escape Lab \u2192",
-    esc_ok_text: "Ton talent est align\u00e9 aujourd'hui. Pour qu'il le reste, entoure-toi de gens qui comprennent ces enjeux.",
-    esc_footer: "Six Besoins Humains Essentiels \u00b7 Robbins-Madanes Training",
-    tidycal: "https://tidycal.com/julienklein/decouverte",
-    prev_result_msg: "Tu as fait ce test le {date}. Voir ton ancien r\u00e9sultat ou refaire le test ?",
-    prev_result_view: "Voir mon ancien r\u00e9sultat",
+    brand: "AUTO-COACH KIT",
+
+    // Landing
+    hero_h1_a: "Tu as 6 besoins essentiels. ",
+    hero_h1_b: "3 dirigent ta vie.",
+    hero_sub: "Un test de 24 questions pour savoir lesquels, et comment ils te servent ou te piègent.",
+    hero_cta: "Commencer le test →",
+    hero_continue: "Continuer mon test →",
+    hero_restart: "Recommencer à zéro",
+    hero_resumed: "Déjà commencé ? Cherche l'email de monExpansion dans ta boîte.",
+
+    context_title: "Tes 6 besoins, tes 3 dépendances.",
+    context_intro: "Selon le modèle de Tony Robbins (Robbins-Madanes Training), chaque être humain a 6 besoins fondamentaux qui dirigent ses décisions.",
+    context_body: "On les a tous. Mais 3 deviennent dominants et guident tes décisions à ton insu. Ce test est un instantané — tes priorités évoluent avec l'âge et les circonstances.",
+
+    // Disclaimer
+    disc_title: "Avant de commencer.",
+    disc_p1: "Ce kit n'est pas un diagnostic médical, psychologique ou thérapeutique. C'est un outil d'auto-coaching pour mieux comprendre comment tu fonctionnes en tant que machine émotionnelle.",
+    disc_p2_lead: "Un conseil.",
+    disc_p2: "Réponds honnêtement. Si tu essaies de manipuler tes réponses, ou de te montrer sous ton meilleur jour plutôt que sous ton vrai jour, les résultats seront inutiles.",
+    disc_p3: "Personne ne lit tes réponses. Le seul à qui tu mens, c'est toi.",
+    disc_cta: "Je réponds honnêtement →",
+    disc_back: "← Retour",
+
+    // Quiz
+    quiz_progress: "Question {n}/{total}",
+    quiz_prompt: "Est-ce que cette phrase te décrit ?",
+    quiz_next: "Suivant →",
+    quiz_prev: "← Précédent",
+    quiz_see: "Voir mon top 3 →",
+    quiz_hint: "Sois honnête. Le premier instinct est souvent le bon.",
+
+    // Results
+    res_label: "TES 3 BESOINS PRIORITAIRES",
+    res_intro: "Voici les 3 besoins qui dirigent tes décisions émotionnelles en ce moment. Pour chacun, tu as une version saine et une version piège. Regarde les deux. Sois franc.",
+    res_rank: "N°{n}",
+    res_score: "/ 40",
+    res_positive: "Le + (sain)",
+    res_negative: "Le − (piège)",
+    res_all_title: "Tes 6 scores",
+    res_all_sub: "Les 3 au-dessus du seuil sont ceux qui te dirigent en ce moment.",
+
+    // Step 2 teaser
+    step2_title: "Étape 2, bientôt.",
+    step2_sub: "Tu connais maintenant tes 3 besoins dominants. La prochaine étape : voir si tu les satisfais d'une manière qui te charge ou qui te vide, via le Triangle Énergétique (Focus, Physiologie, Langage). Ça arrive.",
+
+    // CTAs
+    esc_now_title: "Coaching privé avec Julien.",
+    esc_now_sub: "4 sessions 1:1 intensives, calibrées sur ton profil. Appel de découverte gratuit pour voir si c'est pour toi.",
+    esc_now_cta: "Réserver un appel gratuit →",
+    esc_lab_title: "Le Bootcamp Expansion.",
+    esc_lab_sub: "Avancer en groupe : 12 créatifs, 3 mois, sessions live avec Julien.",
+    esc_lab_cta: "Découvrir le Bootcamp →",
+
+    // Share / misc
+    share_label: "Ton résumé",
+    share_link: "Fais le test → kit.monexpansion.com",
+    footer_credit: "Basé sur les Six Besoins Humains Essentiels · Robbins-Madanes Training",
+    footer_author: "Julien Klein · Coach certifié RMT · monexpansion.com",
+
+    prev_result_msg: "Tu as fait ce test le {date}. Voir ton ancien résultat ou refaire le test ?",
+    prev_result_view: "Voir mon ancien résultat",
     prev_result_redo: "Refaire le test",
+
+    tidycal: "https://tidycal.com/julienklein/decouverte",
   },
   en: {
-    surtitre: "ESCAPE THE TRAP",
-    h1_1: "Is your talent ", h1_prop: "propelling", h1_2: " you or ", h1_piege: "trapping", h1_q: " you?",
-    sub: "5 minutes to find out.",
-    cta_start: "Take the check-up \u2192",
-    footer: "Based on the Six Core Human Needs \u00b7 Robbins-Madanes Training",
-    footer2: "Julien Klein \u00b7 RMT Certified Coach \u00b7 monexpansion.com",
-    step1_label: "Step 1", step1_title: "Your current situation.", step1_sub: "Pick what best describes your reality.",
-    profiles: [
-      { id: "A", label: "Employee", desc: "You work at a creative company (VFX, games, design, tech, agency).", icon: "\ud83c\udfe2" },
-      { id: "B", label: "Independent", desc: "Freelancer, entrepreneur, or self-employed. You're your own boss.", icon: "\ud83d\ude80" },
-      { id: "C", label: "Manager / Lead", desc: "You manage a team or department. You went from craft to management.", icon: "\ud83d\udc65" },
-    ],
-    deep_tag: "DEEP NEED",
-    imp_q: "How important is this to you?",
-    imp: [{ v: 1, label: "Secondary", sub: "Not a priority" }, { v: 2, label: "Important", sub: "It matters" }, { v: 3, label: "Essential", sub: "Can't live without" }],
-    sat_q: "Is this need met in your situation?",
-    sat: [{ v: 1, label: "Suffering" }, { v: 2, label: "Unsatisfied" }, { v: 3, label: "Neutral" }, { v: 4, label: "Mostly good" }, { v: 5, label: "Thriving" }],
-    next_need: "Next need \u2192", see_result: "See my result \u2192", back: "\u2190 Back",
-    gate_title: "Your result is ready.", gate_sub: "Enter your email to unlock your diagnostic.", gate_btn: "Unlock \u2192", gate_err: "Invalid email address.", gate_spam: "One email per month max. Zero spam.",
-    res_label: "YOUR RESULT", score_label: "Alignment score", biggest_gap: "Biggest gap",
-    essential: "essential", important_w: "important",
-    v_trap: "Talent Trap.", v_mis: "Underused Talent.", v_ok: "Talent-Propelled.",
-    v_trap_sub: "The needs that matter most to you are the ones your situation ignores the most.",
-    v_mis_sub: "Some important needs aren't sufficiently met.",
-    v_ok_sub: "Your most important needs are generally satisfied.",
-    sec_gaps: "Where it breaks down", sec_gaps_sub: "The more important and unsatisfied a need is, the tighter the trap.",
-    missing: "WHAT'S MISSING", at_risk: "AT RISK",
-    sec_works: "What's working", sec_vigil: "Watch zone",
-    vigil_text: "isn't in danger, but keep an eye on it.",
-    sec_surface: "What's happening underneath", healthy: "Healthy", destructive: "Destructive",
-    sec_why: "Why you're here", sec_observe: "What we typically observe",
-    sec_pistes: "Steps to improve your alignment", today: "Today:", objective: "The goal:",
-    sec_question: "The question to sit with",
-    share_label: "Your summary", share_link: "Take the test \u2192 kit.monexpansion.com",
-    d90_title: "Retake this test in 90 days.", d90_sub: "Compare your results to measure your progress.",
-    esc_now_title: "Want to fix this now?", esc_now_sub: "The most direct path: 4 intensive coaching sessions with Julien, calibrated to your diagnostic. Free discovery call.",
-    esc_now_cta: "Book a free call \u2192",
-    esc_lab_title: "Start breaking free. With a group.", esc_lab_sub: "12 creatives in the same situation, 3 months, live sessions with Julien, private group.",
-    esc_lab_cta: "Discover the Escape Lab \u2192",
-    esc_ok_text: "Your talent is aligned today. To keep it that way, surround yourself with people who understand these stakes.",
-    esc_footer: "Six Core Human Needs \u00b7 Robbins-Madanes Training",
-    tidycal: "https://tidycal.com/julienklein/discovery",
+    brand: "AUTO-COACH KIT",
+
+    hero_h1_a: "You have 6 essential needs. ",
+    hero_h1_b: "3 drive your life.",
+    hero_sub: "A 24-question test to find out which ones, and how they serve you or trap you.",
+    hero_cta: "Start the test →",
+    hero_continue: "Continue my test →",
+    hero_restart: "Start over",
+    hero_resumed: "Already started? Check your inbox for the monExpansion email.",
+
+    context_title: "Your 6 needs, your 3 dependencies.",
+    context_intro: "In Tony Robbins' model (Robbins-Madanes Training), every human being has 6 fundamental needs that drive their decisions.",
+    context_body: "We all have them. But 3 become dominant and guide your decisions unconsciously. This test is a snapshot — your priorities shift with age and circumstances.",
+
+    disc_title: "Before we begin.",
+    disc_p1: "This kit is not a medical, psychological, or therapeutic diagnosis. It's a self-coaching tool to better understand how you function as an emotional machine.",
+    disc_p2_lead: "One piece of advice.",
+    disc_p2: "Answer honestly. If you try to manipulate your answers, or present your best self rather than your true self, the results will be useless.",
+    disc_p3: "Nobody reads your answers. The only person you're lying to is yourself.",
+    disc_cta: "I'll answer honestly →",
+    disc_back: "← Back",
+
+    quiz_progress: "Question {n}/{total}",
+    quiz_prompt: "Does this statement describe you?",
+    quiz_next: "Next →",
+    quiz_prev: "← Previous",
+    quiz_see: "See my top 3 →",
+    quiz_hint: "Be honest. Your first instinct is usually right.",
+
+    res_label: "YOUR 3 TOP NEEDS",
+    res_intro: "These are the 3 needs driving your emotional decisions right now. Each one has a healthy version and a trap version. Look at both. Be honest.",
+    res_rank: "#{n}",
+    res_score: "/ 40",
+    res_positive: "The + (healthy)",
+    res_negative: "The − (trap)",
+    res_all_title: "Your 6 scores",
+    res_all_sub: "The top 3 are the ones driving you right now.",
+
+    step2_title: "Step 2, coming soon.",
+    step2_sub: "You now know your 3 dominant needs. Next step: see if you're satisfying them in a way that charges you or drains you, through the Energy Triangle (Focus, Physiology, Language). Coming soon.",
+
+    esc_now_title: "Private coaching with Julien.",
+    esc_now_sub: "4 intensive 1:1 sessions, calibrated to your profile. Free discovery call to see if it's for you.",
+    esc_now_cta: "Book a free call →",
+    esc_lab_title: "The Expansion Bootcamp.",
+    esc_lab_sub: "Move forward with a group: 12 creatives, 3 months, live sessions with Julien.",
+    esc_lab_cta: "Discover the Bootcamp →",
+
+    share_label: "Your summary",
+    share_link: "Take the test → kit.monexpansion.com",
+    footer_credit: "Based on the Six Core Human Needs · Robbins-Madanes Training",
+    footer_author: "Julien Klein · RMT Certified Coach · monexpansion.com",
+
     prev_result_msg: "You took this test on {date}. View your previous result or retake the test?",
     prev_result_view: "View my previous result",
     prev_result_redo: "Retake the test",
+
+    tidycal: "https://tidycal.com/julienklein/discovery",
   },
 };
-
-export const NEED_IDS = ["stability", "stimulation", "recognition", "belonging", "growth", "impact"];
-
-export const NEED_NAMES = {
-  fr: { stability: "Stabilit\u00e9", stimulation: "Stimulation", recognition: "Reconnaissance", belonging: "Appartenance", growth: "Croissance", impact: "Impact" },
-  en: { stability: "Stability", stimulation: "Stimulation", recognition: "Recognition", belonging: "Belonging", growth: "Growth", impact: "Impact" },
-};
-
-export const DEEP = ["growth", "impact"];

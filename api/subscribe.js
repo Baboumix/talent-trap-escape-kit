@@ -52,32 +52,28 @@ export default async function handler(req, res) {
       return res.status(429).json({ error: "Too many requests" });
     }
 
-    // Build Brevo attributes
+    // Build Brevo attributes — Auto-Coach Kit schema (top 3 essential needs).
     const attributes = {
       PRENOM: data.firstName || "",
       LANG: data.lang || "fr",
+      KIT_SOURCE: data.source || "auto-coach-kit",
+      KIT_COMPLETE: true,
     };
 
-    // Module-specific attributes
-    if (data.module === 1) {
-      attributes.SIGNAL_COUNT = data.signalCount || 0;
-      attributes.TENSION_PROFILE = data.tensionProfile || "";
-      attributes.ARCHETYPE = data.archetype || "";
+    // Flatten top 3 needs (name + score) into separate attributes for easy segmentation.
+    const top = Array.isArray(data.topNeeds) ? data.topNeeds.slice(0, 3) : [];
+    if (top[0]) {
+      attributes.NEED_1 = top[0].name || "";
+      attributes.NEED_1_SCORE = top[0].score ?? 0;
     }
-    if (data.module === 2) {
-      attributes.PROFILE = data.profile || "";
-      attributes.SCORE = data.score || 0;
-      attributes.VERDICT = data.verdict || "";
+    if (top[1]) {
+      attributes.NEED_2 = top[1].name || "";
+      attributes.NEED_2_SCORE = top[1].score ?? 0;
     }
-    if (data.module === 3) {
-      attributes.KIT_COMPLETE = true;
+    if (top[2]) {
+      attributes.NEED_3 = top[2].name || "";
+      attributes.NEED_3_SCORE = top[2].score ?? 0;
     }
-
-    // Build tag based on module
-    const tags = [];
-    if (data.module === 1) tags.push("kit-module1");
-    if (data.module === 2) tags.push("kit-module2");
-    if (data.module === 3) tags.push("kit-module3", "kit-complete");
 
     // Create/update contact in Brevo
     const response = await fetch("https://api.brevo.com/v3/contacts", {

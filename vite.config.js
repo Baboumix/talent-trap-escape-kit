@@ -1,54 +1,58 @@
-import 'dotenv/config'
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import 'dotenv/config';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-export default defineConfig({
-  plugins: [
-    react(),
-    {
-      name: 'brevo-api',
-      configureServer(server) {
-        server.middlewares.use('/api/subscribe', async (req, res) => {
-          if (req.method !== 'POST') {
-            res.statusCode = 405;
-            res.end('Method not allowed');
-            return;
+// Mount Vercel serverless handlers (api/*.js) as Vite dev middlewares so `vite dev`
+// behaves like prod. One source of truth for /api/* logic.
+function vercelDevApi() {
+  const routes = [
+    { path: '/api/subscribe',         module: './api/subscribe.js' },
+    { path: '/api/send-result-email', module: './api/send-result-email.js' },
+  ];
+  return {
+    name: 'vercel-dev-api',
+    configureServer(server) {
+      for (const { path, module } of routes) {
+        server.middlewares.use(path, (req, res) => {
+          if (req.method === 'OPTIONS') {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+            res.statusCode = 200;
+            return res.end();
           }
           let body = '';
-          req.on('data', chunk => { body += chunk; });
+          req.on('data', (chunk) => { body += chunk; });
           req.on('end', async () => {
             try {
-              const data = JSON.parse(body);
-              const response = await fetch('https://api.brevo.com/v3/contacts', {
-                method: 'POST',
-                headers: {
-                  'accept': 'application/json',
-                  'content-type': 'application/json',
-                  'api-key': process.env.BREVO_API_KEY,
-                },
-                body: JSON.stringify({
-                  email: data.email,
-                  listIds: [2],
-                  attributes: {
-                    PROFILE: data.profile,
-                    SCORE: data.score,
-                    VERDICT: data.verdict,
-                    LANG: data.lang,
-                  },
-                  updateEnabled: true,
-                }),
-              });
-              const result = await response.json();
-              res.setHeader('Content-Type', 'application/json');
-              res.statusCode = response.ok ? 200 : 400;
-              res.end(JSON.stringify(result));
+              req.body = body ? JSON.parse(body) : {};
+              // Express/Vercel-style response shims.
+              res.status = (code) => { res.statusCode = code; return res; };
+              res.json = (obj) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(obj));
+                return res;
+              };
+              const mod = await server.ssrLoadModule(module);
+              const handler = mod.default;
+              if (typeof handler !== 'function') {
+                res.statusCode = 500;
+                return res.end(JSON.stringify({ error: `${module} has no default export` }));
+              }
+              await handler(req, res);
             } catch (e) {
+              // eslint-disable-next-line no-console
+              console.error(`[${path}] dev handler error:`, e);
               res.statusCode = 500;
-              res.end(JSON.stringify({ error: e.message }));
+              res.end(JSON.stringify({ error: e?.message || 'Internal error' }));
             }
           });
         });
-      },
+      }
     },
-  ],
-})
+  };
+}
+
+export default defineConfig({
+  plugins: [react(), vercelDevApi()],
+});

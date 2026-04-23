@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { COLORS, FONT, styles } from "./SharedStyles";
 import { buildResumeUrl } from "../lib/shareLink";
+import { topThree } from "../data/scoring";
+import { NEEDS } from "../data/needs";
 
 const GATE_TEXT = {
   fr: {
-    title: "Ton résultat est prêt.",
-    sub: "Entre ton prénom et ton email pour le débloquer et sauvegarder ta progression.",
+    title: "Tes 3 besoins prioritaires sont prêts.",
+    sub: "Entre ton prénom et ton email pour débloquer ton résultat et le recevoir par email.",
     benefits: [
-      "✓ Ton résultat envoyé par email",
-      "✓ Ta progression sauvegardée (reprends où tu veux)",
+      "✓ Ton top 3 envoyé par email",
+      "✓ Un lien pour retrouver ton résultat plus tard",
       "✓ Pas de mot de passe, juste ton email",
     ],
     firstNamePlaceholder: "Ton prénom",
@@ -21,11 +23,11 @@ const GATE_TEXT = {
     privacy_link: "politique de confidentialité",
   },
   en: {
-    title: "Your result is ready.",
-    sub: "Enter your first name and email to unlock it and save your progress.",
+    title: "Your top 3 needs are ready.",
+    sub: "Enter your first name and email to unlock your result and receive it by email.",
     benefits: [
-      "✓ Your result sent by email",
-      "✓ Your progress saved (come back anytime)",
+      "✓ Your top 3 sent by email",
+      "✓ A link to come back to your result later",
       "✓ No password, just your email",
     ],
     firstNamePlaceholder: "Your first name",
@@ -39,7 +41,7 @@ const GATE_TEXT = {
   },
 };
 
-export default function EmailGate({ lang, onUnlock, moduleData, emailData, currentProgress }) {
+export default function EmailGate({ lang, onUnlock, answers }) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [err, setErr] = useState("");
@@ -58,24 +60,30 @@ export default function EmailGate({ lang, onUnlock, moduleData, emailData, curre
       lang,
     };
 
+    const top = answers ? topThree(answers) : [];
+    const topForEmail = top.map((n) => ({
+      name: NEEDS[n.id][lang].name,
+      score: n.score,
+    }));
+    const resumeUrl = answers ? buildResumeUrl(answers, firstName.trim(), lang) : null;
+
     try {
-      // Subscribe to Brevo list
+      // Subscribe to Brevo list.
       await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, ...moduleData }),
+        body: JSON.stringify({ ...payload, source: "auto-coach-kit", topNeeds: topForEmail }),
       });
-      // Send result email with magic resume link
-      if (emailData) {
-        const resumeUrl = currentProgress
-          ? buildResumeUrl(currentProgress, firstName.trim(), lang)
-          : null;
-        fetch("/api/send-result-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...payload, ...emailData, resumeUrl }),
-        }).catch(() => {});
-      }
+      // Send result email with magic resume link.
+      fetch("/api/send-result-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...payload,
+          topNeeds: topForEmail,
+          resumeUrl,
+        }),
+      }).catch(() => {});
     } catch { /* silent fail — don't block the user */ }
 
     setLoading(false);
