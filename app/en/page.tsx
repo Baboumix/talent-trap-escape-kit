@@ -63,8 +63,8 @@ export default function EnLanding() {
             />
           </svg>
         </Link>
-        <p className="mt-5 text-[10px] uppercase tracking-[0.18em] text-neutral-600 text-center">
-          Julien Klein · 15 years at Scanline/Netflix · 120+ artists coached
+        <p className="mt-5 text-[11px] text-neutral-600 text-center tracking-wide">
+          monexpansion.com
         </p>
       </footer>
     </main>

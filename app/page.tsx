@@ -68,8 +68,8 @@ export default function LandingPage() {
           <span>Gratuit</span>
         </div>
 
-        <p className="mt-6 text-[11px] text-neutral-600 text-center leading-relaxed">
-          Julien Klein · 15 ans chez Scanline/Netflix · 120+ artistes coachés
+        <p className="mt-6 text-[11px] text-neutral-600 text-center tracking-wide">
+          monexpansion.com
         </p>
       </footer>
     </main>
