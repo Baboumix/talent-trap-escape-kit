@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
-    "test:scoring": "tsx scripts/test-scoring.ts"
+    "test:scoring": "tsx scripts/test-scoring.ts",
+    "sync:notion-questions": "tsx --env-file=.env.local scripts/sync-questions-to-notion.ts"
   },
   "dependencies": {
     "@getbrevo/brevo": "^2.2.0",

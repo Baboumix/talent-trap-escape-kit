@@ -197,18 +197,31 @@ export function generateReportHtml({
         </td></tr>
 
         <tr><td style="padding:24px 32px 0 32px;">
-          <p style="margin:0 0 16px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
-            Qu'est-ce que tu fais avec ça maintenant ?
+          <p style="margin:0 0 8px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
+            Tes 3 actions pour les 30 prochains jours
           </p>
-          <p style="margin:0 0 20px 0; font-size:16px; line-height:1.65; color:${BRAND.textPrimary};">
-            <strong>1.</strong> Relis ce rapport demain. Pas aujourd'hui. Tu es encore dans l'émotion de te reconnaître. Demain tu le liras avec du recul, et c'est là que les vraies questions vont émerger.
+          <p style="margin:0 0 20px 0; font-size:15px; line-height:1.55; color:${BRAND.textMuted}; font-style:italic;">
+            Pas des grands gestes. Des choses concrètes, qui te sortent de la rumination et qui te remettent en mouvement.
           </p>
-          <p style="margin:0 0 20px 0; font-size:16px; line-height:1.65; color:${BRAND.textPrimary};">
-            <strong>2.</strong> Note les 3 phrases qui t'ont le plus percuté. Pas pour les poster. Pour toi. Ce sont des balises. Tu vas y revenir.
-          </p>
-          <p style="margin:0 0 20px 0; font-size:16px; line-height:1.65; color:${BRAND.textPrimary};">
-            <strong>3.</strong> Dans les prochains jours, je vais t'envoyer des emails qui racontent l'histoire de gens que j'ai accompagnés et qui étaient dans une situation proche de la tienne. Tu vas y voir des détails utiles.
-          </p>
+          ${verdict.actions30Days
+            .map(
+              (action, i) => `
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 14px 0;">
+            <tr>
+              <td style="vertical-align:top; width:40px; padding-top:2px;">
+                <div style="width:28px; height:28px; border-radius:999px; background-color:${BRAND.coral}; color:#ffffff; font-weight:700; font-size:13px; line-height:28px; text-align:center;">
+                  ${i + 1}
+                </div>
+              </td>
+              <td style="vertical-align:top; padding-left:4px;">
+                <p style="margin:0; font-size:16px; line-height:1.65; color:${BRAND.textPrimary};">
+                  ${escapeHtml(action)}
+                </p>
+              </td>
+            </tr>
+          </table>`,
+            )
+            .join("")}
         </td></tr>
 
         <tr><td style="padding:32px 32px 0 32px;">

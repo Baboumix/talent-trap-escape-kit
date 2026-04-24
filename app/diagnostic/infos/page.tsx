@@ -128,11 +128,12 @@ export default function InfosPage() {
 
       <section className="max-w-md mx-auto w-full text-center animate-fade-up mb-10">
         <h1 className="font-display font-medium text-[32px] sm:text-4xl md:text-[44px] leading-[1.05] tracking-tight mb-4">
-          Où j'envoie ton rapport ?
+          Où j'envoie tes 3 prochaines actions ?
         </h1>
         <p className="text-neutral-400 text-sm md:text-base leading-relaxed">
-          Rapport complet par email : verdict détaillé, analyse des 3
-          dimensions, modifiers personnels, 3 pistes concrètes.
+          Tu recevras par email ton rapport complet (verdict détaillé, analyse
+          des 3 dimensions, modifiers personnels) et surtout tes 3 actions
+          concrètes pour les 30 prochains jours.
         </p>
       </section>
 
@@ -199,7 +200,7 @@ export default function InfosPage() {
           disabled={loading || !prenom || !email || !metier}
           className="group flex items-center justify-center mt-2 w-full py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? "Envoi…" : "Recevoir mon rapport"}
+          {loading ? "Envoi…" : "Recevoir mes 3 actions"}
           {!loading && (
             <svg
               className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"

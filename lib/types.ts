@@ -48,6 +48,7 @@ export interface Verdict {
   descriptionLongue: string;
   angleMort: string;
   ctaNote: string;
+  actions30Days: string[];
 }
 
 export interface Modifier {

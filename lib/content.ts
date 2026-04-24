@@ -8,8 +8,8 @@ import type {
 } from "./types";
 
 export const DIMENSION_LABELS = {
-  ancrage: "Ancrage",
-  circulation: "Circulation",
+  ancrage: "Socle",
+  circulation: "Énergie",
   sens: "Sens",
 } as const;
 
@@ -178,6 +178,11 @@ Tu n'es pas obligé d'en arriver là.
 La sortie du Talent Coincé ne passe pas par une démission héroïque. Elle passe par un travail précis : reconnaître que ce qui t'a construit n'est pas ce qui va te faire grandir. Et décider, sans drame, ce qui reste, ce qui bouge, et ce qui doit partir.`,
     angleMort: "Ton piège n'est pas financier. Il est identitaire.",
     ctaNote: "Bootcamp Expansion en priorité (waitlist selon langue).",
+    actions30Days: [
+      "Identifie une chose concrète dans ton travail actuel que tu ne quitterais pas, même si tu partais. Ce n'est pas une obligation, c'est un actif que tu peux emporter.",
+      "Prends 30 minutes pour écrire, sans objectif de décider, ce qui t'attire en dehors de ta zone de sécurité. Juste nommer, pas encore choisir.",
+      "Parle à une personne qui t'a connu avant ton rôle actuel. Pas pour des conseils : pour te rappeler qui tu étais avant la fonction.",
+    ],
   },
   epuise: {
     key: "epuise",
@@ -200,6 +205,11 @@ Le coût de ne rien changer, c'est de te réveiller dans 5 ans avec le même mod
     angleMort:
       "Tu aimes être débordé parce que ça te donne une preuve d'existence.",
     ctaNote: "Bootcamp Expansion ou coaching premium selon profil.",
+    actions30Days: [
+      "Liste les 3 clients ou projets qui te drainent le plus. Cette semaine, commence à planifier la sortie d'un seul d'entre eux.",
+      "Identifie ce que tu vends actuellement à l'heure ou au projet et imagine comment tu pourrais le transformer en actif reproductible (méthode, formation, outil, contenu).",
+      "Bloque 2 heures dans ton agenda cette semaine pour travailler SUR ton business, pas DEDANS. C'est le premier pas hors du cycle.",
+    ],
   },
   perdu: {
     key: "perdu",
@@ -222,6 +232,11 @@ Il existe une voie entre rendre ton tablier et continuer à t'épuiser silencieu
       "Ta promotion t'a donné le droit de redéfinir ton rôle, pas l'obligation de sauver tout le monde.",
     ctaNote:
       "Coaching premium 1:1 en priorité. Bootcamp Expansion en seconde option. Workshop B2B si le profil matche.",
+    actions30Days: [
+      "Écris la liste de ce que tu as accepté de porter quand tu as été promu, sans qu'on te le demande explicitement. La moitié, tu peux la lâcher.",
+      "Identifie une personne dans ton équipe qui pourrait reprendre une chose que tu portes en ce moment. Délègue-lui avant la fin du mois, vraiment.",
+      "Prends un appel avec un autre manager ou patron de ton niveau. Pas pour des conseils : pour parler du poids que personne ne voit.",
+    ],
   },
   transition: {
     key: "transition",
@@ -246,6 +261,11 @@ Tu n'as pas besoin de plus de réflexion. Tu as besoin de trancher.`,
       "Tu as besoin d'agir différemment pour gagner de la clarté, pas l'inverse.",
     ctaNote:
       "Bootcamp Expansion en priorité absolue (c'est le verdict où la conversion est la plus forte).",
+    actions30Days: [
+      "Choisis une petite expérience concrète à faire dans les 30 jours : un side project, un appel, une rencontre. Quelque chose qui t'engage physiquement.",
+      "Écris les 3 scénarios possibles pour les 12 prochains mois. Pas pour choisir, pour les voir côte à côte et sentir lequel te fait vraiment vibrer.",
+      "Donne-toi une deadline pour trancher, même arbitraire. Ton cerveau a besoin d'un horizon pour arrêter de ruminer.",
+    ],
   },
   expansion: {
     key: "expansion",
@@ -267,6 +287,11 @@ Et surtout : ne prends pas ton expansion pour acquise. Elle demande autant de tr
       "L'expansion demande autant de travail à maintenir qu'elle en a demandé à construire.",
     ctaNote:
       "Proposition d'appel B2B ExpansionStudio si le profil matche (patron-manager d'une équipe créative). Sinon, invitation à suivre le contenu gratuit.",
+    actions30Days: [
+      "Regarde ce qui est fragile dans ton alignement actuel. Pas pour le fixer tout de suite, juste pour le nommer avant qu'il ne craque.",
+      "Si quelqu'un dans ton équipe ou ton entourage était Coincé, Épuisé ou Perdu, qu'est-ce que tu voudrais lui dire ? Tu es peut-être la personne à qui il va parler.",
+      "Choisis une cause, un projet ou une personne à qui commencer à transmettre ce que tu as construit. L'expansion qui ne circule pas finit par stagner.",
+    ],
   },
 };
 

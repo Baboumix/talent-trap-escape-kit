@@ -91,12 +91,15 @@ export default function ResultatPage() {
         className="max-w-2xl mx-auto w-full text-center animate-fade-up"
         style={{ animationDelay: "150ms" }}
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 mb-4">
-          {verdict.notionName}
+        <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-500 mb-4">
+          Ton profil
         </p>
-        <h1 className="font-display font-medium text-[32px] sm:text-4xl md:text-[48px] leading-[1.1] tracking-tight mb-8 bg-gradient-to-br from-white via-white to-coral-400 bg-clip-text text-transparent">
-          {verdict.phrasePunch}
+        <h1 className="font-display font-medium text-[52px] sm:text-6xl md:text-[88px] leading-[0.95] tracking-tight mb-5 bg-gradient-to-br from-white via-white to-coral-400 bg-clip-text text-transparent">
+          {verdict.notionName}
         </h1>
+        <p className="font-display italic font-medium text-lg md:text-2xl leading-snug text-coral mb-10 max-w-xl mx-auto">
+          « {verdict.phrasePunch} »
+        </p>
         <DescriptionCourte text={verdict.descriptionCourte} />
       </section>
 
@@ -145,14 +148,14 @@ export default function ResultatPage() {
         style={{ animationDelay: "1250ms" }}
       >
         <p className="text-neutral-400 text-sm mb-5">
-          Ton rapport complet détaille chaque dimension, nomme tes modifiers
-          personnels et te donne trois pistes concrètes.
+          Ton rapport complet par email, avec tes 3 prochaines actions à
+          entreprendre dans les 30 jours.
         </p>
         <Link
           href="/diagnostic/infos"
           className="group flex items-center justify-center w-full py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
         >
-          Recevoir le rapport complet
+          Recevoir mes 3 prochaines actions
           <svg
             className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
             viewBox="0 0 16 16"

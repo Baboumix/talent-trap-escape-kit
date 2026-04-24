@@ -63,7 +63,19 @@ export default function DiagnosticPage() {
   const [startedAt, setStartedAt] = useState("");
   const [fadeKey, setFadeKey] = useState(0);
   const [toast, setToast] = useState<string | null>(null);
+  const [interactionLock, setInteractionLock] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (!interactionLock) return;
+    const unlock = () => setInteractionLock(false);
+    const t = setTimeout(unlock, 350);
+    window.addEventListener("pointermove", unlock, { once: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("pointermove", unlock);
+    };
+  }, [interactionLock]);
 
   useEffect(() => {
     try {
@@ -151,8 +163,25 @@ export default function DiagnosticPage() {
   const progress = (answeredCount / 24) * 100;
   const questionNumber = answeredCount + 1;
 
+  const goBack = () => {
+    if (answeredCount === 0) return;
+    const lastQuestion = questions[answeredCount - 1];
+    if (!lastQuestion) return;
+    const { [lastQuestion.id]: _removed, ...rest } = answers;
+    void _removed;
+    setAnswers(rest);
+    setFadeKey((k) => k + 1);
+    if (typeof document !== "undefined") {
+      (document.activeElement as HTMLElement | null)?.blur();
+    }
+  };
+
   const selectAnswer = (value: AnswerValue) => {
     playClickTick();
+    if (typeof document !== "undefined") {
+      (document.activeElement as HTMLElement | null)?.blur();
+    }
+    setInteractionLock(true);
     const next = { ...answers, [current.id]: value };
     setAnswers(next);
     setFadeKey((k) => k + 1);
@@ -193,9 +222,35 @@ export default function DiagnosticPage() {
           />
         </div>
         <div className="flex items-center justify-between px-5 py-4">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-coral">
-            Question {questionNumber} / 24
-          </p>
+          <div className="flex items-center gap-3">
+            {answeredCount > 0 && (
+              <button
+                type="button"
+                onClick={goBack}
+                className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/15 text-neutral-400 hover:text-white hover:border-white/40 transition-colors"
+                aria-label="Revenir à la question précédente"
+                title="Revenir à la question précédente"
+              >
+                <svg
+                  className="w-3.5 h-3.5"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M10 3l-5 5 5 5"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            )}
+            <p className="text-[10px] uppercase tracking-[0.2em] text-coral">
+              Question {questionNumber} / 24
+            </p>
+          </div>
           <Link
             href="/"
             className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
@@ -217,7 +272,9 @@ export default function DiagnosticPage() {
 
         <div
           key={`opts-${fadeKey}`}
-          className="grid grid-cols-3 gap-3 animate-fade-up"
+          className={`grid grid-cols-3 gap-3 animate-fade-up ${
+            interactionLock ? "pointer-events-none" : ""
+          }`}
         >
           {ANSWER_CHOICES.map((choice) => (
             <button
