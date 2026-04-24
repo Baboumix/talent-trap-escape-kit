@@ -92,7 +92,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 12,
     dimension: "circulation",
-    text: "Dans les 6 derniers mois, je n'ai rien appris qui m'a vraiment changé.",
+    text: "Dans les 6 derniers mois, j'ai surtout répété ce que je savais déjà, sans vraiment apprendre.",
   },
   {
     id: 13,
@@ -107,7 +107,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 15,
     dimension: "circulation",
-    text: "Même quand j'ai du temps libre, j'y pense encore. Je n'arrive pas vraiment à me reposer.",
+    text: "Même pendant mon temps libre, le travail reste dans ma tête. Je n'arrive pas vraiment à décrocher.",
   },
   {
     id: 16,
@@ -128,7 +128,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 19,
     dimension: "sens",
-    text: "Quand je regarde les 5 prochaines années, je ne vois pas de direction claire.",
+    text: "Quand je regarde les 5 prochaines années, ma direction reste floue.",
   },
   {
     id: 20,
@@ -138,12 +138,12 @@ export const QUESTIONS: Question[] = [
   {
     id: 21,
     dimension: "sens",
-    text: "Je ne pourrais pas facilement expliquer à un enfant pourquoi mon travail compte.",
+    text: "Si un enfant me demandait pourquoi mon travail compte, j'aurais du mal à lui répondre simplement.",
   },
   {
     id: 22,
     dimension: "sens",
-    text: "Mes relations au travail sont utiles, mais elles ne me remplissent pas vraiment.",
+    text: "Mes relations au travail sont utiles, mais elles restent assez froides humainement.",
   },
   {
     id: 23,

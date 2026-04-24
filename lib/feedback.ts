@@ -26,17 +26,18 @@ export function playClickTick(): void {
   const ctx = getAudioCtx();
   if (ctx) {
     try {
+      // Soft warm "breath": low sine with slow attack and long gentle decay.
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.value = 760;
+      osc.frequency.value = 340;
       gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.04, ctx.currentTime + 0.005);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+      gain.gain.linearRampToValueAtTime(0.014, ctx.currentTime + 0.025);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.32);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + 0.09);
+      osc.stop(ctx.currentTime + 0.32);
     } catch {
       // ignore
     }
@@ -44,7 +45,7 @@ export function playClickTick(): void {
 
   try {
     if (typeof navigator !== "undefined" && "vibrate" in navigator) {
-      navigator.vibrate(12);
+      navigator.vibrate(6);
     }
   } catch {
     // ignore
