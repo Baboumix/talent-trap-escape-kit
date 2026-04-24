@@ -20,6 +20,7 @@ export default function ResultatPage() {
   const router = useRouter();
   const [hydrated, setHydrated] = useState(false);
   const [stored, setStored] = useState<Stored | null>(null);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     try {
@@ -45,19 +46,23 @@ export default function ResultatPage() {
     }
   }, [router]);
 
+  useEffect(() => {
+    if (!hydrated) return;
+    const t = setTimeout(() => setRevealed(true), 1400);
+    return () => clearTimeout(t);
+  }, [hydrated]);
+
   const diagnostic = useMemo(() => {
     if (!stored || !stored.statutPro) return null;
     return computeDiagnostic(stored.answers, stored.statutPro);
   }, [stored]);
 
   if (!hydrated || !stored || !diagnostic) {
-    return (
-      <main className="min-h-[100svh] flex items-center justify-center">
-        <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-          Calcul de ton verdict…
-        </p>
-      </main>
-    );
+    return <RevealLoader />;
+  }
+
+  if (!revealed) {
+    return <RevealLoader />;
   }
 
   const verdict = VERDICTS[diagnostic.verdict];
@@ -72,14 +77,20 @@ export default function ResultatPage() {
         <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-coral/[0.12] blur-[140px]" />
       </div>
 
-      <header className="flex justify-center mb-8 animate-fade-up">
+      <header
+        className="flex justify-center mb-8 animate-fade-up"
+        style={{ animationDelay: "0ms" }}
+      >
         <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
           <span className="w-1 h-1 rounded-full bg-coral" />
           Ton verdict
         </p>
       </header>
 
-      <section className="max-w-2xl mx-auto w-full text-center animate-fade-up">
+      <section
+        className="max-w-2xl mx-auto w-full text-center animate-fade-up"
+        style={{ animationDelay: "150ms" }}
+      >
         <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 mb-4">
           {verdict.notionName}
         </p>
@@ -91,7 +102,10 @@ export default function ResultatPage() {
         </p>
       </section>
 
-      <section className="mt-12 max-w-2xl mx-auto w-full animate-fade-up">
+      <section
+        className="mt-12 max-w-2xl mx-auto w-full animate-fade-up"
+        style={{ animationDelay: "450ms" }}
+      >
         <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-4 text-center">
           Tes trois dimensions
         </p>
@@ -99,16 +113,25 @@ export default function ResultatPage() {
           <ScoreBar
             label={DIMENSION_LABELS.ancrage}
             value={scores.ancrage}
+            delay={550}
           />
           <ScoreBar
             label={DIMENSION_LABELS.circulation}
             value={scores.circulation}
+            delay={700}
           />
-          <ScoreBar label={DIMENSION_LABELS.sens} value={scores.sens} />
+          <ScoreBar
+            label={DIMENSION_LABELS.sens}
+            value={scores.sens}
+            delay={850}
+          />
         </div>
       </section>
 
-      <section className="mt-10 max-w-2xl mx-auto w-full animate-fade-up">
+      <section
+        className="mt-10 max-w-2xl mx-auto w-full animate-fade-up"
+        style={{ animationDelay: "1050ms" }}
+      >
         <div className="rounded-2xl border border-coral/25 bg-coral/[0.04] p-6 md:p-7">
           <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
             Ton angle mort
@@ -119,7 +142,10 @@ export default function ResultatPage() {
         </div>
       </section>
 
-      <section className="mt-14 max-w-md mx-auto w-full text-center animate-fade-up">
+      <section
+        className="mt-14 max-w-md mx-auto w-full text-center animate-fade-up"
+        style={{ animationDelay: "1250ms" }}
+      >
         <p className="text-neutral-400 text-sm mb-5">
           Ton rapport complet détaille chaque dimension, nomme tes modifiers
           personnels et te donne trois pistes concrètes.
@@ -149,7 +175,10 @@ export default function ResultatPage() {
         </p>
       </section>
 
-      <footer className="mt-16 text-center">
+      <footer
+        className="mt-16 text-center animate-fade-up"
+        style={{ animationDelay: "1450ms" }}
+      >
         <Link
           href="/"
           className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
@@ -161,8 +190,20 @@ export default function ResultatPage() {
   );
 }
 
-function ScoreBar({ label, value }: { label: string; value: number }) {
-  const pct = (value / 16) * 100;
+function ScoreBar({
+  label,
+  value,
+  delay,
+}: {
+  label: string;
+  value: number;
+  delay: number;
+}) {
+  const [fill, setFill] = useState(0);
+  useEffect(() => {
+    const t = setTimeout(() => setFill((value / 16) * 100), delay);
+    return () => clearTimeout(t);
+  }, [value, delay]);
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
       <div className="flex items-center justify-between mb-2">
@@ -174,10 +215,31 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
       </div>
       <div className="h-2 rounded-full bg-white/[0.06] overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-coral-500 to-coral-400 transition-[width] duration-700 ease-out"
-          style={{ width: `${pct}%` }}
+          className="h-full bg-gradient-to-r from-coral-500 to-coral-400 transition-[width] duration-1000 ease-out"
+          style={{ width: `${fill}%` }}
         />
       </div>
     </div>
+  );
+}
+
+function RevealLoader() {
+  return (
+    <main className="relative min-h-[100svh] flex flex-col justify-center items-center px-6 overflow-hidden">
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-coral/[0.1] blur-[140px] animate-pulse" />
+      </div>
+      <div className="flex items-center gap-2 mb-6">
+        <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:0ms]" />
+        <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:200ms]" />
+        <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:400ms]" />
+      </div>
+      <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-400">
+        Ton verdict se compose
+      </p>
+    </main>
   );
 }

@@ -36,12 +36,12 @@ export const QUESTIONS: Question[] = [
   {
     id: 1,
     dimension: "ancrage",
-    text: "Quand je pense à quitter ce que je fais aujourd'hui, la première chose qui me vient, c'est la perte de ce que j'ai construit.",
+    text: "Quand je pense à partir, ce qui me freine en premier, c'est la perte de ce que j'ai construit.",
   },
   {
     id: 2,
     dimension: "ancrage",
-    text: "J'ai déjà accepté de continuer quelque chose qui ne me nourrit plus, parce que le quitter coûterait trop cher.",
+    text: "J'ai déjà continué quelque chose qui ne me plaît plus, parce qu'arrêter coûterait trop cher.",
   },
   {
     id: 3,
@@ -51,27 +51,27 @@ export const QUESTIONS: Question[] = [
   {
     id: 4,
     dimension: "ancrage",
-    text: "Si demain on me retirait mon titre ou ma position, je ne saurais pas vraiment qui je suis.",
+    text: "Si on me retirait mon titre ou ma position demain, je ne saurais plus qui je suis.",
   },
   {
     id: 5,
     dimension: "ancrage",
-    text: "Je mesure ma valeur à ce que je gagne plus qu'à ce que je fais.",
+    text: "Ma valeur vient plus de ce que je gagne que de ce que je fais vraiment.",
   },
   {
     id: 6,
     dimension: "ancrage",
-    text: "J'ai peur que si je change de cap, je perde la reconnaissance que j'ai mise des années à construire.",
+    text: "Changer de cap me fait peur. J'ai mis des années à construire cette reconnaissance.",
   },
   {
     id: 7,
     dimension: "ancrage",
-    text: "J'ai déjà refusé une opportunité plus alignée avec moi parce qu'elle payait moins ou qu'elle était moins prestigieuse.",
+    text: "J'ai déjà refusé une opportunité qui me correspondait mieux, parce qu'elle payait moins ou avait moins de prestige.",
   },
   {
     id: 8,
     dimension: "ancrage",
-    text: "Quand je me compare à mes pairs qui ont réussi, je ressens plus de pression que d'inspiration.",
+    text: "Quand je me compare aux gens qui ont réussi autour de moi, je ressens plus de pression que d'inspiration.",
   },
   // Circulation (Q9-Q16)
   {
@@ -87,17 +87,17 @@ export const QUESTIONS: Question[] = [
   {
     id: 11,
     dimension: "circulation",
-    text: "Il m'arrive de fantasmer un projet parallèle que je ne démarre jamais.",
+    text: "Je rêve parfois d'un projet à côté, mais je ne le démarre jamais.",
   },
   {
     id: 12,
     dimension: "circulation",
-    text: "Je n'ai pas appris quelque chose qui m'a vraiment transformé dans les 6 derniers mois.",
+    text: "Dans les 6 derniers mois, je n'ai rien appris qui m'a vraiment changé.",
   },
   {
     id: 13,
     dimension: "circulation",
-    text: "Je travaille intensément, mais je ne saurais pas dire vers quoi je progresse.",
+    text: "Je travaille beaucoup, mais je ne saurais pas dire vers quoi j'avance.",
   },
   {
     id: 14,
@@ -107,18 +107,18 @@ export const QUESTIONS: Question[] = [
   {
     id: 15,
     dimension: "circulation",
-    text: "Quand j'ai du temps libre, je n'arrive pas à me reposer vraiment, j'y pense encore.",
+    text: "Même quand j'ai du temps libre, j'y pense encore. Je n'arrive pas vraiment à me reposer.",
   },
   {
     id: 16,
     dimension: "circulation",
-    text: "J'ai l'impression de répéter la même année plusieurs fois, avec juste les noms qui changent.",
+    text: "J'ai l'impression de revivre la même année, encore et encore.",
   },
   // Sens (Q17-Q24)
   {
     id: 17,
     dimension: "sens",
-    text: "Je ne suis pas sûr que ce que je fais aurait de la valeur si plus personne ne le voyait.",
+    text: "Si personne ne voyait mon travail, je doute qu'il ait encore de la valeur.",
   },
   {
     id: 18,
@@ -128,7 +128,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 19,
     dimension: "sens",
-    text: "Quand je regarde les 5 prochaines années, je n'y vois pas de direction claire.",
+    text: "Quand je regarde les 5 prochaines années, je ne vois pas de direction claire.",
   },
   {
     id: 20,
@@ -143,12 +143,12 @@ export const QUESTIONS: Question[] = [
   {
     id: 22,
     dimension: "sens",
-    text: "Les relations professionnelles que j'ai sont utiles, mais rarement nourrissantes.",
+    text: "Mes relations au travail sont utiles, mais elles ne me remplissent pas vraiment.",
   },
   {
     id: 23,
     dimension: "sens",
-    text: "Je me demande parfois si ce que je fais est vraiment le mien, ou si je performe juste un rôle.",
+    text: "Je me demande parfois si ce que je fais est vraiment le mien. Ou si je joue juste un rôle.",
   },
   {
     id: 24,
