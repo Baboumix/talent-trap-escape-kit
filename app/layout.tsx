@@ -18,7 +18,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Profil du Talent Coincé — monExpansion",
+  title: "Profil du Talent Coincé · monExpansion",
   description:
     "Un diagnostic gratuit en 5 minutes pour voir ton angle mort et sortir du piège.",
 };

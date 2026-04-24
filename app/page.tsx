@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { LangSwitch } from "@/components/LangSwitch";
 
 export default function LandingPage() {
   return (
     <main className="relative min-h-[100svh] flex flex-col justify-between px-6 py-8 overflow-hidden">
+      <LangSwitch current="fr" />
+
       <div
         className="absolute inset-0 -z-10 pointer-events-none"
         aria-hidden="true"
@@ -17,8 +20,8 @@ export default function LandingPage() {
         </p>
       </header>
 
-      <section className="flex-1 flex flex-col justify-center items-center text-center max-w-md mx-auto w-full">
-        <h1 className="font-display font-medium text-[44px] sm:text-5xl md:text-6xl leading-[0.95] tracking-tight mb-6">
+      <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
+        <h1 className="font-display font-medium text-[56px] sm:text-7xl md:text-[96px] lg:text-[112px] leading-[0.92] tracking-tight mb-8">
           <span className="block text-white">Ton talent te porte.</span>
           <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
             Ou il te retient&nbsp;?

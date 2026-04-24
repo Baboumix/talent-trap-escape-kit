@@ -9,16 +9,16 @@ Diagnostic gratuit 5 minutes · lead magnet pour monExpansion · Bootcamp Expans
 
 - Next.js 14 (App Router) + TypeScript strict
 - Tailwind CSS (tokens : `ink` #0A0A0A, `coral` FE6B63 → FF8A54, fonts Fraunces + DM Sans)
-- Notion API (`@notionhq/client`) — fiche diagnostic + relation Avatar
-- Brevo REST API — contact + liste FR/EN + email transactionnel J0
+- Notion API (`@notionhq/client`) : fiche diagnostic + relation Avatar
+- Brevo REST API : contact, liste FR/EN, email transactionnel J0
 
 ## Flow
 
-1. `/` — splash screen (hook + CTA)
-2. `/diagnostic` — 1 étape `StatutStep` (salarié / freelance / patron-manager), puis 24 questions interleavées Ancrage/Circulation/Sens
-3. `/diagnostic/resultat` — verdict + 3 scores + angle mort (lit localStorage)
-4. `/diagnostic/infos` — capture prénom / email / métier → POST `/api/submit-diagnostic`
-5. `/diagnostic/merci` — confirmation
+1. `/` : splash screen (hook + CTA)
+2. `/diagnostic` : 1 étape `StatutStep` (salarié / freelance / patron-manager), puis 24 questions interleavées Ancrage/Circulation/Sens
+3. `/diagnostic/resultat` : verdict + 3 scores + angle mort (lit localStorage)
+4. `/diagnostic/infos` : capture prénom / email / métier → POST `/api/submit-diagnostic`
+5. `/diagnostic/merci` : confirmation
 
 ## Scoring
 
@@ -34,10 +34,10 @@ vercel --prod --yes
 
 ## Intégrations
 
-- **Notion Diagnostics** (`DB_ID=552eee8e…`) — chaque soumission crée une fiche, mappe le verdict à un avatar via `NOTION_AVATAR_*_ID`.
-- **Brevo** — contact upserté sur la liste FR (11) ou EN (12), attributs custom (PRENOM, VERDICT, MODIFIERS, METIER, STATUT_PRO, LANG), tag `diagnostic_fait` sur l'email transactionnel. Les séquences J+2/J+4/… sont à configurer côté Brevo via automation sur ce tag ou sur la liste.
+- **Notion Diagnostics** (`DB_ID=552eee8e…`) : chaque soumission crée une fiche, mappe le verdict à un avatar via `NOTION_AVATAR_*_ID`.
+- **Brevo** : contact upserté sur la liste FR (11) ou EN (12), attributs custom (PRENOM, VERDICT, MODIFIERS, METIER, STATUT_PRO, LANG), tag `diagnostic_fait` sur l'email transactionnel. Les séquences J+2/J+4/… sont à configurer côté Brevo via automation sur ce tag ou sur la liste.
 
 ## Historique
 
-- Tag `v1-escape-kit` → ancien produit Escape Kit (Vite + React) avant refonte.
-- Branche `main` → Profil du Talent Coincé (Next.js).
+- Tag `v1-escape-kit` : ancien produit Escape Kit (Vite + React) avant refonte.
+- Branche `main` : Profil du Talent Coincé (Next.js).

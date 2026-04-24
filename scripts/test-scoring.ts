@@ -21,31 +21,31 @@ type Case = {
 
 const cases: Case[] = [
   {
-    name: "Tout à 2 (Oui fermes) — salarié",
+    name: "Tout à 2 (Oui fermes), salarié",
     answers: allAnswered(2),
     statutPro: "salarie",
     expect: "coince",
   },
   {
-    name: "Tout à 0 (Non) — salarié",
+    name: "Tout à 0 (Non), salarié",
     answers: allAnswered(0),
     statutPro: "salarie",
     expect: "expansion",
   },
   {
-    name: "Tout à 1 (Plutôt) — salarié",
+    name: "Tout à 1 (Plutôt), salarié",
     answers: allAnswered(1),
     statutPro: "salarie",
     expect: "transition",
   },
   {
-    name: "Ancrage haut, reste bas — salarié",
+    name: "Ancrage haut, reste bas, salarié",
     answers: buildAnswers((i) => (i < 8 ? 2 : 0)),
     statutPro: "salarie",
     expect: "transition",
   },
   {
-    name: "Circulation + Sens hauts, Ancrage bas — freelance",
+    name: "Circulation + Sens hauts, Ancrage bas, freelance",
     answers: buildAnswers((i) => (i < 8 ? 0 : 2)),
     statutPro: "freelance",
     expect: "epuise",

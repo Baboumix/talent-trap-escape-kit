@@ -87,7 +87,7 @@ export default function InfosPage() {
         setLoading(false);
         return;
       }
-      // Success — clear localStorage and go to merci
+      // Success: clear localStorage and go to merci
       try {
         localStorage.removeItem(STORAGE_KEY);
       } catch {
@@ -165,7 +165,7 @@ export default function InfosPage() {
           placeholder="Ex : Compositeur VFX, Lead Developer, Studio Manager"
         />
 
-        {/* Honeypot — must stay empty */}
+        {/* Honeypot field: must stay empty */}
         <div
           aria-hidden="true"
           style={{

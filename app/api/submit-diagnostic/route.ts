@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 
   const { website, ...data } = parsed.data;
   if (website) {
-    // Honeypot triggered — bot
+    // Honeypot triggered, assume bot
     return NextResponse.json({ ok: true }, { status: 200 });
   }
 
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
     console.error("Brevo upsert failed:", contactRes.reason);
   }
 
-  // Send report email (blocking — this is the main deliverable)
+  // Send report email (blocking: this is the main deliverable)
   try {
     const html = generateReportHtml({ input, result });
     const verdictName = VERDICTS[result.verdict].notionName;
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (e) {
     console.error("Brevo send failed:", e);
-    // Don't fail the whole request — Notion fiche exists, user can be reached manually
+    // Don't fail the whole request. Notion fiche exists, user can be reached manually.
   }
 
   return NextResponse.json({

@@ -24,7 +24,7 @@ export function computeScores(
 
 /**
  * Apply the verdict decision tree.
- * Order matters — first match wins.
+ * Order matters; first match wins.
  */
 export function computeVerdict(
   scores: Scores,

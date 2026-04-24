@@ -48,7 +48,7 @@ function interpretScore(dimension: Dimension, value: number): string {
 
   const matrix: Record<Dimension, Record<string, string>> = {
     ancrage: {
-      low: "Tu n'es pas sur-ancré. Ta sécurité et ta reconnaissance ne te tiennent pas prisonnier. Tu peux bouger sans drame — c'est rare.",
+      low: "Tu n'es pas sur-ancré. Ta sécurité et ta reconnaissance ne te tiennent pas prisonnier. Tu peux bouger sans drame. C'est rare.",
       mid: "Ton ancrage commence à te ralentir. Il y a des choses que tu ne fais pas parce qu'elles coûteraient trop cher. Pas critique, mais à regarder en face.",
       high: "Ton ancrage est devenu une ancre. Ce qui te sécurisait hier te retient aujourd'hui. C'est le marqueur le plus net du Piège du Talent.",
     },
@@ -58,9 +58,9 @@ function interpretScore(dimension: Dimension, value: number): string {
       high: "Ta circulation est cassée. Soit tu es dans l'épuisement silencieux, soit dans l'ennui masqué. Ton énergie n'a plus d'endroit où aller.",
     },
     sens: {
-      low: "Ton sens est solide. Tu sais pourquoi tu fais ce que tu fais. Ça compte énormément — c'est ce qui soutient tout le reste.",
+      low: "Ton sens est solide. Tu sais pourquoi tu fais ce que tu fais. Ça compte énormément. C'est ce qui soutient tout le reste.",
       mid: "Ton sens commence à s'effriter. Tu te poses des questions. Ne les laisse pas te paralyser, mais ne les balaie pas non plus.",
-      high: "Ton sens est en crise. Tu fais sans savoir pourquoi. C'est épuisant — et potentiellement très fécond : les crises de sens précèdent les vrais changements.",
+      high: "Ton sens est en crise. Tu fais sans savoir pourquoi. C'est épuisant, et potentiellement très fécond : les crises de sens précèdent les vrais changements.",
     },
   };
 
@@ -129,7 +129,7 @@ export function generateReportHtml({
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ton rapport complet — ${escapeHtml(verdict.notionName)}</title>
+  <title>Ton rapport complet · ${escapeHtml(verdict.notionName)}</title>
 </head>
 <body style="margin:0; padding:0; background-color:${BRAND.bgPage}; font-family:Helvetica,Arial,sans-serif; color:${BRAND.textPrimary}; -webkit-font-smoothing:antialiased;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:${BRAND.bgPage};">

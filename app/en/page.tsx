@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { LangSwitch } from "@/components/LangSwitch";
 
 export const metadata = {
-  title: "Trapped Talent Profile — monExpansion",
+  title: "Trapped Talent Profile · monExpansion",
   description:
     "A free 5-minute diagnostic that names what's been holding your talent back. English version coming soon.",
 };
@@ -9,6 +10,8 @@ export const metadata = {
 export default function EnLanding() {
   return (
     <main className="relative min-h-[100svh] flex flex-col justify-between px-6 py-8 overflow-hidden">
+      <LangSwitch current="en" />
+
       <div
         className="absolute inset-0 -z-10 pointer-events-none"
         aria-hidden="true"
@@ -23,8 +26,8 @@ export default function EnLanding() {
         </p>
       </header>
 
-      <section className="flex-1 flex flex-col justify-center items-center text-center max-w-md mx-auto w-full">
-        <h1 className="font-display font-medium text-[44px] sm:text-5xl md:text-6xl leading-[0.95] tracking-tight mb-6">
+      <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
+        <h1 className="font-display font-medium text-[56px] sm:text-7xl md:text-[96px] lg:text-[112px] leading-[0.92] tracking-tight mb-8">
           <span className="block text-white">Your talent carries you.</span>
           <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
             Or does it hold you?
@@ -35,7 +38,7 @@ export default function EnLanding() {
         </p>
         <p className="text-neutral-500 text-sm leading-relaxed max-w-sm">
           In the meantime, the French version is live and the analysis engine
-          is the same — if you read French comfortably, you can take it now.
+          is the same, so if you read French comfortably you can take it now.
         </p>
       </section>
 

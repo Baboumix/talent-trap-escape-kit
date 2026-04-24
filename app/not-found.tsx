@@ -18,7 +18,7 @@ export default function NotFound() {
         Rien à cet endroit.
       </h1>
       <p className="text-neutral-400 text-base mb-10 max-w-sm">
-        La page que tu cherches n'existe pas — ou a été déplacée.
+        La page que tu cherches n'existe pas, ou a été déplacée.
       </p>
       <Link
         href="/"
