@@ -97,9 +97,7 @@ export default function ResultatPage() {
         <h1 className="font-display font-medium text-[32px] sm:text-4xl md:text-[48px] leading-[1.1] tracking-tight mb-8 bg-gradient-to-br from-white via-white to-coral-400 bg-clip-text text-transparent">
           {verdict.phrasePunch}
         </h1>
-        <p className="text-neutral-300 text-base md:text-lg leading-relaxed mx-auto max-w-xl">
-          {verdict.descriptionCourte}
-        </p>
+        <DescriptionCourte text={verdict.descriptionCourte} />
       </section>
 
       <section
@@ -188,6 +186,36 @@ export default function ResultatPage() {
       </footer>
     </main>
   );
+}
+
+function DescriptionCourte({ text }: { text: string }) {
+  const paragraphs = text.split(/\n\n+/);
+  return (
+    <div className="mx-auto max-w-xl text-neutral-300 text-base md:text-lg leading-relaxed space-y-4">
+      {paragraphs.map((p, i) => (
+        <p key={i}>{renderHighlights(p)}</p>
+      ))}
+    </div>
+  );
+}
+
+function renderHighlights(text: string): React.ReactNode[] {
+  const parts = text.split(/\*\*(.+?)\*\*/g);
+  return parts.map((part, i) => {
+    if (i % 2 === 0) return <span key={i}>{part}</span>;
+    return (
+      <mark
+        key={i}
+        className="text-white font-medium px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent 30%, rgba(251, 191, 36, 0.45) 30%, rgba(251, 191, 36, 0.45) 96%, transparent 96%)",
+        }}
+      >
+        {part}
+      </mark>
+    );
+  });
 }
 
 function ScoreBar({

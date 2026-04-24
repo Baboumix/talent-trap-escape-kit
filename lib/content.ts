@@ -164,7 +164,7 @@ export const VERDICTS: Record<VerdictKey, Verdict> = {
     avatarEnvKey: "NOTION_AVATAR_COINCE_ID",
     phrasePunch: "Tu es bon. Et c'est exactement le problème.",
     descriptionCourte:
-      "Tu as construit quelque chose de solide. Salaire, reconnaissance, statut. Sur le papier, tu as réussi. Mais il y a cette sensation que tu connais bien : plus tu montes, plus les options se ferment. Ce que tu as bâti est aussi ce qui te retient. Tu n'es pas malheureux. Tu es suspendu. Et tu commences à te demander si le confort actuel vaut le prix que tu payes sans le voir.",
+      "Tu as construit quelque chose de solide. Salaire, reconnaissance, statut. Sur le papier, tu as réussi.\n\nMais il y a cette sensation que tu connais bien : plus tu montes, plus les options se ferment. **Ce que tu as bâti est aussi ce qui te retient.**\n\nTu n'es pas malheureux. Tu es suspendu. Et tu commences à te demander si le confort actuel vaut le prix que tu payes sans le voir.",
     descriptionLongue: `Je connais cette situation intimement. J'ai été toi, plusieurs fois.
 
 Tu es ce que j'appelle un Talent Coincé. Ce qui veut dire, très concrètement, que ton ancrage dans la sécurité et dans la reconnaissance externe est devenu plus fort que ton besoin de te sentir aligné. Ce n'est pas un bug. C'est le système qui fait exactement ce qu'il est censé faire : te récompenser pour rester. Plus tu es bon, plus c'est cher de partir.
@@ -185,7 +185,7 @@ La sortie du Talent Coincé ne passe pas par une démission héroïque. Elle pas
     avatarEnvKey: "NOTION_AVATAR_EPUISE_ID",
     phrasePunch: "Tu es libre. Mais tu vends ton temps comme un salarié.",
     descriptionCourte:
-      "Tu as fait le saut. Tu es ton propre patron. Sur le papier, c'est la victoire. Mais tu as troqué un boss contre dix clients, et tu le sais. Tu travailles plus que jamais, pour une liberté que tu n'arrives pas à goûter. Tu sens bien que ton modèle actuel a un plafond, mais tu n'as pas l'énergie ni l'espace mental pour le repenser. Tu cours. Et tu commences à te demander pourquoi.",
+      "Tu as fait le saut. Tu es ton propre patron. Sur le papier, c'est la victoire.\n\nMais tu as troqué un boss contre dix clients, et tu le sais. **Tu travailles plus que jamais, pour une liberté que tu n'arrives pas à goûter.**\n\nTu sens bien que ton modèle actuel a un plafond, mais tu n'as pas l'énergie ni l'espace mental pour le repenser. Tu cours. Et tu commences à te demander pourquoi.",
     descriptionLongue: `Ce que tu vis, ce n'est pas un manque de discipline. C'est un problème de structure.
 
 Tu es un Talent Épuisé : tu as conquis la liberté de choisir, mais tu vends encore ton temps à l'heure ou au projet. Ce qui veut dire que ton revenu est directement lié à ton énergie disponible. Quand l'énergie baisse, le revenu baisse. Quand le revenu baisse, tu prends plus de projets pour compenser. Et le cycle s'accélère.
@@ -208,7 +208,7 @@ Le coût de ne rien changer, c'est de te réveiller dans 5 ans avec le même mod
     phrasePunch:
       "Tu as été promu pour ce que tu savais faire. Mais ce qu'on te demande maintenant, personne ne te l'a appris.",
     descriptionCourte:
-      "Tu étais excellent dans ton métier. On t'a promu. Maintenant tu manages des humains, tu gères des budgets, tu portes une équipe. Et personne ne t'a appris comment. Tu donnes beaucoup, tu absorbes les tensions, tu protèges tes gens. Mais le soir, tu ne sais plus qui s'occupe de toi. Tu es devenu le leader que tu n'as jamais eu. Et tu commences à te demander si c'est soutenable.",
+      "Tu étais excellent dans ton métier. On t'a promu. Maintenant tu manages des humains, tu gères des budgets, tu portes une équipe. Et personne ne t'a appris comment.\n\nTu donnes beaucoup, tu absorbes les tensions, tu protèges tes gens. **Mais le soir, tu ne sais plus qui s'occupe de toi.**\n\nTu es devenu le leader que tu n'as jamais eu. Et tu commences à te demander si c'est soutenable.",
     descriptionLongue: `Tu portes une charge que peu de gens voient.
 
 Tu es un Talent Perdu : quelqu'un qui a été promu pour son excellence technique, et qui se retrouve à faire un métier complètement différent sans transition, sans formation, sans soutien. Ton studio, ton équipe, ou tes pairs attendent de toi que tu sois un leader. Mais personne ne t'a jamais enseigné comment en devenir un. Tu improvises. Tu copies des modèles qui ne te correspondent pas. Tu absorbes des tensions qui ne sont pas les tiennes.
@@ -230,7 +230,7 @@ Il existe une voie entre rendre ton tablier et continuer à t'épuiser silencieu
     phrasePunch:
       "Tu sais que quelque chose doit changer. Tu n'as juste pas encore décidé quoi.",
     descriptionCourte:
-      "Tu n'es plus vraiment coincé, mais tu n'es pas encore parti. Tu sens le mouvement, tu lis, tu réfléchis, tu en parles parfois à tes proches. Mais rien n'est encore tranché. Tu es dans la zone grise où beaucoup de gens restent pendant des années. Pas assez malheureux pour bouger vite, assez lucide pour savoir que le temps joue contre toi. Tu as besoin d'un cadre pour décider.",
+      "Tu n'es plus vraiment coincé, mais tu n'es pas encore parti. Tu sens le mouvement, tu lis, tu réfléchis, tu en parles parfois à tes proches. Mais rien n'est encore tranché.\n\nTu es dans la zone grise où beaucoup de gens restent pendant des années. **Pas assez malheureux pour bouger vite, assez lucide pour savoir que le temps joue contre toi.**\n\nTu as besoin d'un cadre pour décider.",
     descriptionLongue: `Tu es exactement là où il faut que tu sois, et c'est pour ça que c'est inconfortable.
 
 Tu es un Talent en Transition. Ce n'est pas un verdict tiède. C'est un état très particulier : tu as fait le travail de prise de conscience, tu as compris que quelque chose cloche, tu as peut-être même identifié les grandes directions possibles. Mais tu es bloqué au moment de décider.
@@ -253,7 +253,7 @@ Tu n'as pas besoin de plus de réflexion. Tu as besoin de trancher.`,
     avatarEnvKey: "NOTION_AVATAR_EXPANSION_ID",
     phrasePunch: "Ton talent circule. Continue.",
     descriptionCourte:
-      "Tu as quelque chose de rare : un alignement. Ton travail te nourrit, ton ancrage est stable, ton sens est clair. Tu n'as pas besoin d'un coaching de sortie de piège, parce que tu n'es pas dans un piège. Ce que tu as construit fonctionne, et tu le sais. La seule question qui vaille pour toi est la suivante : que veux-tu faire de cette énergie disponible ?",
+      "Tu as quelque chose de rare : un alignement. Ton travail te nourrit, ton ancrage est stable, ton sens est clair.\n\n**Tu n'as pas besoin d'un coaching de sortie de piège, parce que tu n'es pas dans un piège.**\n\nCe que tu as construit fonctionne, et tu le sais. La seule question qui vaille pour toi est la suivante : que veux-tu faire de cette énergie disponible ?",
     descriptionLongue: `Je vais être direct : tu n'es pas dans ma cible habituelle de coaching. Et c'est une bonne nouvelle pour toi.
 
 Tu es un Talent en Expansion. Ça ne veut pas dire que tout est parfait. Mais ça veut dire que tes 3 dimensions fondamentales sont alignées : tu as un ancrage stable sans être coincé, une énergie qui circule sans te détruire, et un sens qui te relie à quelque chose de plus grand. C'est rare. La plupart des gens qui font ce diagnostic sont dans un piège quelconque.
