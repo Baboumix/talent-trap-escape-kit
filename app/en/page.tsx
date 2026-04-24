@@ -1,0 +1,69 @@
+import Link from "next/link";
+
+export const metadata = {
+  title: "Trapped Talent Profile — monExpansion",
+  description:
+    "A free 5-minute diagnostic that names what's been holding your talent back. English version coming soon.",
+};
+
+export default function EnLanding() {
+  return (
+    <main className="relative min-h-[100svh] flex flex-col justify-between px-6 py-8 overflow-hidden">
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[560px] h-[560px] rounded-full bg-coral/[0.12] blur-[120px]" />
+      </div>
+
+      <header className="flex justify-center pt-2">
+        <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
+          <span className="w-1 h-1 rounded-full bg-coral" />
+          Trapped Talent Profile
+        </p>
+      </header>
+
+      <section className="flex-1 flex flex-col justify-center items-center text-center max-w-md mx-auto w-full">
+        <h1 className="font-display font-medium text-[44px] sm:text-5xl md:text-6xl leading-[0.95] tracking-tight mb-6">
+          <span className="block text-white">Your talent carries you.</span>
+          <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
+            Or does it hold you?
+          </span>
+        </h1>
+        <p className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-sm mb-6">
+          An English version of the diagnostic is launching soon.
+        </p>
+        <p className="text-neutral-500 text-sm leading-relaxed max-w-sm">
+          In the meantime, the French version is live and the analysis engine
+          is the same — if you read French comfortably, you can take it now.
+        </p>
+      </section>
+
+      <footer className="w-full max-w-md mx-auto">
+        <Link
+          href="/"
+          className="group flex items-center justify-center w-full py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
+        >
+          Take the diagnostic in French
+          <svg
+            className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M6 3l5 5-5 5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
+        <p className="mt-5 text-[10px] uppercase tracking-[0.18em] text-neutral-600 text-center">
+          Julien Klein · 15 years at Scanline/Netflix · 120+ artists coached
+        </p>
+      </footer>
+    </main>
+  );
+}
