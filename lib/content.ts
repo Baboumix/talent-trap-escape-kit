@@ -36,7 +36,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 1,
     dimension: "ancrage",
-    text: "Quand je pense à partir, ce qui me freine en premier, c'est la perte de ce que j'ai construit.",
+    text: "Ce qui me retient dans mon travail actuel, c'est surtout ce que j'y ai construit.",
   },
   {
     id: 2,
@@ -61,7 +61,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 6,
     dimension: "ancrage",
-    text: "Changer de cap me fait peur. J'ai mis des années à construire cette reconnaissance.",
+    text: "Changer de cap me fait peur : je perdrais la reconnaissance que j'ai mis des années à bâtir.",
   },
   {
     id: 7,
@@ -87,7 +87,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 11,
     dimension: "circulation",
-    text: "Je rêve parfois d'un projet à côté, mais je ne le démarre jamais.",
+    text: "J'ai un projet personnel que je repousse depuis longtemps.",
   },
   {
     id: 12,
@@ -133,7 +133,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 20,
     dimension: "sens",
-    text: "Je donne beaucoup aux autres et j'ai l'impression que ça ne me revient pas.",
+    text: "Au travail, je donne plus que je ne reçois.",
   },
   {
     id: 21,
@@ -143,7 +143,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 22,
     dimension: "sens",
-    text: "Mes relations au travail sont utiles, mais elles restent assez froides humainement.",
+    text: "Au travail, mes relations humaines sont plutôt froides.",
   },
   {
     id: 23,
@@ -153,7 +153,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 24,
     dimension: "sens",
-    text: "J'aimerais transmettre ce que j'ai appris, mais je ne vois pas à qui, ni comment.",
+    text: "Je voudrais partager mon expérience, mais je ne sais pas comment m'y prendre.",
   },
 ];
 
