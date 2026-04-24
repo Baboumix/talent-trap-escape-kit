@@ -33,22 +33,22 @@ type AnswerChoice = {
 const ANSWER_CHOICES: AnswerChoice[] = [
   {
     value: 0,
-    short: "Non",
-    full: "Non, pas vraiment",
+    short: "Pas d'accord",
+    full: "Pas d'accord",
     className:
       "border-rose-500/30 bg-rose-500/5 text-rose-200 hover:border-rose-500 hover:bg-rose-500 hover:text-white focus-visible:border-rose-500 focus-visible:bg-rose-500 focus-visible:text-white",
   },
   {
     value: 1,
-    short: "Plutôt",
-    full: "Plutôt oui",
+    short: "Un peu",
+    full: "Un peu d'accord",
     className:
       "border-neutral-400/30 bg-neutral-500/5 text-neutral-200 hover:border-neutral-200 hover:bg-neutral-200 hover:text-neutral-900 focus-visible:border-neutral-200 focus-visible:bg-neutral-200 focus-visible:text-neutral-900",
   },
   {
     value: 2,
-    short: "Oui",
-    full: "Oui, clairement",
+    short: "D'accord",
+    full: "D'accord",
     className:
       "border-emerald-500/30 bg-emerald-500/5 text-emerald-200 hover:border-emerald-500 hover:bg-emerald-500 hover:text-white focus-visible:border-emerald-500 focus-visible:bg-emerald-500 focus-visible:text-white",
   },
