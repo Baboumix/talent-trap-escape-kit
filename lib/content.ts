@@ -10,7 +10,7 @@ import type {
 export const DIMENSION_LABELS = {
   ancrage: "Ta base",
   circulation: "Ton énergie",
-  sens: "Cohérence",
+  sens: "Ta cohérence",
 } as const;
 
 export const STATUT_PRO_OPTIONS: { value: StatutPro; label: string }[] = [

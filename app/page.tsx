@@ -13,14 +13,13 @@ export default function LandingPage() {
         <div className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[560px] h-[560px] rounded-full bg-coral/[0.12] blur-[120px]" />
       </div>
 
-      <header className="flex justify-center pt-2">
-        <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
+      <header className="pt-2" aria-hidden="true" />
+
+      <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
+        <p className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
           <span className="w-1 h-1 rounded-full bg-coral" />
           Profil du Talent Coincé
         </p>
-      </header>
-
-      <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
         <h1 className="font-display font-medium text-[56px] sm:text-7xl md:text-[96px] lg:text-[112px] leading-[0.92] tracking-tight mb-8">
           <span className="block text-white">Ton talent</span>
           <span className="block text-white">te porte.</span>
@@ -29,7 +28,7 @@ export default function LandingPage() {
           </span>
         </h1>
         <p className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-sm">
-          Un verdict précis qui nomme ce que tu n'arrivais pas à nommer.
+          5 minutes pour entendre ce que tu te répètes tout bas.
         </p>
       </section>
 
