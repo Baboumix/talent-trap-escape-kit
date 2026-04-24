@@ -212,7 +212,7 @@ function renderHighlights(text: string): React.ReactNode[] {
         className="text-white font-medium px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
         style={{
           background:
-            "linear-gradient(180deg, transparent 30%, rgba(254, 107, 99, 0.50) 30%, rgba(254, 107, 99, 0.50) 96%, transparent 96%)",
+            "linear-gradient(180deg, transparent 30%, rgba(255, 175, 95, 0.48) 30%, rgba(255, 175, 95, 0.48) 96%, transparent 96%)",
         }}
       >
         {part}

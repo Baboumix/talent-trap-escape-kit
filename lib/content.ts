@@ -8,7 +8,7 @@ import type {
 } from "./types";
 
 export const DIMENSION_LABELS = {
-  ancrage: "Socle",
+  ancrage: "La base",
   circulation: "Énergie",
   sens: "Sens",
 } as const;
