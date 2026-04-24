@@ -94,7 +94,7 @@ export default function ResultatPage() {
         <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-500 mb-4">
           Ton profil
         </p>
-        <h1 className="font-display font-medium text-[52px] sm:text-6xl md:text-[88px] leading-[0.95] tracking-tight mb-5 bg-gradient-to-br from-white via-white to-coral-400 bg-clip-text text-transparent">
+        <h1 className="font-display font-medium text-[52px] sm:text-6xl md:text-[88px] leading-[0.95] tracking-tight mb-5 text-white">
           {verdict.notionName}
         </h1>
         <p className="font-display italic font-medium text-lg md:text-2xl leading-snug text-coral mb-10 max-w-xl mx-auto">
@@ -212,7 +212,7 @@ function renderHighlights(text: string): React.ReactNode[] {
         className="text-white font-medium px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
         style={{
           background:
-            "linear-gradient(180deg, transparent 30%, rgba(251, 191, 36, 0.45) 30%, rgba(251, 191, 36, 0.45) 96%, transparent 96%)",
+            "linear-gradient(180deg, transparent 30%, rgba(254, 107, 99, 0.50) 30%, rgba(254, 107, 99, 0.50) 96%, transparent 96%)",
         }}
       >
         {part}
