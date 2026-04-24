@@ -22,7 +22,8 @@ export default function LandingPage() {
 
       <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
         <h1 className="font-display font-medium text-[56px] sm:text-7xl md:text-[96px] lg:text-[112px] leading-[0.92] tracking-tight mb-8">
-          <span className="block text-white">Ton talent te porte.</span>
+          <span className="block text-white">Ton talent</span>
+          <span className="block text-white">te porte.</span>
           <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
             Ou il te retient&nbsp;?
           </span>
