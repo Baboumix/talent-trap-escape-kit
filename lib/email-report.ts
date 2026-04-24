@@ -136,10 +136,19 @@ export function generateReportHtml({
     <tr><td align="center" style="padding:24px 12px;">
       <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width:600px; width:100%; background-color:${BRAND.bgCard}; border-radius:16px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,0.04);">
 
-        <tr><td style="padding:40px 32px 8px 32px;">
-          <p style="margin:0 0 24px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
+        <tr><td style="padding:56px 32px 40px 32px; text-align:center; border-bottom:1px solid ${BRAND.border};">
+          <p style="margin:0 0 24px 0; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:${BRAND.coral}; font-weight:700;">
             Profil du Talent Coincé
           </p>
+          <h1 style="margin:0 0 14px 0; font-family:Georgia,'Times New Roman',serif; font-size:52px; line-height:1.0; font-weight:500; color:${BRAND.textPrimary}; letter-spacing:-0.02em;">
+            Ton rapport.
+          </h1>
+          <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:20px; line-height:1.3; color:${BRAND.coral};">
+            ${escapeHtml(verdict.notionName)}
+          </p>
+        </td></tr>
+
+        <tr><td style="padding:40px 32px 8px 32px;">
           <p style="margin:0 0 20px 0; font-size:18px; line-height:1.5; color:${BRAND.textPrimary};">
             Salut ${escapeHtml(input.prenom)},
           </p>
@@ -153,13 +162,10 @@ export function generateReportHtml({
         </td></tr>
 
         <tr><td style="padding:32px 32px 8px 32px;">
-          <p style="margin:0 0 8px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
-            Ton verdict
+          <p style="margin:0 0 16px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
+            Ton verdict en détail
           </p>
-          <h1 style="margin:0 0 16px 0; font-family:Georgia,'Times New Roman',serif; font-size:30px; line-height:1.15; font-weight:600; color:${BRAND.textPrimary};">
-            ${escapeHtml(verdict.notionName)}
-          </h1>
-          <p style="margin:0 0 24px 0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:20px; line-height:1.4; color:${BRAND.coral};">
+          <p style="margin:0 0 24px 0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:22px; line-height:1.35; color:${BRAND.textPrimary};">
             « ${escapeHtml(verdict.phrasePunch)} »
           </p>
           ${paragraphsToHtml(verdict.descriptionLongue)}
