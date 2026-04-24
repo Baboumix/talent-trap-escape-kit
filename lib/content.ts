@@ -8,9 +8,9 @@ import type {
 } from "./types";
 
 export const DIMENSION_LABELS = {
-  ancrage: "La base",
-  circulation: "Énergie",
-  sens: "Sens",
+  ancrage: "Ta base",
+  circulation: "Ton énergie",
+  sens: "Cohérence",
 } as const;
 
 export const STATUT_PRO_OPTIONS: { value: StatutPro; label: string }[] = [

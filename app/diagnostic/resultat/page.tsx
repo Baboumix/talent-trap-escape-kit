@@ -83,7 +83,7 @@ export default function ResultatPage() {
       >
         <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
           <span className="w-1 h-1 rounded-full bg-coral" />
-          Ton verdict
+          Ton profil
         </p>
       </header>
 
@@ -91,9 +91,6 @@ export default function ResultatPage() {
         className="max-w-2xl mx-auto w-full text-center animate-fade-up"
         style={{ animationDelay: "150ms" }}
       >
-        <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-500 mb-4">
-          Ton profil
-        </p>
         <h1 className="font-display font-medium text-[52px] sm:text-6xl md:text-[88px] leading-[0.95] tracking-tight mb-5 text-white">
           {verdict.notionName}
         </h1>
