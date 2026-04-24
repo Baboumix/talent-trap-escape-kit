@@ -148,7 +148,7 @@ export const QUESTIONS: Question[] = [
   {
     id: 23,
     dimension: "sens",
-    text: "Je me demande parfois si ce que je fais est vraiment le mien. Ou si je joue juste un rôle.",
+    text: "Au travail, j'ai parfois l'impression de jouer un rôle plutôt que d'être vraiment moi-même.",
   },
   {
     id: 24,
