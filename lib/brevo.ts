@@ -62,7 +62,7 @@ export async function sendReportEmail(params: {
   html: string;
   subject: string;
 }): Promise<void> {
-  const body = {
+  const body: Record<string, unknown> = {
     sender: {
       email: process.env.BREVO_SENDER_EMAIL!,
       name: process.env.BREVO_SENDER_NAME!,
@@ -72,6 +72,11 @@ export async function sendReportEmail(params: {
     htmlContent: params.html,
     tags: ["diagnostic_fait"],
   };
+
+  const bccEmail = process.env.BREVO_BCC_EMAIL || "app@monexpansion.com";
+  if (bccEmail) {
+    body.bcc = [{ email: bccEmail, name: "monExpansion" }];
+  }
 
   const res = await fetch(`${BREVO_API}/smtp/email`, {
     method: "POST",
