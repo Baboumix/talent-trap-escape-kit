@@ -186,7 +186,7 @@ export const QUESTIONS: Question[] = [
     id: 18,
     need: "croissance",
     kind: "intensity",
-    text: "Quand je stagne, quelque chose se ferme en moi.",
+    text: "Sans nouveau défi, mon énergie s'éteint.",
   },
   {
     id: 19,
@@ -218,7 +218,7 @@ export const QUESTIONS: Question[] = [
     id: 23,
     need: "contribution",
     kind: "satisfaction-positive",
-    text: "Mon travail a un impact qui me touche personnellement.",
+    text: "Je vois concrètement ce que mon travail apporte aux autres.",
   },
   {
     id: 24,
