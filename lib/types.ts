@@ -1,15 +1,35 @@
-export type Dimension = "ancrage" | "circulation" | "sens";
+export type Need =
+  | "certitude"
+  | "variete"
+  | "signifiance"
+  | "connexion"
+  | "croissance"
+  | "contribution";
+
+export type QuestionKind =
+  | "intensity"
+  | "satisfaction-positive"
+  | "satisfaction-negative";
 
 export type AnswerValue = 0 | 1 | 2;
 
 export type StatutPro = "salarie" | "freelance" | "patron-manager";
 
 export type VerdictKey =
+  | "ancre"
   | "coince"
+  | "explorateur"
+  | "disperse"
+  | "reconnu"
+  | "egoique"
+  | "connecte"
+  | "loyal"
+  | "expansion"
   | "epuise"
+  | "service"
   | "perdu"
   | "transition"
-  | "expansion";
+  | "suspendu";
 
 export type ModifierKey =
   | "m1"
@@ -25,7 +45,8 @@ export type Lang = "fr" | "en";
 
 export interface Question {
   id: number;
-  dimension: Dimension;
+  need: Need;
+  kind: QuestionKind;
   text: string;
 }
 
@@ -34,15 +55,20 @@ export interface AnswerOption {
   label: string;
 }
 
+export type SatisfactionStatus = "verrouille" | "sous-influence" | "satisfait";
+
+export interface NeedScore {
+  intensity: number;
+  satisfaction: number;
+  status: SatisfactionStatus;
+}
+
+export type NeedScores = Record<Need, NeedScore>;
+
 export interface Verdict {
   key: VerdictKey;
   notionName: string;
-  avatarEnvKey:
-    | "NOTION_AVATAR_COINCE_ID"
-    | "NOTION_AVATAR_EPUISE_ID"
-    | "NOTION_AVATAR_PERDU_ID"
-    | "NOTION_AVATAR_TRANSITION_ID"
-    | "NOTION_AVATAR_EXPANSION_ID";
+  avatarEnvKey: string;
   phrasePunch: string;
   descriptionCourte: string;
   descriptionLongue: string;
@@ -56,17 +82,11 @@ export interface Modifier {
   notionName: string;
   displayName: string;
   paragraph: string;
-  dimension: Dimension;
+  need: Need;
   trigger: (
     answers: Record<number, AnswerValue>,
     statutPro: StatutPro,
   ) => boolean;
-}
-
-export interface Scores {
-  ancrage: number;
-  circulation: number;
-  sens: number;
 }
 
 export interface DiagnosticInput {
@@ -81,7 +101,9 @@ export interface DiagnosticInput {
 }
 
 export interface DiagnosticResult {
-  scores: Scores;
+  needScores: NeedScores;
+  dominantNeeds: Need[];
+  talentScore: number;
   verdict: VerdictKey;
   modifiers: ModifierKey[];
 }

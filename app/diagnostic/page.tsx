@@ -317,6 +317,29 @@ function MilestoneToast({ message }: { message: string }) {
   );
 }
 
+type StatutMeta = {
+  sublabel: string;
+  className: string;
+};
+
+const STATUT_META: Record<StatutPro, StatutMeta> = {
+  salarie: {
+    sublabel: "Tu reçois une fiche de paie.",
+    className:
+      "border-rose-400/20 bg-rose-400/[0.04] hover:border-rose-400/55 hover:bg-rose-400/[0.08]",
+  },
+  freelance: {
+    sublabel: "Tu factures tes clients.",
+    className:
+      "border-amber-400/20 bg-amber-400/[0.04] hover:border-amber-400/55 hover:bg-amber-400/[0.08]",
+  },
+  "patron-manager": {
+    sublabel: "Tu portes une équipe.",
+    className:
+      "border-violet-400/20 bg-violet-400/[0.04] hover:border-violet-400/55 hover:bg-violet-400/[0.08]",
+  },
+};
+
 function StatutStep({ onSelect }: { onSelect: (s: StatutPro) => void }) {
   return (
     <main className="relative min-h-[100svh] flex flex-col justify-between px-6 py-8 overflow-hidden">
@@ -327,11 +350,18 @@ function StatutStep({ onSelect }: { onSelect: (s: StatutPro) => void }) {
         <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-coral/[0.08] blur-[120px]" />
       </div>
 
-      <header className="flex justify-center pt-2">
+      <header className="flex items-center justify-between pt-2">
+        <span className="w-12" aria-hidden="true" />
         <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
           <span className="w-1 h-1 rounded-full bg-coral" />
           Avant de commencer
         </p>
+        <Link
+          href="/"
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+        >
+          Quitter
+        </Link>
       </header>
 
       <section className="flex-1 flex flex-col justify-center items-center text-center max-w-md mx-auto w-full">
@@ -343,37 +373,45 @@ function StatutStep({ onSelect }: { onSelect: (s: StatutPro) => void }) {
         </p>
 
         <div className="flex flex-col gap-3 w-full animate-fade-up">
-          {STATUT_PRO_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              type="button"
-              onClick={() => {
-                playClickTick();
-                onSelect(opt.value);
-              }}
-              className="group w-full px-6 py-5 rounded-2xl border border-white/12 bg-white/[0.03] text-left hover:border-coral/60 hover:bg-coral/[0.06] active:scale-[0.995] transition-all"
-            >
-              <span className="flex items-center justify-between">
-                <span className="font-medium text-base md:text-lg">
-                  {opt.label}
+          {STATUT_PRO_OPTIONS.map((opt) => {
+            const meta = STATUT_META[opt.value];
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => {
+                  playClickTick();
+                  onSelect(opt.value);
+                }}
+                className={`group w-full px-5 py-4 rounded-2xl border text-left active:scale-[0.995] transition-all ${meta.className}`}
+              >
+                <span className="flex items-center gap-4">
+                  <span className="flex-1 min-w-0">
+                    <span className="block font-medium text-base md:text-lg leading-tight">
+                      {opt.label}
+                    </span>
+                    <span className="block text-xs text-neutral-500 mt-0.5">
+                      {meta.sublabel}
+                    </span>
+                  </span>
+                  <svg
+                    className="shrink-0 w-4 h-4 text-neutral-600 group-hover:text-neutral-300 group-hover:translate-x-0.5 transition-all"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 3l5 5-5 5"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </span>
-                <svg
-                  className="w-4 h-4 text-neutral-600 group-hover:text-coral group-hover:translate-x-0.5 transition-all"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 3l5 5-5 5"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </section>
 

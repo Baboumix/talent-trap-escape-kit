@@ -15,7 +15,14 @@ export async function GET() {
   }
 
   const answers: Record<number, AnswerValue> = {};
-  for (let i = 1; i <= 24; i++) answers[i] = 2;
+  for (let i = 1; i <= 24; i++) answers[i] = 0;
+  // Certitude piège (verdict coince), Variete + Connexion sains
+  answers[1] = 2; answers[2] = 2; answers[3] = 0; answers[4] = 2;
+  answers[5] = 2; answers[6] = 1; answers[7] = 2; answers[8] = 0;
+  answers[9] = 1; answers[10] = 1; answers[11] = 1; answers[12] = 1;
+  answers[13] = 2; answers[14] = 1; answers[15] = 2; answers[16] = 0;
+  answers[17] = 1; answers[18] = 1; answers[19] = 1; answers[20] = 1;
+  answers[21] = 1; answers[22] = 1; answers[23] = 1; answers[24] = 1;
   const statutPro: StatutPro = "salarie";
   const result = computeDiagnostic(answers, statutPro);
 

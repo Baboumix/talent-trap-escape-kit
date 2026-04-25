@@ -3,9 +3,21 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { VERDICTS, DIMENSION_LABELS } from "@/lib/content";
+import {
+  NEED_LABELS,
+  NEED_ORDER,
+  NEED_QUESTIONS,
+  STATUS_HOOKS,
+  STATUS_LABELS,
+  VERDICTS,
+} from "@/lib/content";
 import { computeDiagnostic } from "@/lib/scoring";
-import type { AnswerValue, StatutPro } from "@/lib/types";
+import type {
+  AnswerValue,
+  DiagnosticResult,
+  Need,
+  StatutPro,
+} from "@/lib/types";
 
 const STORAGE_KEY = "ptc-diagnostic-v1";
 
@@ -57,16 +69,12 @@ export default function ResultatPage() {
     return computeDiagnostic(stored.answers, stored.statutPro);
   }, [stored]);
 
-  if (!hydrated || !stored || !diagnostic) {
-    return <RevealLoader />;
-  }
-
-  if (!revealed) {
+  if (!hydrated || !stored || !diagnostic || !revealed) {
     return <RevealLoader />;
   }
 
   const verdict = VERDICTS[diagnostic.verdict];
-  const { scores } = diagnostic;
+  const dominantSet = new Set(diagnostic.dominantNeeds);
 
   return (
     <main className="relative min-h-[100svh] flex flex-col px-6 py-10 overflow-hidden">
@@ -91,101 +99,144 @@ export default function ResultatPage() {
         className="max-w-2xl mx-auto w-full text-center animate-fade-up"
         style={{ animationDelay: "150ms" }}
       >
-        <h1 className="font-display font-medium text-[52px] sm:text-6xl md:text-[88px] leading-[0.95] tracking-tight mb-5 text-white">
+        <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-4">
+          Ton talent activé
+        </p>
+        <p className="font-display font-semibold leading-none tracking-tight text-coral text-[120px] sm:text-[160px] md:text-[200px]">
+          {diagnostic.talentScore}
+          <span className="text-neutral-500 font-normal text-[56px] sm:text-[72px] md:text-[88px] align-top ml-2">
+            /10
+          </span>
+        </p>
+        <p className="mt-4 font-display italic font-medium text-lg md:text-xl text-neutral-300">
+          {talentInterpretation(diagnostic.talentScore)}
+        </p>
+      </section>
+
+      <section
+        className="mt-14 max-w-2xl mx-auto w-full text-center animate-fade-up"
+        style={{ animationDelay: "350ms" }}
+      >
+        <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
+          Ton verdict
+        </p>
+        <h2 className="font-display font-medium text-3xl md:text-5xl leading-tight tracking-tight mb-4 text-white">
           {verdict.notionName}
-        </h1>
-        <p className="font-display italic font-medium text-lg md:text-2xl leading-snug text-coral mb-10 max-w-xl mx-auto">
+        </h2>
+        <p className="font-display italic font-medium text-lg md:text-xl leading-snug text-coral mb-8 max-w-xl mx-auto">
           « {verdict.phrasePunch} »
         </p>
         <DescriptionCourte text={verdict.descriptionCourte} />
       </section>
 
       <section
-        className="mt-12 max-w-2xl mx-auto w-full animate-fade-up"
-        style={{ animationDelay: "450ms" }}
+        className="mt-14 max-w-2xl mx-auto w-full animate-fade-up"
+        style={{ animationDelay: "550ms" }}
       >
-        <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-4 text-center">
-          Tes trois dimensions
+        <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-2 text-center">
+          Tes 6 besoins essentiels
+        </p>
+        <p className="text-center text-sm text-neutral-500 italic mb-6">
+          Les 3 prioritaires gouvernent le plus tes décisions aujourd'hui.
         </p>
         <div className="grid grid-cols-1 gap-3">
-          <ScoreBar
-            label={DIMENSION_LABELS.ancrage}
-            value={scores.ancrage}
-            delay={550}
-          />
-          <ScoreBar
-            label={DIMENSION_LABELS.circulation}
-            value={scores.circulation}
-            delay={700}
-          />
-          <ScoreBar
-            label={DIMENSION_LABELS.sens}
-            value={scores.sens}
-            delay={850}
-          />
-        </div>
-      </section>
-
-      <section
-        className="mt-10 max-w-2xl mx-auto w-full animate-fade-up"
-        style={{ animationDelay: "1050ms" }}
-      >
-        <div className="rounded-2xl border border-coral/25 bg-coral/[0.04] p-6 md:p-7">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
-            Ton angle mort
-          </p>
-          <p className="font-display italic font-medium text-xl md:text-2xl leading-snug">
-            « {verdict.angleMort} »
-          </p>
-        </div>
-      </section>
-
-      <section
-        className="mt-14 max-w-md mx-auto w-full text-center animate-fade-up"
-        style={{ animationDelay: "1250ms" }}
-      >
-        <p className="text-neutral-400 text-sm mb-5">
-          Ton rapport complet par email, avec tes 3 prochaines actions à
-          entreprendre dans les 30 jours.
-        </p>
-        <Link
-          href="/diagnostic/infos"
-          className="group flex items-center justify-center w-full py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
-        >
-          Recevoir mes 3 prochaines actions
-          <svg
-            className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
-            viewBox="0 0 16 16"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 3l5 5-5 5"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          {NEED_ORDER.map((n, i) => (
+            <NeedCard
+              key={n}
+              need={n}
+              result={diagnostic}
+              isDominant={dominantSet.has(n)}
+              delay={650 + i * 90}
             />
-          </svg>
-        </Link>
-        <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-neutral-600">
-          Par email · gratuit · aucune carte bancaire
-        </p>
+          ))}
+        </div>
+      </section>
+
+      <section
+        className="mt-14 max-w-2xl mx-auto w-full animate-fade-up"
+        style={{ animationDelay: "1300ms" }}
+      >
+        <div className="rounded-2xl border border-coral/30 bg-coral/[0.05] p-6 md:p-7 text-center">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
+            Le reste t'attend par email
+          </p>
+          <p className="text-neutral-300 leading-relaxed mb-6">
+            Tes <strong className="text-white">angles morts</strong>, le verdict détaillé,
+            et tes <strong className="text-white">3 actions concrètes pour les 30 prochains jours</strong>.
+            Tout est dans le diagnostic complet.
+          </p>
+          <Link
+            href="/diagnostic/infos"
+            className="group inline-flex items-center justify-center px-8 py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
+          >
+            Recevoir mon diagnostic complet
+            <svg
+              className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 3l5 5-5 5"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+          <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-neutral-600">
+            Par email · gratuit · aucune carte bancaire
+          </p>
+        </div>
       </section>
 
       <footer
-        className="mt-16 text-center animate-fade-up"
+        className="mt-16 flex flex-col items-center gap-4 text-center animate-fade-up"
         style={{ animationDelay: "1450ms" }}
       >
+        <button
+          type="button"
+          onClick={() => {
+            try {
+              const raw = localStorage.getItem(STORAGE_KEY);
+              if (raw) {
+                const parsed = JSON.parse(raw) as Stored;
+                const ids = Object.keys(parsed.answers ?? {})
+                  .map(Number)
+                  .sort((a, b) => a - b);
+                const lastId = ids[ids.length - 1];
+                if (lastId !== undefined) {
+                  delete parsed.answers[lastId];
+                  localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+                }
+              }
+            } catch {
+              // ignore
+            }
+            router.push("/diagnostic");
+          }}
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-coral transition-colors"
+        >
+          ← Modifier mes réponses
+        </button>
         <Link
           href="/"
           className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
         >
-          ← Retour à l'accueil
+          Retour à l'accueil
         </Link>
       </footer>
     </main>
   );
+}
+
+function talentInterpretation(score: number): string {
+  if (score <= 2) return "Ton talent est largement bridé.";
+  if (score <= 4) return "Ton talent fuit. Tu le sens.";
+  if (score <= 6) return "Tu actives une partie. Pas le meilleur de toi.";
+  if (score <= 8) return "Ton talent circule. Reste à l'amplifier.";
+  return "Ton talent est déployé. C'est rare.";
 }
 
 function DescriptionCourte({ text }: { text: string }) {
@@ -218,35 +269,63 @@ function renderHighlights(text: string): React.ReactNode[] {
   });
 }
 
-function ScoreBar({
-  label,
-  value,
+function NeedCard({
+  need,
+  result,
+  isDominant,
   delay,
 }: {
-  label: string;
-  value: number;
+  need: Need;
+  result: DiagnosticResult;
+  isDominant: boolean;
   delay: number;
 }) {
-  const [fill, setFill] = useState(0);
-  useEffect(() => {
-    const t = setTimeout(() => setFill((value / 16) * 100), delay);
-    return () => clearTimeout(t);
-  }, [value, delay]);
+  const score = result.needScores[need];
+  const label = NEED_LABELS[need];
+  const question = NEED_QUESTIONS[need];
+  const statusLabel = STATUS_LABELS[score.status];
+  const hook = STATUS_HOOKS[score.status];
+
+  const statusColor =
+    score.status === "verrouille"
+      ? "text-coral border-coral/40 bg-coral/[0.06]"
+      : score.status === "satisfait"
+        ? "text-emerald-300 border-emerald-300/30 bg-emerald-300/[0.04]"
+        : "text-amber-300 border-amber-300/30 bg-amber-300/[0.04]";
+
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
-      <div className="flex items-center justify-between mb-2">
-        <p className="font-display font-semibold text-base">{label}</p>
-        <p className="text-xs text-neutral-500 font-mono">
-          {value}
-          <span className="text-neutral-700">/16</span>
-        </p>
+    <div
+      className={`rounded-xl border p-4 md:p-5 animate-fade-up ${
+        isDominant
+          ? "border-coral/40 bg-coral/[0.04]"
+          : "border-white/10 bg-white/[0.02]"
+      }`}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <div>
+          <p className="font-display font-semibold text-lg leading-tight">
+            {label}
+            {isDominant && (
+              <span className="ml-2 text-[9px] uppercase tracking-[0.18em] text-coral align-middle">
+                · prioritaire
+              </span>
+            )}
+          </p>
+          <p className="text-xs text-neutral-500 italic mt-0.5">{question}</p>
+        </div>
+        <span
+          className={`shrink-0 text-[9px] uppercase tracking-[0.16em] font-semibold px-2 py-1 rounded-full border ${statusColor}`}
+        >
+          {statusLabel}
+        </span>
       </div>
-      <div className="h-2 rounded-full bg-white/[0.06] overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-coral-500 to-coral-400 transition-[width] duration-1000 ease-out"
-          style={{ width: `${fill}%` }}
-        />
-      </div>
+      <p className="text-sm text-neutral-300 leading-relaxed mt-3">{hook}</p>
+      <p className="text-[10px] text-neutral-600 mt-3 tracking-wider">
+        Intensité <span className="text-neutral-400">{score.intensity}/4</span>
+        <span className="mx-2">·</span>
+        Satisfaction <span className="text-neutral-400">{score.satisfaction}/4</span>
+      </p>
     </div>
   );
 }
@@ -266,7 +345,7 @@ function RevealLoader() {
         <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:400ms]" />
       </div>
       <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-400">
-        Ton verdict se compose
+        Ta note se compose
       </p>
     </main>
   );

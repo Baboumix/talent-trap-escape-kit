@@ -22,23 +22,24 @@ export default function EnLanding() {
       <header className="flex justify-center pt-2">
         <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
           <span className="w-1 h-1 rounded-full bg-coral" />
-          Trapped Talent Profile
+          Activate your expansion
         </p>
       </header>
 
       <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
         <h1 className="font-display font-medium text-[56px] sm:text-7xl md:text-[96px] lg:text-[112px] leading-[0.92] tracking-tight mb-8">
-          <span className="block text-white">Your talent carries you.</span>
+          <span className="block text-white">Your talent.</span>
           <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
-            Or does it hold you?
+            Activated?
           </span>
         </h1>
         <p className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-sm mb-6">
-          An English version of the diagnostic is launching soon.
+          A score out of 10. And the 6 essential needs that drive it.
         </p>
         <p className="text-neutral-500 text-sm leading-relaxed max-w-sm">
-          In the meantime, the French version is live and the analysis engine
-          is the same, so if you read French comfortably you can take it now.
+          The English version of the diagnostic is launching soon. In the
+          meantime, the French version is live and the analysis engine is the
+          same, so if you read French comfortably you can take it now.
         </p>
       </section>
 

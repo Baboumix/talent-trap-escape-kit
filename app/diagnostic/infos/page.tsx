@@ -131,8 +131,8 @@ export default function InfosPage() {
           Où j'envoie tes 3 prochaines actions ?
         </h1>
         <p className="text-neutral-400 text-sm md:text-base leading-relaxed">
-          Tu recevras par email ton rapport complet (verdict détaillé, analyse
-          des 3 dimensions, modifiers personnels) et surtout tes 3 actions
+          Tu recevras par email ton diagnostic complet (note /10 détaillée,
+          analyse de tes 6 besoins essentiels, angles morts) et tes 3 actions
           concrètes pour les 30 prochains jours.
         </p>
       </section>

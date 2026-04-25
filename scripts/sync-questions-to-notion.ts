@@ -108,7 +108,7 @@ async function main() {
   for (let i = 0; i < 24; i++) {
     const q = QUESTIONS[i];
     const block = toUpdate[i];
-    console.log(`Q${q.id} [${q.dimension}]: ${q.text.slice(0, 60)}…`);
+    console.log(`Q${q.id} [${q.need}/${q.kind}]: ${q.text.slice(0, 60)}…`);
     await updateNumberedListItem(block.id, q.text);
   }
 
