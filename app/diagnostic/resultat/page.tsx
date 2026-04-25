@@ -7,7 +7,6 @@ import {
   MODIFIERS,
   NEED_LABELS,
   NEED_ORDER,
-  NEED_QUESTIONS,
   STATUS_HOOKS,
   STATUS_LABELS,
   VERDICTS,
@@ -17,6 +16,7 @@ import type {
   AnswerValue,
   DiagnosticResult,
   Need,
+  SatisfactionStatus,
   StatutPro,
 } from "@/lib/types";
 
@@ -75,7 +75,8 @@ export default function ResultatPage() {
   }
 
   const verdict = VERDICTS[diagnostic.verdict];
-  const dominantSet = new Set(diagnostic.dominantNeeds);
+  const topTwo = diagnostic.dominantNeeds.slice(0, 2);
+  const dominantSet = new Set(topTwo);
 
   return (
     <main className="relative min-h-[100svh] flex flex-col px-6 py-10 overflow-hidden">
@@ -92,7 +93,7 @@ export default function ResultatPage() {
       >
         <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
           <span className="w-1 h-1 rounded-full bg-coral" />
-          Ton profil
+          Ton score
         </p>
       </header>
 
@@ -100,9 +101,6 @@ export default function ResultatPage() {
         className="max-w-2xl mx-auto w-full text-center animate-fade-up"
         style={{ animationDelay: "150ms" }}
       >
-        <p className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-4">
-          Ton talent activé
-        </p>
         <p className="font-display font-semibold leading-none tracking-tight text-coral text-[120px] sm:text-[160px] md:text-[200px]">
           {diagnostic.talentScore}
           <span className="text-neutral-500 font-normal text-[56px] sm:text-[72px] md:text-[88px] align-top ml-2">
@@ -134,11 +132,18 @@ export default function ResultatPage() {
         className="mt-14 max-w-2xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "550ms" }}
       >
-        <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-2 text-center">
-          Tes 6 besoins essentiels
+        <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3 text-center">
+          Tes 2 besoins centraux
         </p>
-        <p className="text-center text-sm text-neutral-500 italic mb-6">
-          Les 3 prioritaires gouvernent le plus tes décisions aujourd'hui.
+        <p className="text-center text-base md:text-lg text-neutral-200 leading-relaxed mb-2">
+          {topTwo
+            .map((n) => NEED_LABELS[n])
+            .join(" · ")}
+        </p>
+        <p className="text-center text-sm text-neutral-400 leading-relaxed mb-8 max-w-lg mx-auto">
+          {topTwo
+            .map((n) => statusSentence(n, diagnostic.needScores[n].status))
+            .join(" ")}
         </p>
         <div className="grid grid-cols-1 gap-3">
           {NEED_ORDER.map((n, i) => (
@@ -300,6 +305,13 @@ function renderHighlights(text: string): React.ReactNode[] {
   });
 }
 
+function statusSentence(need: Need, status: SatisfactionStatus): string {
+  const label = NEED_LABELS[need];
+  if (status === "satisfait") return `${label} est nourri sainement.`;
+  if (status === "verrouille") return `${label} est verrouillé par le piège.`;
+  return `${label} est sous influence.`;
+}
+
 function NeedCard({
   need,
   result,
@@ -313,9 +325,9 @@ function NeedCard({
 }) {
   const score = result.needScores[need];
   const label = NEED_LABELS[need];
-  const question = NEED_QUESTIONS[need];
   const statusLabel = STATUS_LABELS[score.status];
   const hook = STATUS_HOOKS[score.status];
+  const isSouffrance = score.status !== "satisfait";
 
   const statusColor =
     score.status === "verrouille"
@@ -324,26 +336,51 @@ function NeedCard({
         ? "text-emerald-300 border-emerald-300/30 bg-emerald-300/[0.04]"
         : "text-amber-300 border-amber-300/30 bg-amber-300/[0.04]";
 
+  if (!isDominant) {
+    // Compact card for non-dominant needs
+    return (
+      <div
+        className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 animate-fade-up"
+        style={{ animationDelay: `${delay}ms` }}
+      >
+        <p className="font-display font-semibold text-base leading-tight">
+          {label}
+        </p>
+        <div className="flex items-center gap-3">
+          <p className="text-[10px] text-neutral-600 tracking-wider hidden sm:block">
+            <span className="text-neutral-400">{score.intensity}/4</span>
+            <span className="mx-1.5 text-neutral-700">·</span>
+            <span className="text-neutral-400">{score.satisfaction}/4</span>
+          </p>
+          <span
+            className={`shrink-0 text-[9px] uppercase tracking-[0.16em] font-semibold px-2 py-1 rounded-full border ${statusColor}`}
+          >
+            {statusLabel}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  // Full card for the 2 dominant needs
   return (
     <div
-      className={`rounded-xl border p-4 md:p-5 animate-fade-up ${
-        isDominant
-          ? "border-coral/40 bg-coral/[0.04]"
-          : "border-white/10 bg-white/[0.02]"
-      }`}
+      className="rounded-xl border border-coral/40 bg-coral/[0.04] p-4 md:p-5 animate-fade-up"
       style={{ animationDelay: `${delay}ms` }}
     >
       <div className="flex items-start justify-between gap-3 mb-2">
-        <div>
+        <div className="flex flex-wrap items-center gap-2">
           <p className="font-display font-semibold text-lg leading-tight">
             {label}
-            {isDominant && (
-              <span className="ml-2 text-[9px] uppercase tracking-[0.18em] text-coral align-middle">
-                · prioritaire
-              </span>
-            )}
           </p>
-          <p className="text-xs text-neutral-500 italic mt-0.5">{question}</p>
+          <span className="text-[9px] uppercase tracking-[0.18em] text-coral font-semibold px-2 py-0.5 rounded-full border border-coral/40 bg-coral/[0.08]">
+            Ton besoin
+          </span>
+          {isSouffrance && (
+            <span className="text-[9px] uppercase tracking-[0.18em] text-rose-300 font-semibold px-2 py-0.5 rounded-full border border-rose-400/40 bg-rose-400/[0.08]">
+              En souffrance
+            </span>
+          )}
         </div>
         <span
           className={`shrink-0 text-[9px] uppercase tracking-[0.16em] font-semibold px-2 py-1 rounded-full border ${statusColor}`}
