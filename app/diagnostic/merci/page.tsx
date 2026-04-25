@@ -151,13 +151,14 @@ export default function MerciPage() {
         className="max-w-md mx-auto w-full text-center mb-10 animate-fade-up"
         style={{ animationDelay: "300ms" }}
       >
-        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl border border-coral/30 bg-coral/[0.05]">
-          <span className="font-display font-semibold text-coral text-2xl leading-none">
-            10%
-          </span>
-          <p className="text-xs text-neutral-300 text-left leading-snug max-w-[240px]">
-            Seuls les meilleurs professionnels prennent le temps de se
-            réajuster en route. Tu en fais partie.
+        <div className="px-5 py-4 rounded-2xl border border-coral/30 bg-coral/[0.05] max-w-sm mx-auto">
+          <p className="text-sm text-neutral-200 leading-relaxed">
+            Seul le{" "}
+            <span className="font-display font-semibold text-coral text-base">
+              top 10 %
+            </span>{" "}
+            des professionnels prennent le temps de se réajuster en route. Tu
+            en fais partie.
           </p>
         </div>
       </section>
