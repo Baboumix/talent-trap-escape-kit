@@ -7,6 +7,7 @@ import {
   STATUS_LABELS,
   VERDICTS,
 } from "./content";
+import { pickCta } from "./cta";
 import type { DiagnosticInput, DiagnosticResult, Need } from "./types";
 
 const BRAND = {
@@ -183,12 +184,7 @@ export function generateReportHtml({
 }): string {
   const verdict = VERDICTS[result.verdict];
   const dominantSet = new Set(result.dominantNeeds);
-  const waitlistUrl =
-    input.lang === "en"
-      ? process.env.WAITLIST_BOOTCAMP_URL_EN ||
-        "https://www.monexpansion.com/en/bootcamp/"
-      : process.env.WAITLIST_BOOTCAMP_URL_FR ||
-        "https://www.monexpansion.com/bootcamp/";
+  const cta = pickCta(result.verdict, input.statutPro, input.lang);
 
   const needsHtml = NEED_ORDER.map((n) =>
     renderNeedRow(n, result, dominantSet.has(n)),
@@ -335,12 +331,12 @@ export function generateReportHtml({
               P.S.
             </p>
             <p style="margin:0 0 16px 0; font-size:15px; line-height:1.65; color:${BRAND.textPrimary};">
-              Le <strong>Bootcamp Expansion</strong> est le programme que j'ai conçu exactement pour les gens dans ta situation. 1 mois, 4 appels hebdomadaires, décisions concrètes. Les inscriptions pour la prochaine cohorte sont sur liste d'attente.
+              ${cta.intro}
             </p>
             <table role="presentation" cellspacing="0" cellpadding="0" border="0">
               <tr><td style="background-color:${BRAND.coral}; border-radius:999px;">
-                <a href="${waitlistUrl}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:600; color:#ffffff; text-decoration:none;">
-                  Rejoindre la waitlist →
+                <a href="${cta.url}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:600; color:#ffffff; text-decoration:none;">
+                  ${cta.buttonLabel}
                 </a>
               </td></tr>
             </table>

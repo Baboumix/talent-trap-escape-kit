@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
+  MODIFIERS,
   NEED_LABELS,
   NEED_ORDER,
   NEED_QUESTIONS,
@@ -154,6 +155,36 @@ export default function ResultatPage() {
 
       <section
         className="mt-14 max-w-2xl mx-auto w-full animate-fade-up"
+        style={{ animationDelay: "1200ms" }}
+      >
+        <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3 text-center">
+          Angles morts détectés
+        </p>
+        {diagnostic.modifiers.length > 0 ? (
+          <>
+            <div className="flex flex-wrap justify-center gap-2 mb-3">
+              {diagnostic.modifiers.map((k) => (
+                <span
+                  key={k}
+                  className="text-xs px-3 py-1.5 rounded-full border border-coral/40 bg-coral/[0.06] text-coral"
+                >
+                  {MODIFIERS[k].displayName}
+                </span>
+              ))}
+            </div>
+            <p className="text-center text-sm text-neutral-500 italic">
+              Le détail de chacun, et ce que ça veut dire pour toi, dans ton email.
+            </p>
+          </>
+        ) : (
+          <p className="text-center text-sm text-neutral-400 leading-relaxed max-w-md mx-auto">
+            Tes réponses ne déclenchent aucun angle mort spécifique. C'est plutôt rare. Le détail dans ton email.
+          </p>
+        )}
+      </section>
+
+      <section
+        className="mt-10 max-w-2xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "1300ms" }}
       >
         <div className="rounded-2xl border border-coral/30 bg-coral/[0.05] p-6 md:p-7 text-center">
@@ -161,7 +192,7 @@ export default function ResultatPage() {
             Le reste t'attend par email
           </p>
           <p className="text-neutral-300 leading-relaxed mb-6">
-            Tes <strong className="text-white">angles morts</strong>, le verdict détaillé,
+            Le verdict détaillé, le décodage de tes angles morts,
             et tes <strong className="text-white">3 actions concrètes pour les 30 prochains jours</strong>.
             Tout est dans le diagnostic complet.
           </p>
