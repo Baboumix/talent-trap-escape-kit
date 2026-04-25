@@ -153,11 +153,11 @@ export default function MerciPage() {
       >
         <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl border border-coral/30 bg-coral/[0.05]">
           <span className="font-display font-semibold text-coral text-2xl leading-none">
-            1/3
+            10%
           </span>
           <p className="text-xs text-neutral-300 text-left leading-snug max-w-[240px]">
-            C'est la proportion qui va jusqu'au bout d'un diagnostic de cette
-            longueur. Tu en fais partie.
+            Seuls les meilleurs professionnels prennent le temps de se
+            réajuster en route. Tu en fais partie.
           </p>
         </div>
       </section>
