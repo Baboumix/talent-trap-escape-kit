@@ -8,7 +8,12 @@ import {
   VERDICTS,
 } from "./content";
 import { pickCta } from "./cta";
-import type { DiagnosticInput, DiagnosticResult, Need } from "./types";
+import type {
+  DiagnosticInput,
+  DiagnosticResult,
+  Need,
+  SatisfactionStatus,
+} from "./types";
 
 const BRAND = {
   coral: "#FE6C63",
@@ -20,30 +25,34 @@ const BRAND = {
   bgPage: "#faf9f8",
   bgCard: "#ffffff",
   bgAccent: "#fff5f3",
+  bgDominant: "#fff7f5",
   bgVerrouille: "#fff0ee",
   bgSatisfait: "#f0f8f3",
   border: "#e5e5e5",
   borderAccent: "#FFD3CE",
+  borderDominant: "#FFB8AE",
+  textSouffrance: "#C72E3F",
+  borderSouffrance: "#F8B4B8",
+  bgSouffrance: "#FEF1F1",
 };
 
-const SOCIAL_LINKS = [
-  { label: "monexpansion.com", url: "https://monexpansion.com" },
-  {
-    label: "YouTube",
-    url: "https://www.youtube.com/channel/UCxQtPK0hRbXC8Rvb_j4OgeA",
-  },
-  {
-    label: "Apple Podcasts",
-    url: "https://podcasts.apple.com/fr/podcast/mon-expansion/id1689127397",
-  },
-  {
-    label: "Spotify",
-    url: "https://open.spotify.com/show/0i55bBSIvvOiwcJiz9PBKC",
-  },
-  { label: "Instagram", url: "https://instagram.com/monexpansion" },
-  { label: "TikTok", url: "https://tiktok.com/@monexpansion.com" },
-  { label: "LinkedIn", url: "https://www.linkedin.com/in/julienklein/" },
-];
+const SOCIAL_BRANDS = {
+  youtube: { bg: "#FEF2F2", border: "#FCA5A5", text: "#C92A2A" },
+  apple: { bg: "#FAF5FF", border: "#C4B5FD", text: "#6D28D9" },
+  spotify: { bg: "#ECFDF5", border: "#86EFAC", text: "#15803D" },
+  instagram: { bg: "#FFF1F2", border: "#FDA4AF", text: "#BE123C" },
+  tiktok: { bg: "#ECFEFF", border: "#67E8F9", text: "#0E7490" },
+  linkedin: { bg: "#EFF6FF", border: "#93C5FD", text: "#1D4ED8" },
+};
+
+const YOUTUBE_URL =
+  "https://www.youtube.com/channel/UCxQtPK0hRbXC8Rvb_j4OgeA";
+const APPLE_PODCAST_URL =
+  "https://podcasts.apple.com/fr/podcast/mon-expansion/id1689127397";
+const SPOTIFY_URL = "https://open.spotify.com/show/0i55bBSIvvOiwcJiz9PBKC";
+const INSTAGRAM_URL = "https://instagram.com/monexpansion";
+const TIKTOK_URL = "https://tiktok.com/@monexpansion.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/julienklein/";
 
 function escapeHtml(s: string): string {
   return s
@@ -79,6 +88,13 @@ function statusColor(status: string): { bg: string; text: string } {
   }
 }
 
+function statusSentenceFr(need: Need, status: SatisfactionStatus): string {
+  const label = NEED_LABELS[need];
+  if (status === "satisfait") return `${label} est nourri sainement.`;
+  if (status === "verrouille") return `${label} est verrouillé par le piège.`;
+  return `${label} est sous influence.`;
+}
+
 function renderNeedRow(
   need: Need,
   result: DiagnosticResult,
@@ -90,21 +106,39 @@ function renderNeedRow(
   const statusLabel = STATUS_LABELS[score.status];
   const hook = STATUS_HOOKS[score.status];
   const colors = statusColor(score.status);
+  const isSouffrance = score.status !== "satisfait";
+
+  const cardBg = isDominant ? BRAND.bgDominant : BRAND.bgCard;
+  const cardBorder = isDominant ? BRAND.borderDominant : BRAND.border;
+
+  const tags = isDominant
+    ? `
+        <span style="display:inline-block; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:${BRAND.coral}; font-weight:700; padding:3px 8px; border:1px solid ${BRAND.borderDominant}; background-color:${BRAND.bgAccent}; border-radius:999px; margin-right:6px;">
+          Ton besoin
+        </span>${
+          isSouffrance
+            ? `<span style="display:inline-block; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:${BRAND.textSouffrance}; font-weight:700; padding:3px 8px; border:1px solid ${BRAND.borderSouffrance}; background-color:${BRAND.bgSouffrance}; border-radius:999px;">
+                En souffrance
+              </span>`
+            : ""
+        }`
+    : "";
 
   return `
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 12px 0;">
-    <tr><td style="background-color:${colors.bg}; border-radius:12px; padding:18px 20px;">
+    <tr><td style="background-color:${cardBg}; border:1px solid ${cardBorder}; border-radius:12px; padding:18px 20px;">
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
         <tr>
           <td style="font-family:Georgia,'Times New Roman',serif; font-size:20px; font-weight:600; color:${BRAND.textPrimary};">
-            ${escapeHtml(label)}${isDominant ? ` <span style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:${BRAND.coral}; font-weight:700; vertical-align:middle;">· prioritaire</span>` : ""}
+            ${escapeHtml(label)}
           </td>
-          <td align="right" style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:${colors.text}; font-weight:700;">
+          <td align="right" style="font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:${colors.text}; font-weight:700; background-color:${colors.bg}; padding:4px 10px; border-radius:999px; white-space:nowrap;">
             ${escapeHtml(statusLabel)}
           </td>
         </tr>
       </table>
-      <p style="margin:6px 0 10px 0; font-size:13px; color:${BRAND.textMuted}; font-style:italic;">
+      ${tags ? `<div style="margin:10px 0 0 0;">${tags}</div>` : ""}
+      <p style="margin:10px 0 10px 0; font-size:13px; color:${BRAND.textMuted}; font-style:italic;">
         ${escapeHtml(question)}
       </p>
       <p style="margin:0 0 12px 0; font-size:14px; line-height:1.55; color:${BRAND.textPrimary};">
@@ -152,12 +186,16 @@ function renderModifierBlock(
     </td></tr>`;
 }
 
-function renderSocialsBlock(): string {
-  const links = SOCIAL_LINKS.map(
-    (s) =>
-      `<a href="${s.url}" style="color:${BRAND.coral}; text-decoration:none; font-weight:600;">${escapeHtml(s.label)}</a>`,
-  ).join(" &nbsp;·&nbsp; ");
+function chip(
+  href: string,
+  label: string,
+  brand: { bg: string; border: string; text: string },
+): string {
+  return `<a href="${href}" style="display:inline-block; font-size:13px; font-weight:600; color:${brand.text}; text-decoration:none; padding:7px 14px; margin:0 6px 6px 0; background-color:${brand.bg}; border:1px solid ${brand.border}; border-radius:999px;">${escapeHtml(label)}</a>`;
+}
 
+function renderSocialsBlock(): string {
+  const yt = SOCIAL_BRANDS.youtube;
   return `
     <tr><td style="padding:32px 32px 0 32px;">
       <div style="height:1px; background-color:${BRAND.border};"></div>
@@ -166,12 +204,63 @@ function renderSocialsBlock(): string {
       <p style="margin:0 0 12px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
         Reste connecté
       </p>
-      <p style="margin:0 0 14px 0; font-size:15px; line-height:1.65; color:${BRAND.textPrimary};">
-        Si ce diagnostic t'a touché, voici où retrouver le reste du travail. Le site, le podcast, et les réseaux où je publie chaque semaine.
+      <p style="margin:0 0 20px 0; font-size:15px; line-height:1.65; color:${BRAND.textPrimary};">
+        Si ce diagnostic t'a touché, voici où retrouver le reste du travail. Le podcast, les vidéos, les réseaux où je publie chaque semaine.
       </p>
-      <p style="margin:0; font-size:14px; line-height:1.9; color:${BRAND.textPrimary};">
-        ${links}
-      </p>
+
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 12px 0;">
+        <tr><td style="background-color:${yt.bg}; border:1px solid ${yt.border}; border-radius:14px; padding:18px 20px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td style="vertical-align:top;">
+                <p style="margin:0 0 4px 0; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:${yt.text}; font-weight:700;">
+                  1 · Le plus utile
+                </p>
+                <p style="margin:0 0 4px 0; font-family:Georgia,'Times New Roman',serif; font-size:18px; font-weight:600; color:${BRAND.textPrimary};">
+                  Abonne-toi sur YouTube
+                </p>
+                <p style="margin:0 0 12px 0; font-size:13px; color:${BRAND.textMuted};">
+                  Une vidéo par semaine sur les pièges du talent senior.
+                </p>
+                <a href="${YOUTUBE_URL}" style="display:inline-block; font-size:13px; font-weight:600; color:#ffffff; text-decoration:none; padding:9px 18px; background-color:${yt.text}; border-radius:999px;">
+                  Voir la chaîne →
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+      </table>
+
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 12px 0;">
+        <tr><td style="background-color:${BRAND.bgCard}; border:1px solid ${BRAND.border}; border-radius:14px; padding:16px 20px;">
+          <p style="margin:0 0 6px 0; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:${BRAND.textMuted}; font-weight:700;">
+            2 · Pour tes trajets
+          </p>
+          <p style="margin:0 0 12px 0; font-family:Georgia,'Times New Roman',serif; font-size:16px; font-weight:600; color:${BRAND.textPrimary};">
+            Écoute le podcast monExpansion
+          </p>
+          <div>
+            ${chip(APPLE_PODCAST_URL, "Apple Podcasts", SOCIAL_BRANDS.apple)}
+            ${chip(SPOTIFY_URL, "Spotify", SOCIAL_BRANDS.spotify)}
+          </div>
+        </td></tr>
+      </table>
+
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 8px 0;">
+        <tr><td style="background-color:${BRAND.bgCard}; border:1px solid ${BRAND.border}; border-radius:14px; padding:16px 20px;">
+          <p style="margin:0 0 6px 0; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:${BRAND.textMuted}; font-weight:700;">
+            3 · Pour rester proche
+          </p>
+          <p style="margin:0 0 12px 0; font-family:Georgia,'Times New Roman',serif; font-size:16px; font-weight:600; color:${BRAND.textPrimary};">
+            Suis monExpansion sur tes réseaux
+          </p>
+          <div>
+            ${chip(INSTAGRAM_URL, "Instagram", SOCIAL_BRANDS.instagram)}
+            ${chip(TIKTOK_URL, "TikTok", SOCIAL_BRANDS.tiktok)}
+            ${chip(LINKEDIN_URL, "LinkedIn", SOCIAL_BRANDS.linkedin)}
+          </div>
+        </td></tr>
+      </table>
     </td></tr>`;
 }
 
@@ -183,12 +272,23 @@ export function generateReportHtml({
   result: DiagnosticResult;
 }): string {
   const verdict = VERDICTS[result.verdict];
-  const dominantSet = new Set(result.dominantNeeds);
+  const topTwo = result.dominantNeeds.slice(0, 2);
+  const dominantSet = new Set(topTwo);
   const cta = pickCta(result.verdict, input.statutPro, input.lang);
 
-  const needsHtml = NEED_ORDER.map((n) =>
-    renderNeedRow(n, result, dominantSet.has(n)),
-  ).join("");
+  const dominantNames = topTwo.map((n) => NEED_LABELS[n]).join(" · ");
+  const dominantSentences = topTwo
+    .map((n) => statusSentenceFr(n, result.needScores[n].status))
+    .join(" ");
+
+  // Order: 2 dominants first, then the 4 others in NEED_ORDER
+  const orderedNeeds: Need[] = [
+    ...topTwo,
+    ...NEED_ORDER.filter((n) => !dominantSet.has(n)),
+  ];
+  const needsHtml = orderedNeeds
+    .map((n) => renderNeedRow(n, result, dominantSet.has(n)))
+    .join("");
 
   return `<!doctype html>
 <html lang="${input.lang}">
@@ -232,12 +332,18 @@ export function generateReportHtml({
 
         <tr><td style="padding:32px 32px 0 32px;">
           <p style="margin:0 0 8px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
-            Tes 6 besoins essentiels
+            Tes 2 besoins centraux
           </p>
-          <p style="margin:0 0 20px 0; font-size:15px; line-height:1.55; color:${BRAND.textMuted}; font-style:italic;">
-            Les 3 prioritaires sont ceux qui gouvernent le plus tes décisions aujourd'hui. Quand un besoin prioritaire n'est pas nourri sainement, ton talent fuit.
+          <p style="margin:0 0 4px 0; font-family:Georgia,'Times New Roman',serif; font-size:22px; font-weight:600; color:${BRAND.textPrimary};">
+            ${escapeHtml(dominantNames)}
+          </p>
+          <p style="margin:0 0 24px 0; font-size:15px; line-height:1.6; color:${BRAND.textSecondary};">
+            ${escapeHtml(dominantSentences)} Ce sont eux qui gouvernent le plus tes décisions aujourd'hui. Quand un besoin central n'est pas nourri sainement, ton talent fuit.
           </p>
           ${needsHtml}
+          <p style="margin:6px 0 0 0; font-size:13px; color:${BRAND.textMuted}; font-style:italic; text-align:center;">
+            Les 4 autres besoins sont en arrière-plan. Tu les retrouves ci-dessus pour avoir le tableau complet.
+          </p>
         </td></tr>
 
         <tr><td style="padding:24px 32px 0 32px;">
