@@ -227,9 +227,19 @@ export default function ResultatPage() {
         </div>
       </section>
 
+      <section
+        className="mt-12 max-w-2xl mx-auto w-full animate-fade-up"
+        style={{ animationDelay: "1400ms" }}
+      >
+        <ShareBlock
+          verdictName={verdict.notionName}
+          talentScore={diagnostic.talentScore}
+        />
+      </section>
+
       <footer
-        className="mt-16 flex flex-col items-center gap-4 text-center animate-fade-up"
-        style={{ animationDelay: "1450ms" }}
+        className="mt-12 flex flex-col items-center gap-4 text-center animate-fade-up"
+        style={{ animationDelay: "1500ms" }}
       >
         <button
           type="button"
@@ -394,6 +404,73 @@ function NeedCard({
         <span className="mx-2">·</span>
         Satisfaction <span className="text-neutral-400">{score.satisfaction}/4</span>
       </p>
+    </div>
+  );
+}
+
+function ShareBlock({
+  verdictName,
+  talentScore,
+}: {
+  verdictName: string;
+  talentScore: number;
+}) {
+  const [copied, setCopied] = useState(false);
+  const shareUrl = "https://kit.monexpansion.com";
+  const shareText = `Je viens de découvrir : je suis un ${verdictName}. Note ${talentScore}/10 sur "à quel point j'utilise mon talent". Et toi ?`;
+
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    shareText,
+  )}&url=${encodeURIComponent(`${shareUrl}?utm_source=share&utm_medium=twitter`)}`;
+  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+    `${shareUrl}?utm_source=share&utm_medium=linkedin`,
+  )}`;
+
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `${shareText} ${shareUrl}?utm_source=share&utm_medium=copy`,
+      );
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore
+    }
+  };
+
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-7 text-center">
+      <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
+        Partage ton verdict
+      </p>
+      <p className="text-neutral-300 text-sm leading-relaxed mb-5 max-w-md mx-auto">
+        Quelqu'un dans ton entourage devrait faire ce test ? Envoie-le-lui.
+      </p>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <a
+          href={twitterUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+        >
+          X / Twitter
+        </a>
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+        >
+          LinkedIn
+        </a>
+        <button
+          type="button"
+          onClick={onCopy}
+          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+        >
+          {copied ? "Lien copié !" : "Copier le lien"}
+        </button>
+      </div>
     </div>
   );
 }

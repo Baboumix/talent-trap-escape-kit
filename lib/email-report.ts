@@ -13,7 +13,21 @@ import type {
   DiagnosticResult,
   Need,
   SatisfactionStatus,
+  VerdictKey,
 } from "./types";
+
+function withUtm(url: string, content: string, verdict: VerdictKey): string {
+  if (!/^https?:\/\//.test(url)) return url;
+  if (/[?&]utm_/.test(url)) return url;
+  const sep = url.includes("?") ? "&" : "?";
+  const params = new URLSearchParams({
+    utm_source: "email_diagnostic",
+    utm_medium: "email",
+    utm_campaign: `ptc_${verdict}`,
+    utm_content: content,
+  });
+  return `${url}${sep}${params.toString()}`;
+}
 
 const BRAND = {
   coral: "#FE6C63",
@@ -190,12 +204,16 @@ function chip(
   href: string,
   label: string,
   brand: { bg: string; border: string; text: string },
+  verdict: VerdictKey,
+  utmContent: string,
 ): string {
-  return `<a href="${href}" style="display:inline-block; font-size:13px; font-weight:600; color:${brand.text}; text-decoration:none; padding:7px 14px; margin:0 6px 6px 0; background-color:${brand.bg}; border:1px solid ${brand.border}; border-radius:999px;">${escapeHtml(label)}</a>`;
+  const tracked = withUtm(href, utmContent, verdict);
+  return `<a href="${tracked}" style="display:inline-block; font-size:13px; font-weight:600; color:${brand.text}; text-decoration:none; padding:7px 14px; margin:0 6px 6px 0; background-color:${brand.bg}; border:1px solid ${brand.border}; border-radius:999px;">${escapeHtml(label)}</a>`;
 }
 
-function renderSocialsBlock(): string {
+function renderSocialsBlock(verdict: VerdictKey): string {
   const yt = SOCIAL_BRANDS.youtube;
+  const youtubeTracked = withUtm(YOUTUBE_URL, "social_youtube", verdict);
   return `
     <tr><td style="padding:32px 32px 0 32px;">
       <div style="height:1px; background-color:${BRAND.border};"></div>
@@ -222,7 +240,7 @@ function renderSocialsBlock(): string {
                 <p style="margin:0 0 12px 0; font-size:13px; color:${BRAND.textMuted};">
                   Une vidéo par semaine sur les pièges du talent senior.
                 </p>
-                <a href="${YOUTUBE_URL}" style="display:inline-block; font-size:13px; font-weight:600; color:#ffffff; text-decoration:none; padding:9px 18px; background-color:${yt.text}; border-radius:999px;">
+                <a href="${youtubeTracked}" style="display:inline-block; font-size:13px; font-weight:600; color:#ffffff; text-decoration:none; padding:9px 18px; background-color:${yt.text}; border-radius:999px;">
                   Voir la chaîne →
                 </a>
               </td>
@@ -240,8 +258,8 @@ function renderSocialsBlock(): string {
             Écoute le podcast monExpansion
           </p>
           <div>
-            ${chip(APPLE_PODCAST_URL, "Apple Podcasts", SOCIAL_BRANDS.apple)}
-            ${chip(SPOTIFY_URL, "Spotify", SOCIAL_BRANDS.spotify)}
+            ${chip(APPLE_PODCAST_URL, "Apple Podcasts", SOCIAL_BRANDS.apple, verdict, "social_apple")}
+            ${chip(SPOTIFY_URL, "Spotify", SOCIAL_BRANDS.spotify, verdict, "social_spotify")}
           </div>
         </td></tr>
       </table>
@@ -255,9 +273,9 @@ function renderSocialsBlock(): string {
             Suis monExpansion sur tes réseaux
           </p>
           <div>
-            ${chip(INSTAGRAM_URL, "Instagram", SOCIAL_BRANDS.instagram)}
-            ${chip(TIKTOK_URL, "TikTok", SOCIAL_BRANDS.tiktok)}
-            ${chip(LINKEDIN_URL, "LinkedIn", SOCIAL_BRANDS.linkedin)}
+            ${chip(INSTAGRAM_URL, "Instagram", SOCIAL_BRANDS.instagram, verdict, "social_instagram")}
+            ${chip(TIKTOK_URL, "TikTok", SOCIAL_BRANDS.tiktok, verdict, "social_tiktok")}
+            ${chip(LINKEDIN_URL, "LinkedIn", SOCIAL_BRANDS.linkedin, verdict, "social_linkedin")}
           </div>
         </td></tr>
       </table>
@@ -429,7 +447,7 @@ export function generateReportHtml({
           </p>
         </td></tr>
 
-        ${renderSocialsBlock()}
+        ${renderSocialsBlock(result.verdict)}
 
         <tr><td style="padding:24px 32px 40px 32px;">
           <div style="background-color:${BRAND.bgAccent}; border-radius:14px; padding:20px 24px;">
@@ -441,7 +459,7 @@ export function generateReportHtml({
             </p>
             <table role="presentation" cellspacing="0" cellpadding="0" border="0">
               <tr><td style="background-color:${BRAND.coral}; border-radius:999px;">
-                <a href="${cta.url}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:600; color:#ffffff; text-decoration:none;">
+                <a href="${withUtm(cta.url, `cta_${cta.product}`, result.verdict)}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:600; color:#ffffff; text-decoration:none;">
                   ${cta.buttonLabel}
                 </a>
               </td></tr>

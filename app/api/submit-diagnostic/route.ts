@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { VERDICTS } from "@/lib/content";
 import { createDiagnosticPage } from "@/lib/notion";
 import { sendReportEmail, upsertContact } from "@/lib/brevo";
+import { pickEmailSubject } from "@/lib/cta";
 import { generateReportHtml } from "@/lib/email-report";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { computeDiagnostic } from "@/lib/scoring";
@@ -110,12 +110,11 @@ export async function POST(req: NextRequest) {
   // Send report email (blocking: this is the main deliverable)
   try {
     const html = generateReportHtml({ input, result });
-    const verdictName = VERDICTS[result.verdict].notionName;
     await sendReportEmail({
       to: data.email,
       prenom: data.prenom,
       html,
-      subject: `${data.prenom}, ton verdict : ${verdictName}`,
+      subject: pickEmailSubject(result.verdict, data.prenom),
     });
   } catch (e) {
     console.error("Brevo send failed:", e);
