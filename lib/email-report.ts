@@ -7,7 +7,7 @@ import {
   STATUS_LABELS,
   VERDICTS,
 } from "./content";
-import { pickCta } from "./cta";
+import { getSoftCallCta, pickCta } from "./cta";
 import type {
   DiagnosticInput,
   DiagnosticResult,
@@ -293,6 +293,10 @@ export function generateReportHtml({
   const topTwo = result.dominantNeeds.slice(0, 2);
   const dominantSet = new Set(topTwo);
   const cta = pickCta(result.verdict, input.statutPro, input.lang);
+  const softCall = getSoftCallCta(result.verdict, input.lang);
+  const softCallUrlTracked = softCall
+    ? withUtm(softCall.url, "soft_call_tidycal", result.verdict)
+    : "";
 
   const dominantNames = topTwo.map((n) => NEED_LABELS[n]).join(" · ");
   const dominantSentences = topTwo
@@ -449,7 +453,7 @@ export function generateReportHtml({
 
         ${renderSocialsBlock(result.verdict)}
 
-        <tr><td style="padding:24px 32px 40px 32px;">
+        <tr><td style="padding:24px 32px ${softCall ? "12" : "40"}px 32px;">
           <div style="background-color:${BRAND.bgAccent}; border-radius:14px; padding:20px 24px;">
             <p style="margin:0 0 12px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
               P.S.
@@ -466,6 +470,22 @@ export function generateReportHtml({
             </table>
           </div>
         </td></tr>
+
+        ${
+          softCall
+            ? `
+        <tr><td style="padding:0 32px 40px 32px;">
+          <div style="border:1px solid ${BRAND.border}; border-radius:14px; padding:18px 24px; text-align:center;">
+            <p style="margin:0 0 14px 0; font-size:14px; line-height:1.6; color:${BRAND.textSecondary};">
+              ${escapeHtml(softCall.intro)}
+            </p>
+            <a href="${softCallUrlTracked}" style="display:inline-block; padding:10px 20px; font-size:13px; font-weight:600; color:${BRAND.coral}; text-decoration:none; border:1px solid ${BRAND.coral}; border-radius:999px;">
+              ${escapeHtml(softCall.buttonLabel)}
+            </a>
+          </div>
+        </td></tr>`
+            : ""
+        }
 
       </table>
       <p style="margin:16px 0 0 0; font-size:11px; color:${BRAND.textMuted}; text-align:center;">

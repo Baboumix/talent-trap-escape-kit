@@ -84,6 +84,38 @@ const COPY: Record<ProductKey, { intro: string; buttonLabel: string }> = {
 };
 
 /**
+ * Verdicts where the primary CTA pushes Bootcamp (a commitment-heavy product).
+ * For these, we offer a softer alternative: book a 15-min discovery call.
+ * Skipped for verdicts whose primary CTA is already TidyCal (coaching/b2b).
+ */
+const BOOTCAMP_PRIMARY_VERDICTS: VerdictKey[] = [
+  "coince",
+  "disperse",
+  "egoique",
+  "epuise",
+  "transition",
+  "suspendu",
+  "explorateur",
+];
+
+export function getSoftCallCta(
+  verdict: VerdictKey,
+  lang: Lang,
+): { url: string; intro: string; buttonLabel: string } | null {
+  if (!BOOTCAMP_PRIMARY_VERDICTS.includes(verdict)) return null;
+  const url =
+    lang === "fr"
+      ? "https://tidycal.com/julienklein/decouverte"
+      : "https://tidycal.com/julienklein/discovery";
+  return {
+    url,
+    intro:
+      "Tu préfères en parler avant de t'engager ? Réserve 15 min avec moi, sans engagement.",
+    buttonLabel: "Réserver un appel découverte →",
+  };
+}
+
+/**
  * Picks the right product CTA per verdict.
  * Some verdicts depend on statutPro (loyal -> coaching only if patron-manager;
  * expansion -> b2b only if patron-manager).
