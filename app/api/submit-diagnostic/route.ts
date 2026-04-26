@@ -51,8 +51,23 @@ export async function POST(req: NextRequest) {
 
   const parsed = submitSchema.safeParse(body);
   if (!parsed.success) {
+    const fieldErrors = parsed.error.flatten().fieldErrors;
+    console.error("Submit validation failed:", JSON.stringify(fieldErrors));
+    const fieldMessages: Record<string, string> = {
+      email: "Vérifie ton email, on n'arrive pas à le lire.",
+      prenom: "Ton prénom semble vide ou trop long.",
+      metier: "Ton métier doit faire entre 1 et 200 caractères.",
+      answers: "Tes réponses sont incomplètes. Reviens en arrière et réessaie.",
+      statutPro: "Statut professionnel manquant. Reviens en arrière.",
+    };
+    const failedField = (Object.keys(fieldErrors)[0] ?? "") as
+      | keyof typeof fieldMessages
+      | "";
+    const message =
+      (failedField && fieldMessages[failedField]) ||
+      "On n'arrive pas à lire tes infos. Vérifie ton prénom, ton email et ton métier.";
     return NextResponse.json(
-      { error: "Invalid payload" },
+      { error: message, field: failedField || undefined },
       { status: 400 },
     );
   }
