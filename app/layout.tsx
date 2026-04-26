@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Fraunces, DM_Sans } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
+
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-PHQMQHQK";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -30,6 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${fraunces.variable} ${dmSans.variable}`}>
+      <GoogleTagManager gtmId={GTM_ID} />
       <body className="font-sans bg-ink text-white antialiased">{children}</body>
     </html>
   );
