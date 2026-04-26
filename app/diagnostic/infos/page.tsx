@@ -53,10 +53,13 @@ export default function InfosPage() {
     setLoading(true);
     setError(null);
 
-    const durationSec = Math.max(
-      0,
-      Math.floor(
-        (Date.now() - new Date(stored.startedAt).getTime()) / 1000,
+    const durationSec = Math.min(
+      86400,
+      Math.max(
+        0,
+        Math.floor(
+          (Date.now() - new Date(stored.startedAt).getTime()) / 1000,
+        ),
       ),
     );
 

@@ -20,7 +20,7 @@ const submitSchema = z.object({
   email: z.string().trim().email().max(254),
   metier: z.string().trim().min(1).max(200),
   lang: z.enum(["fr", "en"]).default("fr"),
-  durationSec: z.number().int().min(0).max(7200),
+  durationSec: z.number().int().min(0).max(86400),
   source: z.string().max(500).optional(),
   website: z.string().max(0).optional().default(""),
 });
