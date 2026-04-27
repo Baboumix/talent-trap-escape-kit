@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import type { AnswerValue, StatutPro } from "@/lib/types";
+import { analytics, diagnosticTimer } from "@/lib/analytics";
+import type { AnswerValue, StatutPro, VerdictKey } from "@/lib/types";
 
 const STORAGE_KEY = "ptc-diagnostic-v1";
 
@@ -82,7 +83,11 @@ export default function InfosPage() {
           website, // honeypot
         }),
       });
-      const data = await res.json().catch(() => ({}));
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        verdict?: VerdictKey;
+        error?: string;
+      };
       if (!res.ok) {
         setError(
           data?.error || "Oups, on a eu un souci. Réessaie dans 30 secondes.",
@@ -90,7 +95,13 @@ export default function InfosPage() {
         setLoading(false);
         return;
       }
-      // Success: clear localStorage and go to merci
+      // Success: fire email_captured GA4 event with the verdict from backend.
+      // Only after backend confirms the save, never on validation errors.
+      if (data.verdict) {
+        analytics.emailCaptured(data.verdict, "inline_form");
+      }
+      diagnosticTimer.clear();
+      // Clear localStorage and go to merci
       try {
         localStorage.removeItem(STORAGE_KEY);
       } catch {

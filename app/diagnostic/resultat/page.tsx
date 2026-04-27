@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { analytics, diagnosticTimer } from "@/lib/analytics";
 import {
   MODIFIERS,
   NEED_LABELS,
@@ -18,6 +19,7 @@ import type {
   Need,
   SatisfactionStatus,
   StatutPro,
+  VerdictKey,
 } from "@/lib/types";
 
 const STORAGE_KEY = "ptc-diagnostic-v1";
@@ -69,6 +71,14 @@ export default function ResultatPage() {
     if (!stored || !stored.statutPro) return null;
     return computeDiagnostic(stored.answers, stored.statutPro);
   }, [stored]);
+
+  // Fire diagnostic_completed once when verdict is ready.
+  // Don't clear the timer here: we still need it for email_captured duration.
+  useEffect(() => {
+    if (!diagnostic) return;
+    const duration = diagnosticTimer.durationSeconds();
+    analytics.diagnosticCompleted(diagnostic.verdict, duration);
+  }, [diagnostic]);
 
   if (!hydrated || !stored || !diagnostic || !revealed) {
     return <RevealLoader />;
@@ -232,6 +242,7 @@ export default function ResultatPage() {
         style={{ animationDelay: "1400ms" }}
       >
         <ShareBlock
+          verdictKey={diagnostic.verdict}
           verdictName={verdict.notionName}
           talentScore={diagnostic.talentScore}
         />
@@ -409,9 +420,11 @@ function NeedCard({
 }
 
 function ShareBlock({
+  verdictKey,
   verdictName,
   talentScore,
 }: {
+  verdictKey: VerdictKey;
   verdictName: string;
   talentScore: number;
 }) {
@@ -427,6 +440,7 @@ function ShareBlock({
   )}`;
 
   const onCopy = async () => {
+    analytics.shareClicked("copy_link", verdictKey);
     try {
       await navigator.clipboard.writeText(
         `${shareText} ${shareUrl}?utm_source=share&utm_medium=copy`,
@@ -451,6 +465,7 @@ function ShareBlock({
           href={twitterUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => analytics.shareClicked("twitter", verdictKey)}
           className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
         >
           X / Twitter
@@ -459,6 +474,7 @@ function ShareBlock({
           href={linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => analytics.shareClicked("linkedin", verdictKey)}
           className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
         >
           LinkedIn

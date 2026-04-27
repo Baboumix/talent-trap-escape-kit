@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { LangSwitch } from "@/components/LangSwitch";
+import { StartDiagnosticCta } from "@/components/StartDiagnosticCta";
 
 export default function LandingPage() {
   return (
@@ -32,8 +32,8 @@ export default function LandingPage() {
       </section>
 
       <footer className="w-full max-w-md mx-auto">
-        <Link
-          href="/diagnostic"
+        <StartDiagnosticCta
+          source="landing_hero_cta"
           className="group flex items-center justify-center w-full py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
         >
           Démarrer le diagnostic
@@ -51,7 +51,7 @@ export default function LandingPage() {
               strokeLinejoin="round"
             />
           </svg>
-        </Link>
+        </StartDiagnosticCta>
 
         <div className="mt-5 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
           <span>24 questions</span>

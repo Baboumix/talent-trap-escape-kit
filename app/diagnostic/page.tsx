@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { analytics } from "@/lib/analytics";
 import { STATUT_PRO_OPTIONS } from "@/lib/content";
 import { playClickTick } from "@/lib/feedback";
 import { interleavedQuestions } from "@/lib/scoring";
@@ -187,6 +188,7 @@ export default function DiagnosticPage() {
     setFadeKey((k) => k + 1);
 
     const count = Object.keys(next).length;
+    analytics.diagnosticQuestionAnswered(count, 24);
 
     if (count >= 24) {
       const stored: Stored = {
