@@ -20,10 +20,41 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+const SITE_URL = "https://kit.monexpansion.com";
+
 export const metadata: Metadata = {
-  title: "Profil du Talent Coincé · monExpansion",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Profil du Talent Coincé · monExpansion",
+    template: "%s · monExpansion",
+  },
   description:
-    "Un diagnostic gratuit en 5 minutes pour voir ton angle mort et sortir du piège.",
+    "Un diagnostic gratuit en 5 minutes. Une note sur 10. Et les 6 besoins qui la pilotent.",
+  alternates: {
+    canonical: "/",
+    languages: {
+      fr: "/",
+      en: "/en",
+    },
+  },
+  openGraph: {
+    title: "Profil du Talent Coincé · monExpansion",
+    description:
+      "Ton talent activé ? Une note sur 10. Et les 6 besoins qui la pilotent.",
+    url: SITE_URL,
+    siteName: "monExpansion",
+    locale: "fr_FR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Profil du Talent Coincé · monExpansion",
+    description: "Une note sur 10. Et les 6 besoins qui la pilotent.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { LangSwitch } from "@/components/LangSwitch";
 import { StartDiagnosticCta } from "@/components/StartDiagnosticCta";
 
@@ -69,6 +70,21 @@ export default function LandingPage() {
 
         <p className="mt-6 text-[11px] text-neutral-600 text-center tracking-wide">
           monexpansion.com
+        </p>
+        <p className="mt-2 text-[10px] text-neutral-700 text-center tracking-wide">
+          <Link
+            href="/mentions-legales"
+            className="hover:text-neutral-500 transition-colors"
+          >
+            Mentions légales
+          </Link>
+          <span className="mx-2">·</span>
+          <Link
+            href="/confidentialite"
+            className="hover:text-neutral-500 transition-colors"
+          >
+            Confidentialité
+          </Link>
         </p>
       </footer>
     </main>

@@ -29,7 +29,7 @@ export function pickEmailSubject(
   return `${prenom}, ${hook}`;
 }
 
-export type ProductKey = "bootcamp" | "coaching" | "b2b" | "newsletter";
+export type ProductKey = "bootcamp" | "coaching";
 
 export interface EmailCta {
   product: ProductKey;
@@ -51,12 +51,6 @@ function urls(lang: Lang) {
         "https://tidycal.com/julienklein/decouverte"
       : process.env.COACHING_URL_EN ||
         "https://tidycal.com/julienklein/discovery",
-    b2b: fr
-      ? process.env.B2B_URL_FR ||
-        "https://tidycal.com/julienklein/decouverte"
-      : process.env.B2B_URL_EN ||
-        "https://tidycal.com/julienklein/discovery",
-    newsletter: "https://monexpansion.com",
   };
 }
 
@@ -70,16 +64,6 @@ const COPY: Record<ProductKey, { intro: string; buttonLabel: string }> = {
     intro:
       "Pour ton profil, c'est un <strong>coaching premium 1:1</strong> qui aurait le plus d'impact. Cadre individuel, travail en profondeur, sur 3 mois. Réservation d'un appel découverte gratuit.",
     buttonLabel: "Réserver un appel →",
-  },
-  b2b: {
-    intro:
-      "Si tu encadres une équipe ou un studio créatif, <strong>ExpansionStudio</strong> travaille sur la culture et la rétention de tes talents. Appel d'exploration B2B sans engagement.",
-    buttonLabel: "Demander un appel B2B →",
-  },
-  newsletter: {
-    intro:
-      "Tu n'as pas besoin d'un programme. Garde le contact avec <strong>monExpansion</strong> : podcast, vidéos, newsletter avec des cas concrets. Le contenu suffit pour beaucoup.",
-    buttonLabel: "Voir monExpansion →",
   },
 };
 
@@ -95,7 +79,6 @@ const BOOTCAMP_PRIMARY_VERDICTS: VerdictKey[] = [
   "epuise",
   "transition",
   "suspendu",
-  "explorateur",
 ];
 
 export function getSoftCallCta(
@@ -116,19 +99,22 @@ export function getSoftCallCta(
 }
 
 /**
- * Picks the right product CTA per verdict.
- * Some verdicts depend on statutPro (loyal -> coaching only if patron-manager;
- * expansion -> b2b only if patron-manager).
+ * Picks the product CTA per verdict, or null for healthy verdicts that don't
+ * push a product (Ancré, Connecté, Au Service, Expansion, Explorateur).
+ *
+ * For those, the email keeps the "Reste connecté" social block as the only
+ * CTA. No P.S. push, no soft CTA: the lead stays in the monExpansion orbit
+ * via YouTube / podcast / social, without commercial pressure.
  */
 export function pickCta(
   verdict: VerdictKey,
   statutPro: StatutPro,
   lang: Lang,
-): EmailCta {
+): EmailCta | null {
   const u = urls(lang);
   const isLeader = statutPro === "patron-manager";
 
-  let product: ProductKey;
+  let product: ProductKey | null;
   switch (verdict) {
     case "coince":
     case "disperse":
@@ -136,7 +122,6 @@ export function pickCta(
     case "epuise":
     case "transition":
     case "suspendu":
-    case "explorateur":
       product = "bootcamp";
       break;
     case "perdu":
@@ -146,16 +131,19 @@ export function pickCta(
     case "loyal":
       product = isLeader ? "coaching" : "bootcamp";
       break;
-    case "expansion":
-      product = isLeader ? "b2b" : "newsletter";
-      break;
+    // Healthy verdicts: no P.S. push. The "Reste connecté" social block
+    // (YouTube hero + podcast + socials) is the engagement path.
     case "ancre":
     case "connecte":
     case "service":
+    case "expansion":
+    case "explorateur":
     default:
-      product = "newsletter";
+      product = null;
       break;
   }
+
+  if (product === null) return null;
 
   const url = u[product];
   const copy = COPY[product];

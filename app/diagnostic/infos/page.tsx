@@ -236,15 +236,40 @@ export default function InfosPage() {
         <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-600 text-center mt-2">
           Pas de spam · désinscription en 1 clic
         </p>
+        <p className="text-[10px] text-neutral-700 text-center mt-1 leading-relaxed">
+          En soumettant, tu acceptes notre{" "}
+          <Link
+            href="/confidentialite"
+            className="text-coral/80 hover:text-coral underline"
+          >
+            politique de confidentialité
+          </Link>
+          .
+        </p>
       </form>
 
-      <footer className="mt-auto pt-10 text-center">
+      <footer className="mt-auto pt-10 text-center flex flex-col gap-3 items-center">
         <Link
           href="/diagnostic/resultat"
           className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
         >
           ← Revoir mon verdict
         </Link>
+        <p className="text-[10px] text-neutral-700 tracking-wide">
+          <Link
+            href="/mentions-legales"
+            className="hover:text-neutral-500 transition-colors"
+          >
+            Mentions légales
+          </Link>
+          <span className="mx-2">·</span>
+          <Link
+            href="/confidentialite"
+            className="hover:text-neutral-500 transition-colors"
+          >
+            Confidentialité
+          </Link>
+        </p>
       </footer>
     </main>
   );

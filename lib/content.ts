@@ -245,7 +245,8 @@ Ce qui te guette, ce n'est pas l'effondrement. C'est l'inverse, la zone trop con
 
 La question pour toi n'est pas de savoir si tu es solide. Tu l'es. La question est, qu'est-ce que tu fais de cette solidité ?`,
     angleMort: "Ton ancrage est ton plus grand atout. À condition qu'il reste un choix.",
-    ctaNote: "Pas de produit prioritaire. Invitation aux contenus monExpansion.",
+    ctaNote:
+      "Pas de P.S. produit. Le bloc 'Reste connecté' (YouTube / Podcast / Réseaux) est l'unique CTA.",
     actions30Days: [
       "Prends une décision dans les 30 jours qui demande de désancrer un peu. Pas un saut, juste un pas.",
       "Identifie une routine qui te sert et une qui te limite. Garde la première, questionne la seconde.",
@@ -297,7 +298,8 @@ Ce qui te guette, c'est de te lasser trop vite quand un projet entre dans sa pha
 La question pour toi, que veux-tu approfondir, parmi tout ce que tu as exploré ?`,
     angleMort:
       "Tu sais explorer. La vraie maîtrise viendra de ce que tu décideras d'approfondir.",
-    ctaNote: "Bootcamp Expansion ou contenus monExpansion.",
+    ctaNote:
+      "Pas de P.S. produit. Le bloc 'Reste connecté' (YouTube / Podcast / Réseaux) est l'unique CTA.",
     actions30Days: [
       "Choisis un projet en cours et engage-toi à le finir, même si tu as déjà envie de passer au suivant.",
       "Identifie le sujet où tu pourrais devenir une référence si tu acceptais d'y rester 12 mois. Note-le.",
@@ -393,7 +395,8 @@ Ce qui te guette, c'est de tellement valoriser le lien que tu pourrais accepter 
 
 La question pour toi, parmi tes liens actuels, lesquels te font vraiment grandir ?`,
     angleMort: "La fidélité est une vertu. La fidélité aveugle est un piège.",
-    ctaNote: "Pas de produit prioritaire. Invitation aux contenus monExpansion.",
+    ctaNote:
+      "Pas de P.S. produit. Le bloc 'Reste connecté' (YouTube / Podcast / Réseaux) est l'unique CTA.",
     actions30Days: [
       "Identifie une relation devenue obligation. Décide ce que tu en fais, nourrir, transformer ou laisser partir.",
       "Crée un moment cette semaine pour une connexion vraie avec quelqu'un que tu vois trop peu.",
@@ -446,7 +449,7 @@ Sinon, garde ce diagnostic comme un repère. Les états changent. Si dans 6 mois
     angleMort:
       "L'expansion demande autant de travail à maintenir qu'elle en a demandé à construire.",
     ctaNote:
-      "Proposition d'appel B2B ExpansionStudio si patron-manager créatif. Sinon, contenus monExpansion.",
+      "Pas de P.S. produit. Le bloc 'Reste connecté' (YouTube / Podcast / Réseaux) est l'unique CTA.",
     actions30Days: [
       "Regarde ce qui est fragile dans ton alignement actuel. Pas pour le fixer tout de suite, juste pour le nommer avant qu'il ne craque.",
       "Si quelqu'un dans ton équipe ou ton entourage était dans un piège, qu'est-ce que tu voudrais lui dire ? Tu es peut-être la personne à qui il va parler.",
@@ -496,7 +499,8 @@ Ce qui te guette, c'est de te laisser aspirer par la cause au point d'oublier ce
 
 La question pour toi, ta cause te nourrit-elle autant que tu la nourris ?`,
     angleMort: "Servir vraiment demande aussi de se servir soi-même.",
-    ctaNote: "Pas de produit prioritaire. Invitation aux contenus monExpansion.",
+    ctaNote:
+      "Pas de P.S. produit. Le bloc 'Reste connecté' (YouTube / Podcast / Réseaux) est l'unique CTA.",
     actions30Days: [
       "Identifie ce qui te nourrit, indépendamment de ta cause. Programme une chose dans la semaine qui ne sert qu'à toi.",
       "Vérifie, ta cause te demande-t-elle plus que ce qu'elle te rend ? Si oui, ajuste avant que tu sois vidé.",

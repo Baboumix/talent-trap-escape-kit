@@ -297,6 +297,9 @@ export function generateReportHtml({
   const softCallUrlTracked = softCall
     ? withUtm(softCall.url, "soft_call_tidycal", result.verdict)
     : "";
+  const ctaUrlTracked = cta
+    ? withUtm(cta.url, `cta_${cta.product}`, result.verdict)
+    : "";
 
   const dominantNames = topTwo.map((n) => NEED_LABELS[n]).join(" · ");
   const dominantSentences = topTwo
@@ -453,6 +456,9 @@ export function generateReportHtml({
 
         ${renderSocialsBlock(result.verdict)}
 
+        ${
+          cta
+            ? `
         <tr><td style="padding:24px 32px ${softCall ? "12" : "40"}px 32px;">
           <div style="background-color:${BRAND.bgAccent}; border-radius:14px; padding:20px 24px;">
             <p style="margin:0 0 12px 0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:${BRAND.coral}; font-weight:600;">
@@ -463,13 +469,15 @@ export function generateReportHtml({
             </p>
             <table role="presentation" cellspacing="0" cellpadding="0" border="0">
               <tr><td style="background-color:${BRAND.coral}; border-radius:999px;">
-                <a href="${withUtm(cta.url, `cta_${cta.product}`, result.verdict)}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:600; color:#ffffff; text-decoration:none;">
+                <a href="${ctaUrlTracked}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:600; color:#ffffff; text-decoration:none;">
                   ${cta.buttonLabel}
                 </a>
               </td></tr>
             </table>
           </div>
-        </td></tr>
+        </td></tr>`
+            : ""
+        }
 
         ${
           softCall
