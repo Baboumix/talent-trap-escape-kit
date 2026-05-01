@@ -6,14 +6,9 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
-  const [robotoBold, robotoRegular] = await Promise.all([
-    fetch(new URL("../og-fonts/Roboto-Bold.ttf", import.meta.url)).then(
-      (res) => res.arrayBuffer(),
-    ),
-    fetch(new URL("../og-fonts/Roboto-Regular.ttf", import.meta.url)).then(
-      (res) => res.arrayBuffer(),
-    ),
-  ]);
+  const robotoBold = await fetch(
+    new URL("../og-fonts/Roboto-Bold.ttf", import.meta.url),
+  ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
@@ -81,7 +76,7 @@ export default async function Image() {
             color: "#cfcfcf",
             textAlign: "center",
             maxWidth: "820px",
-            fontWeight: 400,
+            fontWeight: 700,
           }}
         >
           A score out of 10. And the 6 essential needs that drive it.
@@ -108,12 +103,6 @@ export default async function Image() {
           data: robotoBold,
           style: "normal",
           weight: 700,
-        },
-        {
-          name: "Roboto",
-          data: robotoRegular,
-          style: "normal",
-          weight: 400,
         },
       ],
     },
