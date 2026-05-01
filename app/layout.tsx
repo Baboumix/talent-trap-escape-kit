@@ -25,7 +25,7 @@ const SITE_URL = "https://kit.monexpansion.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Profil du Talent Coincé · monExpansion",
+    default: "Test du Talent · monExpansion",
     template: "%s · monExpansion",
   },
   description:
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Profil du Talent Coincé · monExpansion",
+    title: "Test du Talent · monExpansion",
     description:
       "Ton talent activé ? Une note sur 10. Et les 6 besoins qui la pilotent.",
     url: SITE_URL,
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Profil du Talent Coincé · monExpansion",
+    title: "Test du Talent · monExpansion",
     description: "Une note sur 10. Et les 6 besoins qui la pilotent.",
   },
   robots: {

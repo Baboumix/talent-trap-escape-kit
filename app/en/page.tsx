@@ -2,9 +2,9 @@ import Link from "next/link";
 import { LangSwitch } from "@/components/LangSwitch";
 
 export const metadata = {
-  title: "Trapped Talent Profile · monExpansion",
+  title: "Talent Test · monExpansion",
   description:
-    "A free 5-minute diagnostic that names what's been holding your talent back. English version coming soon.",
+    "A free 5-minute diagnostic. A score out of 10. And the 6 essential needs that drive it. English version coming soon.",
 };
 
 export default function EnLanding() {
