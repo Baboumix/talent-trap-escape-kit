@@ -147,7 +147,8 @@ export default function InfosPage() {
         <p className="text-neutral-500 text-sm md:text-base leading-relaxed">
           Tu recevras par email ton diagnostic complet (note /10 détaillée,
           analyse de tes 6 besoins essentiels, angles morts) et tes 3 actions
-          concrètes pour les 30 prochains jours.
+          concrètes pour les 30 prochains jours.{" "}
+          <strong className="text-ink">Avec un PDF à garder</strong>.
         </p>
       </section>
 

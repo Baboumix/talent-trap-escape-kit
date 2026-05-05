@@ -4,21 +4,20 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { LangSwitch } from "@/components/LangSwitch";
+import { computeZone, getSourceFromQuery } from "@/lib/sources";
 import {
-  SOURCES,
-  ZONE_DOORS,
-  ZONE_LABELS,
-  computeZone,
-  getSourceFromQuery,
-} from "@/lib/sources";
+  SOURCES_EN,
+  ZONE_DOORS_EN,
+  ZONE_LABELS_EN,
+} from "@/lib/sources.en";
 import type { LightAnswers, QuadrantZone, SourceKey } from "@/lib/types";
 
 const STORAGE_KEY_LIGHT = "ptc-light-v1";
 
-export default function LightResultatPageWrapper() {
+export default function LightResultPageWrapperEn() {
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <LightResultatPage />
+      <LightResultPageEn />
     </Suspense>
   );
 }
@@ -27,13 +26,13 @@ function LoadingFallback() {
   return (
     <main className="min-h-[100svh] flex items-center justify-center">
       <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-        Chargement…
+        Loading…
       </p>
     </main>
   );
 }
 
-function LightResultatPage() {
+function LightResultPageEn() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [hydrated, setHydrated] = useState(false);
@@ -45,20 +44,20 @@ function LightResultatPage() {
       const raw = localStorage.getItem(STORAGE_KEY_LIGHT);
       if (!raw) {
         const querySource = getSourceFromQuery(searchParams.get("source"));
-        router.replace(`/light?source=${querySource}`);
+        router.replace(`/en/light?source=${querySource}`);
         return;
       }
       const parsed = JSON.parse(raw) as LightAnswers;
       if (typeof parsed.q0 !== "number" || typeof parsed.q0b !== "number") {
         const querySource = getSourceFromQuery(searchParams.get("source"));
-        router.replace(`/light?source=${querySource}`);
+        router.replace(`/en/light?source=${querySource}`);
         return;
       }
       setAnswers(parsed);
       setHydrated(true);
     } catch {
       const querySource = getSourceFromQuery(searchParams.get("source"));
-      router.replace(`/light?source=${querySource}`);
+      router.replace(`/en/light?source=${querySource}`);
     }
   }, [router, searchParams]);
 
@@ -71,7 +70,7 @@ function LightResultatPage() {
   const result = useMemo(() => {
     if (!answers) return null;
     const zone = computeZone(answers.source, answers.q0, answers.q0b);
-    const config = SOURCES[answers.source];
+    const config = SOURCES_EN[answers.source];
     return { zone, config };
   }, [answers]);
 
@@ -82,7 +81,7 @@ function LightResultatPage() {
   return (
     <main className="relative min-h-[100svh] flex flex-col px-6 py-8 overflow-hidden">
       <LangSwitch
-        current="fr"
+        current="en"
         frHref={`/light/resultat?source=${answers.source}`}
         enHref={`/en/light/resultat?source=${answers.source}`}
       />
@@ -100,27 +99,25 @@ function LightResultatPage() {
       >
         <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/40 rounded-full bg-coral/[0.08]">
           <span className="w-1 h-1 rounded-full bg-coral" />
-          Résultat préliminaire
+          Preliminary result
         </p>
       </header>
 
-      {/* Score préliminaire visible */}
       <section
         className="max-w-xl mx-auto w-full text-center animate-fade-up"
         style={{ animationDelay: "150ms" }}
       >
         <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 mb-3">
-          Tu es probablement dans la zone
+          You are probably in the
         </p>
         <h1 className="font-display font-semibold leading-[1.0] tracking-tight text-[58px] sm:text-[88px] md:text-[112px] bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent pb-2">
-          {ZONE_LABELS[result.zone]}
+          {ZONE_LABELS_EN[result.zone]}
         </h1>
         <p className="mt-4 text-[10px] uppercase tracking-[0.2em] text-neutral-500">
-          Porte recommandée · {ZONE_DOORS[result.zone]}
+          Recommended door · {ZONE_DOORS_EN[result.zone]}
         </p>
       </section>
 
-      {/* Quadrant visualization */}
       <section
         className="mt-12 max-w-md mx-auto w-full animate-fade-up"
         style={{ animationDelay: "300ms" }}
@@ -128,47 +125,45 @@ function LightResultatPage() {
         <Quadrant zone={result.zone} />
       </section>
 
-      {/* Insight phrase */}
       <section
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "450ms" }}
       >
         <p className="font-display italic font-medium text-lg md:text-xl text-center text-ink leading-relaxed">
-          « {result.config.insightByZone[result.zone]} »
+          “{result.config.insightByZone[result.zone]}”
         </p>
       </section>
 
-      {/* Locked tease */}
       <section
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "600ms" }}
       >
         <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-4 text-center">
-          Voici ce que tu n'as pas encore vu
+          Here is what you haven't seen yet
         </p>
         <div className="flex flex-col gap-2">
-          <LockedRow label="Ton angle mort principal" />
-          <LockedRow label="Tes 3 actions concrètes pour les 30 prochains jours" />
-          <LockedRow label="Les réponses détaillées à tes 4 vraies questions" />
+          <LockedRow label="Your main blind spot" />
+          <LockedRow label="Your 3 concrete actions for the next 30 days" />
+          <LockedRow label="The detailed answers to your 4 real questions" />
         </div>
       </section>
 
-      {/* Main CTA */}
       <section
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "750ms" }}
       >
         <div className="rounded-2xl border border-coral/30 bg-coral/[0.06] p-6 md:p-7 text-center shadow-sm">
           <p className="text-neutral-700 text-sm leading-relaxed mb-5">
-            Le diagnostic complet te donne <strong className="text-ink">tout</strong>,
-            avec un <strong className="text-ink">PDF à garder</strong>. 5 minutes
-            de plus, par email, gratuit.
+            The full diagnostic gives you{" "}
+            <strong className="text-ink">everything</strong>, with a{" "}
+            <strong className="text-ink">PDF to keep</strong>. 5 more minutes,
+            by email, free. (Full diagnostic in French for now.)
           </p>
           <Link
             href={`/diagnostic?source=${answers.source}`}
             className="group inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/30 active:scale-[0.99] transition-transform"
           >
-            Débloquer mon diagnostic PDF
+            Unlock my PDF diagnostic
             <svg
               className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
               viewBox="0 0 16 16"
@@ -185,12 +180,11 @@ function LightResultatPage() {
             </svg>
           </Link>
           <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
-            Par email · gratuit · aucune carte bancaire
+            By email · free · no credit card
           </p>
         </div>
       </section>
 
-      {/* Share block */}
       <section
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "900ms" }}
@@ -203,16 +197,16 @@ function LightResultatPage() {
         style={{ animationDelay: "1050ms" }}
       >
         <Link
-          href="/"
+          href="/en"
           className="text-[10px] uppercase tracking-[0.2em] text-coral hover:text-coral-400 transition-colors"
         >
-          ← Essayer un autre test rapide
+          ← Try another quick test
         </Link>
         <Link
-          href={`/light?source=${answers.source}`}
+          href={`/en/light?source=${answers.source}`}
           className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 hover:text-ink transition-colors"
         >
-          Refaire ce test
+          Retake this test
         </Link>
       </footer>
     </main>
@@ -241,7 +235,6 @@ function LockedRow({ label }: { label: string }) {
   );
 }
 
-// Couleurs par zone : vert (sain), amber (mid), coral (critique)
 const ZONE_COLOR_CLASSES: Record<
   QuadrantZone,
   { active: string; idle: string }
@@ -269,36 +262,31 @@ const ZONE_COLOR_CLASSES: Record<
 };
 
 function Quadrant({ zone }: { zone: QuadrantZone }) {
-  // Grid order : top-left, top-right, bottom-left, bottom-right
-  // X axis : Truqué (left) → Loyal (right)
-  // Y axis : Exprimé (top) → Bridé (bottom)
   const cells: QuadrantZone[] = [
-    "depart-imminent", // top-left = Truqué + Exprimé
-    "pleine-expansion", // top-right = Loyal + Exprimé
-    "urgence-absolue", // bottom-left = Truqué + Bridé
-    "reveil-possible", // bottom-right = Loyal + Bridé
+    "depart-imminent",
+    "pleine-expansion",
+    "urgence-absolue",
+    "reveil-possible",
   ];
   return (
     <div className="relative w-full">
       <div className="flex justify-between mb-2 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
-        <span>Terrain Truqué</span>
-        <span>Terrain Loyal</span>
+        <span>Rigged Field</span>
+        <span>Loyal Field</span>
       </div>
       <div className="flex">
-        {/* Y axis label (left) */}
         <div className="flex flex-col justify-between pr-3 py-2 text-[10px] uppercase tracking-[0.18em] text-neutral-500 text-right">
           <span>
             Talent
             <br />
-            Exprimé
+            Expressed
           </span>
           <span>
             Talent
             <br />
-            Bridé
+            Held back
           </span>
         </div>
-        {/* The grid */}
         <div className="grid grid-cols-2 gap-2 flex-1">
           {cells.map((key) => {
             const isActive = key === zone;
@@ -311,7 +299,7 @@ function Quadrant({ zone }: { zone: QuadrantZone }) {
                 }`}
               >
                 <p className="text-xs font-semibold leading-tight">
-                  {ZONE_LABELS[key]}
+                  {ZONE_LABELS_EN[key]}
                 </p>
               </div>
             );
@@ -333,7 +321,7 @@ function ShareBlock(_props: { zone: QuadrantZone; source: SourceKey }) {
         📸
       </span>
       <p className="text-sm text-neutral-600 leading-relaxed max-w-xs">
-        Une capture d'écran suffit pour le partager à quelqu'un.
+        A screenshot is enough to share it with someone.
       </p>
       <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-neutral-400">
         talent.monexpansion.com
@@ -357,7 +345,7 @@ function RevealLoader() {
         <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:400ms]" />
       </div>
       <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500">
-        Calcul en cours
+        Calculating
       </p>
     </main>
   );

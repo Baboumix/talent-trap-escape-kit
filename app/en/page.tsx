@@ -1,15 +1,15 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { LangSwitch } from "@/components/LangSwitch";
+import type { SourceKey } from "@/lib/types";
 
-export const metadata = {
-  title: "Talent Test · monExpansion",
-  description:
-    "4 quick tests. 1 minute each. No email. See where you stand. (Tests run in French for now.)",
-};
+const STORAGE_KEY_LIGHT_DONE = "ptc-light-completed-sources-v1";
 
 const MENU = [
   {
-    key: "talent",
+    key: "talent" as SourceKey,
     name: "The Talent Test",
     question: "Are you really using your capacities at work?",
     value: "See in 1 minute if your talent flows or leaks.",
@@ -20,7 +20,7 @@ const MENU = [
     },
   },
   {
-    key: "keeper",
+    key: "keeper" as SourceKey,
     name: "The Keeper Test",
     question: "Would your boss fight to keep you?",
     value: "Discover the real place you hold for your boss.",
@@ -31,7 +31,7 @@ const MENU = [
     },
   },
   {
-    key: "fraud",
+    key: "fraud" as SourceKey,
     name: "The Fraud Test",
     question: "How much do you feel like a fraud in your role?",
     value: "Measure your imposter syndrome and what it hides.",
@@ -42,7 +42,7 @@ const MENU = [
     },
   },
   {
-    key: "ai",
+    key: "ai" as SourceKey,
     name: "The Replacement Test",
     question: "Will your job be replaced by AI within 24 months?",
     value: "Estimate your AI risk against objective data.",
@@ -55,6 +55,20 @@ const MENU = [
 ];
 
 export default function EnLanding() {
+  const [doneSources, setDoneSources] = useState<SourceKey[]>([]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY_LIGHT_DONE);
+      if (raw) {
+        const list = JSON.parse(raw) as SourceKey[];
+        if (Array.isArray(list)) setDoneSources(list);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
   return (
     <main className="relative min-h-[100svh] flex flex-col px-6 py-8 overflow-hidden">
       <LangSwitch current="en" />
@@ -79,52 +93,76 @@ export default function EnLanding() {
         </p>
         <p className="text-neutral-600 text-sm md:text-base leading-relaxed max-w-md mx-auto">
           4 quick tests. 1 minute each. No email. You see where you stand
-          immediately. (Tests run in French for now.)
+          immediately.
         </p>
       </section>
 
       <section className="flex flex-col gap-3 max-w-xl mx-auto w-full">
-        {MENU.map((m, i) => (
-          <Link
-            key={m.key}
-            href={`/light?source=${m.key}`}
-            className={`group block rounded-2xl border p-5 transition-all active:scale-[0.995] animate-fade-up ${m.theme.border} ${m.theme.bg}`}
-            style={{ animationDelay: `${150 + i * 80}ms` }}
-          >
-            <div className="flex items-start justify-between gap-3 mb-1">
-              <p
-                className={`text-[10px] uppercase tracking-[0.2em] font-semibold ${m.theme.accent}`}
-              >
-                {m.name}
-              </p>
-            </div>
-            <p className="font-display font-medium text-lg md:text-xl leading-snug text-ink mb-2">
-              {m.question}
-            </p>
-            <p className="text-sm text-neutral-600 leading-relaxed mb-3">
-              {m.value}
-            </p>
-            <p
-              className={`inline-flex items-center text-sm font-semibold ${m.theme.accent}`}
+        {MENU.map((m, i) => {
+          const done = doneSources.includes(m.key);
+          return (
+            <Link
+              key={m.key}
+              href={`/en/light?source=${m.key}`}
+              className={`group block rounded-2xl border p-5 transition-all active:scale-[0.995] animate-fade-up ${m.theme.border} ${m.theme.bg}`}
+              style={{ animationDelay: `${150 + i * 80}ms` }}
             >
-              Take the test
-              <svg
-                className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-0.5"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
+              <div className="flex items-start justify-between gap-3 mb-1">
+                <p
+                  className={`text-[10px] uppercase tracking-[0.2em] font-semibold ${m.theme.accent}`}
+                >
+                  {m.name}
+                </p>
+                {done && (
+                  <span
+                    className={`shrink-0 inline-flex items-center gap-1 text-[9px] uppercase tracking-[0.16em] font-semibold px-2 py-0.5 rounded-full bg-white/70 ${m.theme.accent}`}
+                  >
+                    <svg
+                      viewBox="0 0 16 16"
+                      className="w-3 h-3"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M3 8l3.5 3.5L13 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    Done
+                  </span>
+                )}
+              </div>
+              <p className="font-display font-medium text-lg md:text-xl leading-snug text-ink mb-2">
+                {m.question}
+              </p>
+              <p className="text-sm text-neutral-600 leading-relaxed mb-3">
+                {m.value}
+              </p>
+              <p
+                className={`inline-flex items-center text-sm font-semibold ${m.theme.accent}`}
               >
-                <path
-                  d="M6 3l5 5-5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </p>
-          </Link>
-        ))}
+                {done ? "See my result" : "Take the test"}
+                <svg
+                  className="ml-1 w-4 h-4 transition-transform group-hover:translate-x-0.5"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 3l5 5-5 5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </p>
+            </Link>
+          );
+        })}
       </section>
 
       <section
@@ -133,14 +171,15 @@ export default function EnLanding() {
       >
         <div className="rounded-2xl border border-line bg-surface shadow-sm p-5 text-center">
           <p className="text-sm text-neutral-700 leading-relaxed mb-4">
-            Want <strong className="text-ink">all 4 answers</strong> and a full
-            diagnostic by email?
+            Want <strong className="text-ink">all 4 answers</strong>, a full
+            diagnostic and a <strong className="text-ink">PDF</strong> by email?
+            (Full diagnostic in French for now.)
           </p>
           <Link
             href="/diagnostic"
             className="group inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-lg shadow-coral/30 active:scale-[0.99] transition-transform"
           >
-            Full diagnostic · 5 minutes
+            PDF diagnostic · 5 minutes
             <svg
               className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
               viewBox="0 0 16 16"

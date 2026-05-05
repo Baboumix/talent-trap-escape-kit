@@ -209,13 +209,13 @@ export default function ResultatPage() {
           <p className="text-neutral-400 leading-relaxed mb-6">
             Le verdict détaillé, le décodage de tes angles morts,
             et tes <strong className="text-ink">3 actions concrètes pour les 30 prochains jours</strong>.
-            Tout est dans le diagnostic complet.
+            Le tout par email, avec un <strong className="text-ink">PDF à garder</strong>.
           </p>
           <Link
             href="/diagnostic/infos"
             className="group inline-flex items-center justify-center px-8 py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
           >
-            Recevoir mon diagnostic complet
+            Recevoir mon diagnostic PDF
             <svg
               className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
               viewBox="0 0 16 16"

@@ -141,15 +141,16 @@ export default function LandingPage() {
       >
         <div className="rounded-2xl border border-line bg-surface shadow-sm p-5 text-center">
           <p className="text-sm text-neutral-700 leading-relaxed mb-4">
-            Tu veux <strong className="text-ink">les 4 réponses</strong> et un
-            diagnostic complet par email ?
+            Tu veux <strong className="text-ink">les 4 réponses</strong>, un
+            diagnostic complet et un <strong className="text-ink">PDF</strong>
+            {" "}par email ?
           </p>
           <Link
             href="/diagnostic"
             onClick={onDiagnosticClick}
             className="group inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-lg shadow-coral/30 active:scale-[0.99] transition-transform"
           >
-            Diagnostic complet · 5 minutes
+            Diagnostic PDF · 5 minutes
             <svg
               className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-0.5"
               viewBox="0 0 16 16"
