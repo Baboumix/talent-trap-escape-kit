@@ -4,6 +4,7 @@ import { createDiagnosticPage } from "@/lib/notion";
 import { sendReportEmail, upsertContact } from "@/lib/brevo";
 import { pickEmailSubject } from "@/lib/cta";
 import { generateReportHtml } from "@/lib/email-report";
+import { generateReportPdfBuffer } from "@/lib/pdf-report";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { computeDiagnostic } from "@/lib/scoring";
 import type { AnswerValue, StatutPro } from "@/lib/types";
@@ -122,6 +123,25 @@ export async function POST(req: NextRequest) {
     console.error("Brevo upsert failed:", contactRes.reason);
   }
 
+  // Generate PDF (best-effort: if it fails, we still send the HTML email).
+  let pdfBase64: string | null = null;
+  let pdfFilename = "diagnostic.pdf";
+  try {
+    const pdfBuffer = await generateReportPdfBuffer(input, result);
+    pdfBase64 = pdfBuffer.toString("base64");
+    const safePrenom = (data.prenom || "diagnostic")
+      .normalize("NFKD")
+      .replace(/[̀-ͯ]/g, "") // strip combining diacritics
+      .replace(/[^a-zA-Z0-9_-]+/g, "_")
+      .slice(0, 40) || "diagnostic";
+    pdfFilename =
+      data.lang === "en"
+        ? `talent-diagnostic-${safePrenom}.pdf`
+        : `diagnostic-talent-${safePrenom}.pdf`;
+  } catch (e) {
+    console.error("PDF generation failed:", e);
+  }
+
   // Send report email (blocking: this is the main deliverable)
   try {
     const html = generateReportHtml({ input, result });
@@ -130,6 +150,9 @@ export async function POST(req: NextRequest) {
       prenom: data.prenom,
       html,
       subject: pickEmailSubject(result.verdict, data.prenom),
+      attachments: pdfBase64
+        ? [{ name: pdfFilename, content: pdfBase64 }]
+        : undefined,
     });
   } catch (e) {
     console.error("Brevo send failed:", e);

@@ -61,6 +61,7 @@ export async function sendReportEmail(params: {
   prenom: string;
   html: string;
   subject: string;
+  attachments?: { name: string; content: string }[]; // content = base64
 }): Promise<void> {
   const body: Record<string, unknown> = {
     sender: {
@@ -72,6 +73,10 @@ export async function sendReportEmail(params: {
     htmlContent: params.html,
     tags: ["diagnostic_fait"],
   };
+
+  if (params.attachments && params.attachments.length > 0) {
+    body.attachment = params.attachments;
+  }
 
   const bccEmail = process.env.BREVO_BCC_EMAIL || "app@monexpansion.com";
   if (bccEmail) {
