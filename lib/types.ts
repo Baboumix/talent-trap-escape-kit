@@ -43,6 +43,21 @@ export type ModifierKey =
 
 export type Lang = "fr" | "en";
 
+export type SourceKey = "keeper" | "fraud" | "ai" | "talent";
+
+export type QuadrantZone =
+  | "pleine-expansion"
+  | "depart-imminent"
+  | "reveil-possible"
+  | "urgence-absolue";
+
+export interface LightAnswers {
+  source: SourceKey;
+  q0: number; // slider 1-10
+  q0b: number; // slider 1-10
+  q0c: number; // slider 1-10 (urgency)
+}
+
 export interface Question {
   id: number;
   need: Need;

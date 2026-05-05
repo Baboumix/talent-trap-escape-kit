@@ -180,7 +180,7 @@ Le tier est posé en attribut Brevo `LEAD_TIER` au moment de l'upsert.
 
 Comparé à la spec originale (4 tests séparés, ~70 pieces de texte, 4 builds) : **charge divisée par 5** pour un funnel équivalent en valeur.
 
-## Décisions verrouillées
+## Décisions stratégiques verrouillées
 
 - ✅ 1 test unifié, 4 portes d'entrée
 - ✅ Landings sur monexpansion.com/[slug] (pas sous-domaines)
@@ -189,7 +189,77 @@ Comparé à la spec originale (4 tests séparés, ~70 pieces de texte, 4 builds)
 - ✅ Live mensuel reporté (URL pas encore disponible)
 - ✅ Sains : pas de P.S. produit, juste bloc "Reste connecté"
 - ✅ TidyCal en CTA Coaching + soft sur Bootcamp-primary
+- ✅ **Test light gratuit en entrée + diagnostic complet sur email gate**
+- ✅ **Mobile-first design**
 
-## À trancher avant de coder P1 (voir conversation Claude Code en cours)
+## Architecture en 2 niveaux
 
-Voir section dédiée dans la conversation. Les points en suspens incluent : reformulation Robbins, position email gate, calcul exact archétypes, calcul Terrain Loyal/Truqué.
+### Niveau 1 : Test light (gratuit, no email, ~1 min)
+
+3 questions sliders 1-10 mobile-friendly :
+- **Q0** : signature selon `?source=` (la question urgente du prospect)
+- **Q0b** : miroir signature selon `?source=`
+- **Q0c** : urgency ("À quel point ça doit changer dans les 6 prochains mois ?")
+
+**Page résultat light** :
+- Zone du quadrant Talent × Terrain (calculée depuis Q0 + Q0b)
+- Score préliminaire visible (ex. "Tu as répondu 3/10 au Keeper")
+- 1 phrase de valeur immédiate ("Voici ce qui te bloque probablement : [phrase courte]")
+- 3 verrous tease :
+  - 🔒 Ton angle mort principal
+  - 🔒 Tes 3 actions concrètes 30 jours
+  - 🔒 Les 4 réponses à tes vraies questions
+- CTA principal : "Débloque ton diagnostic complet (5 min, par email) →"
+- Bouton secondaire : "Partage ton score" (X / LinkedIn / copy link)
+
+### Niveau 2 : Test avancé (avec email, ~5 min)
+
+- Email gate enrichi (Prénom, Email, Métier, Statut pro, Industrie, Rôle)
+- 22 questions Robbins (reformulées leader, 6-8 changées)
+- 3 questions IA objectives (toujours posées pour calculer AI Risk)
+- Page résultat complète : note Talent /10 + quadrant + archétype + 4 réponses + porte recommandée + angle mort
+- Si user vient du light : Q0/Q0b/Q0c sont déjà répondues, on les skip (prefill)
+
+## Décisions test light verrouillées
+
+| # | Décision | Choix |
+|---|---|---|
+| 1 | Light obligatoire ou optionnel | **B** Optionnel (deux entrées sur la landing) |
+| 2 | Nombre de questions light | **B** 3 questions (Q0 + Q0b + urgency) |
+| 3 | Page résultat light | **B** Tease + 1 phrase de valeur immédiate |
+| 4 | Anti-abus | **A** Illimité, public |
+
+## Décisions test avancé verrouillées
+
+| # | Décision | Choix |
+|---|---|---|
+| 1 | Total questions test avancé | **B** 27 questions (Q0+Q0b+Q0c + 22 Robbins + 3 IA) ; 5 qualifying demandés par email J+0 |
+| 2 | Position email gate | **C** Après Q0/Q0b/Q0c, avant les 22 Robbins (si vient du light, Q0 déjà répondu) |
+| 3 | Reformulation 22 Robbins | **B** Reformuler 6-8 questions qui sonnent "artiste isolé" |
+| 4 | Calcul archétype | **B** Toujours retourner un archétype (le moins éloigné) |
+| 5 | Calcul Terrain Loyal/Truqué | **A** Q0b miroir suffit comme proxy pour démarrer |
+| 6 | Calcul des 4 réponses | **A** Toutes dérivées des données collectées |
+| 7 | UI sliders vs boutons | Slider 1-10 sur Q0/Q0b/Q0c, boutons 3 options sur les 22 Robbins |
+| 8 | Module IA (3 questions objectives) | **B** Posé à tout le monde |
+
+## Configuration des 4 sources
+
+| Source | Hero (Q0) | Miroir (Q0b) | Pain ciblé |
+|---|---|---|---|
+| `keeper` | "Si tu démissionnais demain, à quel point ton boss se battrait pour te garder ?" | "Et toi, tu te battrais pour rester ?" | Golden handcuffs |
+| `fraud` | "Sur 10, à quel point tu te sens fraude dans ton rôle aujourd'hui ?" | "Si on filmait ton dernier 1:1 difficile, à quel point tu serais fier ?" | Imposter syndrome |
+| `ai` | "Sur 10, à quel point ton job de leader sera remplacé par l'IA dans 24 mois ?" | "Si l'IA prenait 50% de ton job demain, à quel point tu serais soulagé ?" | Remplacement IA |
+| `talent` | "À quel point utilises-tu pleinement tes capacités dans ton job ?" | "Si tu pouvais redessiner ton rôle demain, à quel point tu changerais des choses ?" | Craft perdu |
+
+Q0c urgency identique pour tous : "À quel point ça doit changer dans les 6 prochains mois ?"
+
+## Mobile-first : contraintes UX
+
+- Sliders 1-10 manipulables au pouce (zone tactile ≥ 44px)
+- 1 question = 1 écran (pas de scroll dans une question)
+- Boutons full-width sur mobile, padding généreux
+- Progress bar visible permanente
+- Texte question en grande taille (≥ 22px sur mobile)
+- Transitions fluides (fade-up entre questions)
+- Pas de zoom imposé, font-size ≥ 16px sur les inputs
+- Tester sur viewport 375px (iPhone SE) et 390px (iPhone moderne)
