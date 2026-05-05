@@ -139,12 +139,33 @@ function LightResultPageEn() {
         style={{ animationDelay: "600ms" }}
       >
         <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-4 text-center">
-          Here is what you haven't seen yet
+          What the full diagnostic adds
         </p>
         <div className="flex flex-col gap-2">
-          <LockedRow label="Your main blind spot" />
-          <LockedRow label="Your 3 concrete actions for the next 30 days" />
-          <LockedRow label="The detailed answers to your 4 real questions" />
+          <LockedRow
+            label="Your precise score out of 10"
+            hint="instead of a qualitative zone"
+          />
+          <LockedRow
+            label="Your archetype among 14"
+            hint="instead of one of 4 zones"
+          />
+          <LockedRow
+            label="Your 6 essential needs broken down"
+            hint="Importance / Met / state · for each one"
+          />
+          <LockedRow
+            label="Your personalized blind spots"
+            hint="detected from your 24 answers"
+          />
+          <LockedRow
+            label="Your 3 concrete actions"
+            hint="this week · this month · this quarter"
+          />
+          <LockedRow
+            label="A 7-page PDF to keep"
+            hint="archive, print, share"
+          />
         </div>
       </section>
 
@@ -153,11 +174,20 @@ function LightResultPageEn() {
         style={{ animationDelay: "750ms" }}
       >
         <div className="rounded-2xl border border-coral/30 bg-coral/[0.06] p-6 md:p-7 text-center shadow-sm">
-          <p className="text-neutral-700 text-sm leading-relaxed mb-5">
-            The full diagnostic gives you{" "}
-            <strong className="text-ink">everything</strong>, with a{" "}
-            <strong className="text-ink">PDF to keep</strong>. 5 more minutes,
-            by email, free. (Full diagnostic in French for now.)
+          <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3 font-semibold">
+            Full diagnostic · 5 more minutes
+          </p>
+          <p className="font-display font-medium text-2xl md:text-3xl text-ink leading-tight mb-3">
+            You have your zone.
+            <br />
+            <span className="bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
+              Go get the rest.
+            </span>
+          </p>
+          <p className="text-neutral-600 text-sm leading-relaxed mb-6 max-w-md mx-auto">
+            Precise score, archetype among 14, breakdown of the 6 needs, blind
+            spots, 3 actions for the week, the month and the quarter. All in
+            a 7-page PDF. (Full diagnostic in French for now.)
           </p>
           <Link
             href={`/diagnostic?source=${answers.source}`}
@@ -213,11 +243,11 @@ function LightResultPageEn() {
   );
 }
 
-function LockedRow({ label }: { label: string }) {
+function LockedRow({ label, hint }: { label: string; hint?: string }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-line bg-surface shadow-sm">
+    <div className="flex items-start gap-3 px-4 py-3 rounded-xl border border-line bg-surface shadow-sm">
       <span
-        className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-cream text-neutral-500 border border-line"
+        className="shrink-0 mt-0.5 inline-flex items-center justify-center w-7 h-7 rounded-full bg-cream text-neutral-500 border border-line"
         aria-hidden="true"
       >
         <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="none">
@@ -230,7 +260,12 @@ function LockedRow({ label }: { label: string }) {
           />
         </svg>
       </span>
-      <p className="flex-1 text-sm text-neutral-700 leading-snug">{label}</p>
+      <div className="flex-1 leading-snug">
+        <p className="text-sm text-neutral-700">{label}</p>
+        {hint && (
+          <p className="text-[11px] text-neutral-500 mt-0.5">{hint}</p>
+        )}
+      </div>
     </div>
   );
 }

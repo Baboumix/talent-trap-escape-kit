@@ -138,31 +138,62 @@ function LightResultatPage() {
         </p>
       </section>
 
-      {/* Locked tease */}
+      {/* Locked tease — concrete value contrast vs. light test */}
       <section
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "600ms" }}
       >
         <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-4 text-center">
-          Voici ce que tu n'as pas encore vu
+          Ce que le diagnostic complet ajoute
         </p>
         <div className="flex flex-col gap-2">
-          <LockedRow label="Ton angle mort principal" />
-          <LockedRow label="Tes 3 actions concrètes pour les 30 prochains jours" />
-          <LockedRow label="Les réponses détaillées à tes 4 vraies questions" />
+          <LockedRow
+            label="Ton score précis sur 10"
+            hint="au lieu d'une zone qualitative"
+          />
+          <LockedRow
+            label="Ton archétype parmi 14"
+            hint="au lieu d'une zone parmi 4"
+          />
+          <LockedRow
+            label="Tes 6 besoins essentiels décortiqués"
+            hint="Importance / Comblé / état · pour chacun"
+          />
+          <LockedRow
+            label="Tes angles morts personnalisés"
+            hint="détectés à partir de tes 24 réponses"
+          />
+          <LockedRow
+            label="Tes 3 actions concrètes"
+            hint="cette semaine · ce mois · ce trimestre"
+          />
+          <LockedRow
+            label="Un PDF de 7 pages à garder"
+            hint="pour archiver, imprimer, partager"
+          />
         </div>
       </section>
 
-      {/* Main CTA */}
+      {/* Main CTA — punchy contrast headline */}
       <section
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "750ms" }}
       >
         <div className="rounded-2xl border border-coral/30 bg-coral/[0.06] p-6 md:p-7 text-center shadow-sm">
-          <p className="text-neutral-700 text-sm leading-relaxed mb-5">
-            Le diagnostic complet te donne <strong className="text-ink">tout</strong>,
-            avec un <strong className="text-ink">PDF à garder</strong>. 5 minutes
-            de plus, par email, gratuit.
+          <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3 font-semibold">
+            Diagnostic complet · 5 minutes de plus
+          </p>
+          <p className="font-display font-medium text-2xl md:text-3xl text-ink leading-tight mb-3">
+            Tu as ta zone.
+            <br />
+            <span className="bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
+              Va chercher tout le reste.
+            </span>
+          </p>
+          <p className="text-neutral-600 text-sm leading-relaxed mb-6 max-w-md mx-auto">
+            Score précis, archétype parmi 14, décomposition des 6 besoins,
+            angles morts, 3 actions étalées sur la semaine, le mois et le
+            trimestre. Le tout dans un PDF de 7 pages.
           </p>
           <Link
             href={`/diagnostic?source=${answers.source}`}
@@ -219,11 +250,11 @@ function LightResultatPage() {
   );
 }
 
-function LockedRow({ label }: { label: string }) {
+function LockedRow({ label, hint }: { label: string; hint?: string }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-line bg-surface shadow-sm">
+    <div className="flex items-start gap-3 px-4 py-3 rounded-xl border border-line bg-surface shadow-sm">
       <span
-        className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-cream text-neutral-500 border border-line"
+        className="shrink-0 mt-0.5 inline-flex items-center justify-center w-7 h-7 rounded-full bg-cream text-neutral-500 border border-line"
         aria-hidden="true"
       >
         <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="none">
@@ -236,7 +267,12 @@ function LockedRow({ label }: { label: string }) {
           />
         </svg>
       </span>
-      <p className="flex-1 text-sm text-neutral-700 leading-snug">{label}</p>
+      <div className="flex-1 leading-snug">
+        <p className="text-sm text-neutral-700">{label}</p>
+        {hint && (
+          <p className="text-[11px] text-neutral-500 mt-0.5">{hint}</p>
+        )}
+      </div>
     </div>
   );
 }

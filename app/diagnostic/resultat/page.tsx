@@ -207,9 +207,11 @@ export default function ResultatPage() {
             Le reste t'attend par email
           </p>
           <p className="text-neutral-400 leading-relaxed mb-6">
-            Le verdict détaillé, le décodage de tes angles morts,
-            et tes <strong className="text-ink">3 actions concrètes pour les 30 prochains jours</strong>.
-            Le tout par email, avec un <strong className="text-ink">PDF à garder</strong>.
+            Le verdict détaillé, le décodage de tes angles morts, et tes
+            {" "}<strong className="text-ink">3 actions étalées sur la semaine,
+            le mois et le trimestre</strong>. Le tout dans un{" "}
+            <strong className="text-ink">PDF de 7 pages</strong> à archiver,
+            envoyé à ton email.
           </p>
           <Link
             href="/diagnostic/infos"
