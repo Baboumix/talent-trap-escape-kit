@@ -7,6 +7,18 @@ import type { QuadrantZone, SourceKey } from "./types";
  */
 export interface SourceConfig {
   key: SourceKey;
+  // Nom court pour le menu home
+  menuName: string;
+  // Question signature courte pour la card du menu (raccourcie pour tenir)
+  menuQuestion: string;
+  // Phrase de valeur ajoutée pour la card du menu
+  menuValue: string;
+  // Couleur d'accent pour la card du menu (Tailwind class names)
+  menuTheme: {
+    border: string; // border + hover border
+    bg: string; // bg + hover bg
+    accent: string; // text accent
+  };
   // Pill d'arrivée dans l'app, qui rappelle la source
   pillLabel: string;
   // Question 0 : signature, slider 1-10 (10 = très haut, le sens dépend de la question)
@@ -33,8 +45,48 @@ export const Q0C = {
 };
 
 export const SOURCES: Record<SourceKey, SourceConfig> = {
+  talent: {
+    key: "talent",
+    menuName: "Le test du Talent",
+    menuQuestion: "Utilises-tu vraiment tes capacités au boulot ?",
+    menuValue: "Vois en 1 minute si ton talent circule ou s'il fuit.",
+    menuTheme: {
+      border: "border-coral/30 hover:border-coral/60",
+      bg: "bg-coral/[0.04] hover:bg-coral/[0.08]",
+      accent: "text-coral",
+    },
+    pillLabel: "Le test du Talent",
+    q0: {
+      text: "À quel point utilises-tu pleinement tes capacités dans ton job ?",
+      lowLabel: "Pas du tout",
+      highLabel: "À fond",
+    },
+    q0b: {
+      text: "Si tu pouvais redessiner ton rôle demain, à quel point tu changerais des choses ?",
+      lowLabel: "Rien",
+      highLabel: "Tout",
+    },
+    insightByZone: {
+      "pleine-expansion":
+        "Ton talent circule et le terrain le reconnaît. C'est rare. Ne le perds pas par habitude.",
+      "depart-imminent":
+        "Ton talent est exprimé mais le terrain ne le rend pas. Le départ est mûr.",
+      "reveil-possible":
+        "Le terrain est loyal mais ton talent est bridé. Le réveil est à portée.",
+      "urgence-absolue":
+        "Talent bridé ET terrain truqué. La double peine. Le coût d'attendre est très élevé.",
+    },
+  },
   keeper: {
     key: "keeper",
+    menuName: "Le test du Keeper",
+    menuQuestion: "Ton boss se battrait pour te garder ?",
+    menuValue: "Découvre la vraie place que tu occupes pour ton boss.",
+    menuTheme: {
+      border: "border-emerald-300 hover:border-emerald-500",
+      bg: "bg-emerald-50 hover:bg-emerald-100/70",
+      accent: "text-emerald-700",
+    },
     pillLabel: "Le test du Keeper",
     q0: {
       text: "Si tu démissionnais demain, à quel point ton boss se battrait pour te garder ?",
@@ -59,7 +111,15 @@ export const SOURCES: Record<SourceKey, SourceConfig> = {
   },
   fraud: {
     key: "fraud",
-    pillLabel: "Le test de la fraude",
+    menuName: "Le test de la Fraude",
+    menuQuestion: "À quel point tu te sens fraude dans ton rôle ?",
+    menuValue: "Mesure ton imposter syndrome et ce qu'il cache.",
+    menuTheme: {
+      border: "border-violet-300 hover:border-violet-500",
+      bg: "bg-violet-50 hover:bg-violet-100/70",
+      accent: "text-violet-700",
+    },
+    pillLabel: "Le test de la Fraude",
     q0: {
       text: "Sur 10, à quel point tu te sens fraude dans ton rôle aujourd'hui ?",
       lowLabel: "Pas du tout",
@@ -83,7 +143,15 @@ export const SOURCES: Record<SourceKey, SourceConfig> = {
   },
   ai: {
     key: "ai",
-    pillLabel: "Le test du remplaçant",
+    menuName: "Le test du Remplaçant",
+    menuQuestion: "Ton job sera-t-il remplacé par l'IA dans 24 mois ?",
+    menuValue: "Estime ton risque IA face à des données objectives.",
+    menuTheme: {
+      border: "border-sky-300 hover:border-sky-500",
+      bg: "bg-sky-50 hover:bg-sky-100/70",
+      accent: "text-sky-700",
+    },
+    pillLabel: "Le test du Remplaçant",
     q0: {
       text: "Sur 10, à quel point ton job de leader sera remplacé par l'IA dans 24 mois ?",
       lowLabel: "Aucun risque",
@@ -105,31 +173,15 @@ export const SOURCES: Record<SourceKey, SourceConfig> = {
         "L'IA va accélérer un mouvement déjà entamé. Le timing est court.",
     },
   },
-  talent: {
-    key: "talent",
-    pillLabel: "Le test du talent",
-    q0: {
-      text: "À quel point utilises-tu pleinement tes capacités dans ton job ?",
-      lowLabel: "Pas du tout",
-      highLabel: "À fond",
-    },
-    q0b: {
-      text: "Si tu pouvais redessiner ton rôle demain, à quel point tu changerais des choses ?",
-      lowLabel: "Rien",
-      highLabel: "Tout",
-    },
-    insightByZone: {
-      "pleine-expansion":
-        "Ton talent circule et le terrain le reconnaît. C'est rare. Ne le perds pas par habitude.",
-      "depart-imminent":
-        "Ton talent est exprimé mais le terrain ne le rend pas. Le départ est mûr.",
-      "reveil-possible":
-        "Le terrain est loyal mais ton talent est bridé. Le réveil est à portée.",
-      "urgence-absolue":
-        "Talent bridé ET terrain truqué. La double peine. Le coût d'attendre est très élevé.",
-    },
-  },
 };
+
+// Order of cards in the menu home (Talent first, then Keeper, Fraud, AI)
+export const SOURCE_MENU_ORDER: SourceKey[] = [
+  "talent",
+  "keeper",
+  "fraud",
+  "ai",
+];
 
 /**
  * Calcule la zone du quadrant Talent × Terrain depuis Q0 et Q0b.

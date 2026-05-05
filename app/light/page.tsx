@@ -13,6 +13,7 @@ import { playClickTick } from "@/lib/feedback";
 import type { LightAnswers, SourceKey } from "@/lib/types";
 
 const STORAGE_KEY_LIGHT = "ptc-light-v1";
+const STORAGE_KEY_LIGHT_DONE = "ptc-light-completed-sources-v1";
 
 export default function LightPageWrapper() {
   return (
@@ -76,6 +77,13 @@ function LightPage() {
     };
     try {
       localStorage.setItem(STORAGE_KEY_LIGHT, JSON.stringify(answers));
+      // Track completed sources (array of unique SourceKey)
+      const raw = localStorage.getItem(STORAGE_KEY_LIGHT_DONE);
+      const done: SourceKey[] = raw ? (JSON.parse(raw) as SourceKey[]) : [];
+      if (!done.includes(source)) {
+        done.push(source);
+        localStorage.setItem(STORAGE_KEY_LIGHT_DONE, JSON.stringify(done));
+      }
     } catch {
       // ignore
     }

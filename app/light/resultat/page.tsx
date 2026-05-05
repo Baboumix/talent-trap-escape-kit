@@ -195,16 +195,16 @@ function LightResultatPage() {
         style={{ animationDelay: "1050ms" }}
       >
         <Link
-          href={`/light?source=${answers.source}`}
-          className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-coral transition-colors"
+          href="/"
+          className="text-[10px] uppercase tracking-[0.2em] text-coral hover:text-coral-400 transition-colors"
         >
-          ← Refaire le test rapide
+          ← Essayer un autre test rapide
         </Link>
         <Link
-          href="/"
+          href={`/light?source=${answers.source}`}
           className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 hover:text-ink transition-colors"
         >
-          Retour à l'accueil
+          Refaire ce test
         </Link>
       </footer>
     </main>
