@@ -316,11 +316,15 @@ function Quadrant({ zone }: { zone: QuadrantZone }) {
 
 function ShareBlock(_props: { zone: QuadrantZone; source: SourceKey }) {
   return (
-    <div className="text-center">
-      <p className="text-sm text-neutral-600 leading-relaxed">
-        <span className="text-base mr-1.5 align-middle" aria-hidden="true">
-          📸
-        </span>
+    <div className="flex flex-col items-center text-center">
+      <span
+        className="text-3xl mb-3 leading-none"
+        aria-hidden="true"
+        role="img"
+      >
+        📸
+      </span>
+      <p className="text-sm text-neutral-600 leading-relaxed max-w-xs">
         Une capture d'écran suffit pour le partager à quelqu'un.
       </p>
       <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-neutral-400">
