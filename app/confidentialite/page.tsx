@@ -19,14 +19,14 @@ export default function Confidentialite() {
       </header>
 
       <article className="prose prose-invert max-w-none">
-        <h1 className="font-display font-medium text-4xl md:text-5xl tracking-tight mb-4 text-white">
+        <h1 className="font-display font-medium text-4xl md:text-5xl tracking-tight mb-4 text-ink">
           Politique de confidentialité
         </h1>
         <p className="text-sm text-neutral-500 mb-10 italic">
           Dernière mise à jour : avril 2026
         </p>
 
-        <section className="space-y-7 text-neutral-300 leading-relaxed">
+        <section className="space-y-7 text-neutral-400 leading-relaxed">
           <div>
             <h2 className="text-xs uppercase tracking-[0.2em] text-coral mb-2">
               Quelles données on collecte
@@ -81,21 +81,21 @@ export default function Confidentialite() {
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-2">
               <li>
-                <strong className="text-white">Brevo</strong> (ex-Sendinblue,
+                <strong className="text-ink">Brevo</strong> (ex-Sendinblue,
                 France) : envoi de l'email de rapport et gestion de la liste de
                 contacts.
               </li>
               <li>
-                <strong className="text-white">Notion</strong> (États-Unis) :
+                <strong className="text-ink">Notion</strong> (États-Unis) :
                 stockage des fiches de diagnostic pour le suivi
                 interne.
               </li>
               <li>
-                <strong className="text-white">Vercel</strong> (États-Unis) :
+                <strong className="text-ink">Vercel</strong> (États-Unis) :
                 hébergement du site.
               </li>
               <li>
-                <strong className="text-white">Google Analytics 4</strong>{" "}
+                <strong className="text-ink">Google Analytics 4</strong>{" "}
                 (États-Unis) via Google Tag Manager : statistiques de fréquentation
                 anonymisées.
               </li>
@@ -177,7 +177,7 @@ export default function Confidentialite() {
       <footer className="mt-16 mb-8 text-center">
         <Link
           href="/"
-          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-500 transition-colors"
         >
           Retour à l'accueil
         </Link>

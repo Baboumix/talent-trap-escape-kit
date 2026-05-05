@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${fraunces.variable} ${dmSans.variable}`}>
       <GoogleTagManager gtmId={GTM_ID} />
-      <body className="font-sans bg-ink text-white antialiased">{children}</body>
+      <body className="font-sans bg-cream text-ink antialiased">{children}</body>
     </html>
   );
 }

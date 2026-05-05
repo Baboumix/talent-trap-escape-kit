@@ -144,7 +144,7 @@ export default function InfosPage() {
         <h1 className="font-display font-medium text-[32px] sm:text-4xl md:text-[44px] leading-[1.05] tracking-tight mb-4">
           Où j'envoie tes 3 prochaines actions ?
         </h1>
-        <p className="text-neutral-400 text-sm md:text-base leading-relaxed">
+        <p className="text-neutral-500 text-sm md:text-base leading-relaxed">
           Tu recevras par email ton diagnostic complet (note /10 détaillée,
           analyse de tes 6 besoins essentiels, angles morts) et tes 3 actions
           concrètes pour les 30 prochains jours.
@@ -236,7 +236,7 @@ export default function InfosPage() {
         <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-600 text-center mt-2">
           Pas de spam · désinscription en 1 clic
         </p>
-        <p className="text-[10px] text-neutral-700 text-center mt-1 leading-relaxed">
+        <p className="text-[10px] text-neutral-400 text-center mt-1 leading-relaxed">
           En soumettant, tu acceptes notre{" "}
           <Link
             href="/confidentialite"
@@ -251,11 +251,11 @@ export default function InfosPage() {
       <footer className="mt-auto pt-10 text-center flex flex-col gap-3 items-center">
         <Link
           href="/diagnostic/resultat"
-          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-500 transition-colors"
         >
           ← Revoir mon verdict
         </Link>
-        <p className="text-[10px] text-neutral-700 tracking-wide">
+        <p className="text-[10px] text-neutral-400 tracking-wide">
           <Link
             href="/mentions-legales"
             className="hover:text-neutral-500 transition-colors"
@@ -296,7 +296,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-2">
-      <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+      <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">
         {label}
         {required && <span className="text-coral ml-1">*</span>}
       </span>
@@ -308,7 +308,7 @@ function Field({
         placeholder={placeholder}
         autoComplete={autoComplete}
         inputMode={inputMode}
-        className="w-full px-5 py-4 rounded-2xl border border-white/12 bg-white/[0.03] text-base placeholder:text-neutral-600 focus:border-coral/60 focus:outline-none focus:bg-coral/[0.04] transition-colors"
+        className="w-full px-5 py-4 rounded-2xl border border-line bg-surface text-base placeholder:text-neutral-600 focus:border-coral/60 focus:outline-none focus:bg-coral/[0.04] transition-colors"
       />
     </label>
   );

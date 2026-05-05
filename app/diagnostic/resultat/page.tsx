@@ -117,7 +117,7 @@ export default function ResultatPage() {
             /10
           </span>
         </p>
-        <p className="mt-4 font-display italic font-medium text-lg md:text-xl text-neutral-300">
+        <p className="mt-4 font-display italic font-medium text-lg md:text-xl text-neutral-400">
           {talentInterpretation(diagnostic.talentScore)}
         </p>
       </section>
@@ -129,7 +129,7 @@ export default function ResultatPage() {
         <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
           Ton verdict
         </p>
-        <h2 className="font-display font-medium text-3xl md:text-5xl leading-tight tracking-tight mb-4 text-white">
+        <h2 className="font-display font-medium text-3xl md:text-5xl leading-tight tracking-tight mb-4 text-ink">
           {verdict.notionName}
         </h2>
         <p className="font-display italic font-medium text-lg md:text-xl leading-snug text-coral mb-8 max-w-xl mx-auto">
@@ -145,12 +145,12 @@ export default function ResultatPage() {
         <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3 text-center">
           Tes 2 besoins centraux
         </p>
-        <p className="text-center text-base md:text-lg text-neutral-200 leading-relaxed mb-2">
+        <p className="text-center text-base md:text-lg text-ink leading-relaxed mb-2">
           {topTwo
             .map((n) => NEED_LABELS[n])
             .join(" · ")}
         </p>
-        <p className="text-center text-sm text-neutral-400 leading-relaxed mb-8 max-w-lg mx-auto">
+        <p className="text-center text-sm text-neutral-500 leading-relaxed mb-8 max-w-lg mx-auto">
           {topTwo
             .map((n) => statusSentence(n, diagnostic.needScores[n].status))
             .join(" ")}
@@ -192,7 +192,7 @@ export default function ResultatPage() {
             </p>
           </>
         ) : (
-          <p className="text-center text-sm text-neutral-400 leading-relaxed max-w-md mx-auto">
+          <p className="text-center text-sm text-neutral-500 leading-relaxed max-w-md mx-auto">
             Tes réponses ne déclenchent aucun angle mort spécifique. C'est plutôt rare. Le détail dans ton email.
           </p>
         )}
@@ -206,9 +206,9 @@ export default function ResultatPage() {
           <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
             Le reste t'attend par email
           </p>
-          <p className="text-neutral-300 leading-relaxed mb-6">
+          <p className="text-neutral-400 leading-relaxed mb-6">
             Le verdict détaillé, le décodage de tes angles morts,
-            et tes <strong className="text-white">3 actions concrètes pour les 30 prochains jours</strong>.
+            et tes <strong className="text-ink">3 actions concrètes pour les 30 prochains jours</strong>.
             Tout est dans le diagnostic complet.
           </p>
           <Link
@@ -279,7 +279,7 @@ export default function ResultatPage() {
         </button>
         <Link
           href="/"
-          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-500 transition-colors"
         >
           Retour à l'accueil
         </Link>
@@ -299,7 +299,7 @@ function talentInterpretation(score: number): string {
 function DescriptionCourte({ text }: { text: string }) {
   const paragraphs = text.split(/\n\n+/);
   return (
-    <div className="mx-auto max-w-xl text-neutral-300 text-base md:text-lg leading-relaxed space-y-4">
+    <div className="mx-auto max-w-xl text-neutral-400 text-base md:text-lg leading-relaxed space-y-4">
       {paragraphs.map((p, i) => (
         <p key={i}>{renderHighlights(p)}</p>
       ))}
@@ -314,7 +314,7 @@ function renderHighlights(text: string): React.ReactNode[] {
     return (
       <mark
         key={i}
-        className="text-white font-medium px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
+        className="text-ink font-medium px-1.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
         style={{
           background:
             "linear-gradient(180deg, transparent 30%, rgba(255, 175, 95, 0.48) 30%, rgba(255, 175, 95, 0.48) 96%, transparent 96%)",
@@ -354,14 +354,14 @@ function NeedCard({
     score.status === "verrouille"
       ? "text-coral border-coral/40 bg-coral/[0.06]"
       : score.status === "satisfait"
-        ? "text-emerald-300 border-emerald-300/30 bg-emerald-300/[0.04]"
-        : "text-amber-300 border-amber-300/30 bg-amber-300/[0.04]";
+        ? "text-emerald-700 border-emerald-200 bg-emerald-50/40"
+        : "text-amber-700 border-amber-200 bg-amber-50/40";
 
   if (!isDominant) {
     // Compact card for non-dominant needs
     return (
       <div
-        className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 animate-fade-up"
+        className="flex items-center justify-between gap-3 rounded-xl border border-line bg-surface shadow-sm px-4 py-3 animate-fade-up"
         style={{ animationDelay: `${delay}ms` }}
       >
         <p className="font-display font-semibold text-base leading-tight">
@@ -369,9 +369,9 @@ function NeedCard({
         </p>
         <div className="flex items-center gap-3">
           <p className="text-[10px] text-neutral-600 tracking-wider hidden sm:block">
-            <span className="text-neutral-400">{score.intensity}/4</span>
-            <span className="mx-1.5 text-neutral-700">·</span>
-            <span className="text-neutral-400">{score.satisfaction}/4</span>
+            <span className="text-neutral-500">{score.intensity}/4</span>
+            <span className="mx-1.5 text-neutral-400">·</span>
+            <span className="text-neutral-500">{score.satisfaction}/4</span>
           </p>
           <span
             className={`shrink-0 text-[9px] uppercase tracking-[0.16em] font-semibold px-2 py-1 rounded-full border ${statusColor}`}
@@ -409,11 +409,11 @@ function NeedCard({
           {statusLabel}
         </span>
       </div>
-      <p className="text-sm text-neutral-300 leading-relaxed mt-3">{hook}</p>
+      <p className="text-sm text-neutral-400 leading-relaxed mt-3">{hook}</p>
       <p className="text-[10px] text-neutral-600 mt-3 tracking-wider">
-        Intensité <span className="text-neutral-400">{score.intensity}/4</span>
+        Intensité <span className="text-neutral-500">{score.intensity}/4</span>
         <span className="mx-2">·</span>
-        Satisfaction <span className="text-neutral-400">{score.satisfaction}/4</span>
+        Satisfaction <span className="text-neutral-500">{score.satisfaction}/4</span>
       </p>
     </div>
   );
@@ -453,11 +453,11 @@ function ShareBlock({
   };
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-7 text-center">
+    <div className="rounded-2xl border border-line bg-surface shadow-sm p-6 md:p-7 text-center">
       <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
         Partage ton verdict
       </p>
-      <p className="text-neutral-300 text-sm leading-relaxed mb-5 max-w-md mx-auto">
+      <p className="text-neutral-400 text-sm leading-relaxed mb-5 max-w-md mx-auto">
         Quelqu'un dans ton entourage devrait faire ce test ? Envoie-le-lui.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
@@ -466,7 +466,7 @@ function ShareBlock({
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => analytics.shareClicked("twitter", verdictKey)}
-          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-400 hover:border-coral/60 hover:text-coral transition-colors"
         >
           X / Twitter
         </a>
@@ -475,14 +475,14 @@ function ShareBlock({
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => analytics.shareClicked("linkedin", verdictKey)}
-          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-400 hover:border-coral/60 hover:text-coral transition-colors"
         >
           LinkedIn
         </a>
         <button
           type="button"
           onClick={onCopy}
-          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-400 hover:border-coral/60 hover:text-coral transition-colors"
         >
           {copied ? "Lien copié !" : "Copier le lien"}
         </button>
@@ -505,7 +505,7 @@ function RevealLoader() {
         <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:200ms]" />
         <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:400ms]" />
       </div>
-      <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-400">
+      <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500">
         Ta note se compose
       </p>
     </main>

@@ -30,7 +30,7 @@ export default function MerciPage() {
         <h1 className="font-display font-medium text-[34px] sm:text-4xl md:text-5xl leading-[1.05] tracking-tight mb-4">
           Ton diagnostic est en route.
         </h1>
-        <p className="text-neutral-300 text-base leading-relaxed">
+        <p className="text-neutral-400 text-base leading-relaxed">
           Vérifie ton inbox dans quelques secondes.
         </p>
         <p className="text-neutral-500 text-sm leading-relaxed mt-1">
@@ -45,7 +45,7 @@ export default function MerciPage() {
         <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3 text-center">
           En attendant ton email
         </p>
-        <p className="text-center text-neutral-400 text-sm mb-6">
+        <p className="text-center text-neutral-500 text-sm mb-6">
           3 choses pour rester dans le sujet et continuer à creuser.
         </p>
 
@@ -63,7 +63,7 @@ export default function MerciPage() {
               <span className="block font-medium text-base md:text-lg leading-tight">
                 Abonne-toi sur YouTube
               </span>
-              <span className="block text-xs text-neutral-400 mt-0.5">
+              <span className="block text-xs text-neutral-500 mt-0.5">
                 Une vidéo par semaine sur les pièges du talent senior.
               </span>
             </span>
@@ -83,8 +83,8 @@ export default function MerciPage() {
             </svg>
           </a>
 
-          <div className="px-5 py-4 rounded-2xl border border-white/12 bg-white/[0.02]">
-            <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-400 mb-2">
+          <div className="px-5 py-4 rounded-2xl border border-line bg-surface shadow-sm">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500 mb-2">
               2 · Pour tes trajets
             </p>
             <p className="font-medium text-base mb-3">
@@ -95,7 +95,7 @@ export default function MerciPage() {
                 href={APPLE_PODCAST_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-3 py-1.5 rounded-full border border-white/15 hover:border-coral/60 hover:text-coral transition-colors"
+                className="text-xs px-3 py-1.5 rounded-full border border-line hover:border-coral/60 hover:text-coral transition-colors"
               >
                 Apple Podcasts
               </a>
@@ -103,15 +103,15 @@ export default function MerciPage() {
                 href={SPOTIFY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-3 py-1.5 rounded-full border border-white/15 hover:border-coral/60 hover:text-coral transition-colors"
+                className="text-xs px-3 py-1.5 rounded-full border border-line hover:border-coral/60 hover:text-coral transition-colors"
               >
                 Spotify
               </a>
             </div>
           </div>
 
-          <div className="px-5 py-4 rounded-2xl border border-white/12 bg-white/[0.02]">
-            <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-400 mb-2">
+          <div className="px-5 py-4 rounded-2xl border border-line bg-surface shadow-sm">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500 mb-2">
               3 · Pour rester proche
             </p>
             <p className="font-medium text-base mb-3">
@@ -122,7 +122,7 @@ export default function MerciPage() {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-3 py-1.5 rounded-full border border-white/15 hover:border-coral/60 hover:text-coral transition-colors"
+                className="text-xs px-3 py-1.5 rounded-full border border-line hover:border-coral/60 hover:text-coral transition-colors"
               >
                 Instagram
               </a>
@@ -130,7 +130,7 @@ export default function MerciPage() {
                 href={TIKTOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-3 py-1.5 rounded-full border border-white/15 hover:border-coral/60 hover:text-coral transition-colors"
+                className="text-xs px-3 py-1.5 rounded-full border border-line hover:border-coral/60 hover:text-coral transition-colors"
               >
                 TikTok
               </a>
@@ -138,7 +138,7 @@ export default function MerciPage() {
                 href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-3 py-1.5 rounded-full border border-white/15 hover:border-coral/60 hover:text-coral transition-colors"
+                className="text-xs px-3 py-1.5 rounded-full border border-line hover:border-coral/60 hover:text-coral transition-colors"
               >
                 LinkedIn
               </a>
@@ -152,7 +152,7 @@ export default function MerciPage() {
         style={{ animationDelay: "300ms" }}
       >
         <div className="px-5 py-4 rounded-2xl border border-coral/30 bg-coral/[0.05] max-w-sm mx-auto">
-          <p className="text-sm text-neutral-200 leading-relaxed">
+          <p className="text-sm text-ink leading-relaxed">
             Seul le{" "}
             <span className="font-display font-semibold text-coral text-base">
               top 10 %
@@ -166,7 +166,7 @@ export default function MerciPage() {
       <footer className="max-w-md mx-auto w-full text-center mt-auto">
         <Link
           href="/"
-          className="text-[10px] uppercase tracking-[0.18em] text-neutral-600 hover:text-neutral-400 transition-colors"
+          className="text-[10px] uppercase tracking-[0.18em] text-neutral-600 hover:text-neutral-500 transition-colors"
         >
           Retour à l'accueil
         </Link>

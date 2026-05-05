@@ -11,23 +11,23 @@ export default function LandingPage() {
         className="absolute inset-0 -z-10 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[560px] h-[560px] rounded-full bg-coral/[0.12] blur-[120px]" />
+        <div className="absolute top-[28%] left-1/2 -translate-x-1/2 w-[560px] h-[560px] rounded-full bg-coral/[0.18] blur-[140px]" />
       </div>
 
       <header className="pt-2" aria-hidden="true" />
 
       <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
-        <p className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
+        <p className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/40 rounded-full bg-coral/[0.08]">
           <span className="w-1 h-1 rounded-full bg-coral" />
           Active ton expansion
         </p>
         <h1 className="font-display font-medium text-[56px] sm:text-7xl md:text-[96px] lg:text-[112px] leading-[0.92] tracking-tight mb-8">
-          <span className="block text-white">Ton talent</span>
+          <span className="block text-ink">Ton talent</span>
           <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
             activé&nbsp;?
           </span>
         </h1>
-        <p className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-sm">
+        <p className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-sm">
           Une note sur 10. Et les 6 besoins qui la pilotent.
         </p>
       </section>
@@ -35,7 +35,7 @@ export default function LandingPage() {
       <footer className="w-full max-w-md mx-auto">
         <StartDiagnosticCta
           source="landing_hero_cta"
-          className="group flex items-center justify-center w-full py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
+          className="group flex items-center justify-center w-full py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/30 active:scale-[0.99] transition-transform"
         >
           Démarrer le diagnostic
           <svg
@@ -57,31 +57,31 @@ export default function LandingPage() {
         <div className="mt-5 flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
           <span>24 questions</span>
           <span
-            className="w-1 h-1 rounded-full bg-neutral-700"
+            className="w-1 h-1 rounded-full bg-neutral-300"
             aria-hidden="true"
           />
           <span>5 minutes</span>
           <span
-            className="w-1 h-1 rounded-full bg-neutral-700"
+            className="w-1 h-1 rounded-full bg-neutral-300"
             aria-hidden="true"
           />
           <span>Gratuit</span>
         </div>
 
-        <p className="mt-6 text-[11px] text-neutral-600 text-center tracking-wide">
+        <p className="mt-6 text-[11px] text-neutral-500 text-center tracking-wide">
           monexpansion.com
         </p>
-        <p className="mt-2 text-[10px] text-neutral-700 text-center tracking-wide">
+        <p className="mt-2 text-[10px] text-neutral-500 text-center tracking-wide">
           <Link
             href="/mentions-legales"
-            className="hover:text-neutral-500 transition-colors"
+            className="hover:text-neutral-400 transition-colors"
           >
             Mentions légales
           </Link>
           <span className="mx-2">·</span>
           <Link
             href="/confidentialite"
-            className="hover:text-neutral-500 transition-colors"
+            className="hover:text-neutral-400 transition-colors"
           >
             Confidentialité
           </Link>

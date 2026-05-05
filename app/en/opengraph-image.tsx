@@ -20,9 +20,9 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#0A0A0A",
+          backgroundColor: "#FAF7F3",
           backgroundImage:
-            "radial-gradient(circle at 50% 38%, rgba(254,108,99,0.18), transparent 55%)",
+            "radial-gradient(circle at 50% 38%, rgba(254,108,99,0.22), transparent 60%)",
           padding: "60px",
           fontFamily: "Roboto",
         }}
@@ -36,9 +36,9 @@ export default async function Image() {
             fontSize: "16px",
             letterSpacing: "0.22em",
             color: "#FE6C63",
-            border: "1px solid rgba(254,108,99,0.35)",
+            border: "1px solid rgba(254,108,99,0.4)",
             borderRadius: "999px",
-            backgroundColor: "rgba(254,108,99,0.05)",
+            backgroundColor: "rgba(254,108,99,0.08)",
             marginBottom: "44px",
             fontWeight: 700,
           }}
@@ -65,7 +65,7 @@ export default async function Image() {
             flexDirection: "column",
           }}
         >
-          <span style={{ color: "#ffffff" }}>Your talent.</span>
+          <span style={{ color: "#1A1A1A" }}>Your talent.</span>
           <span style={{ color: "#FE6C63" }}>Activated?</span>
         </div>
 
@@ -73,7 +73,7 @@ export default async function Image() {
           style={{
             marginTop: "48px",
             fontSize: "26px",
-            color: "#cfcfcf",
+            color: "#5A5A5A",
             textAlign: "center",
             maxWidth: "820px",
             fontWeight: 700,
@@ -87,7 +87,7 @@ export default async function Image() {
             marginTop: "60px",
             fontSize: "14px",
             letterSpacing: "0.22em",
-            color: "#6b6b6b",
+            color: "#9A9A9A",
             fontWeight: 700,
           }}
         >

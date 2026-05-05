@@ -24,12 +24,12 @@ export default function NotFound() {
 
       <section className="flex-1 flex flex-col justify-center items-center text-center max-w-xl mx-auto w-full">
         <h1 className="font-display font-medium text-[64px] sm:text-7xl md:text-[96px] leading-[0.95] tracking-tight mb-6">
-          <span className="block text-white">Tu es</span>
+          <span className="block text-ink">Tu es</span>
           <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
             perdu&nbsp;?
           </span>
         </h1>
-        <p className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-md">
+        <p className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-md">
           Cette page n'existe pas, ou n'existe plus. C'est l'occasion de
           repartir d'un endroit clair.
         </p>
@@ -58,7 +58,7 @@ export default function NotFound() {
         </Link>
         <Link
           href="/"
-          className="text-center text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-neutral-300 transition-colors py-3"
+          className="text-center text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-neutral-400 transition-colors py-3"
         >
           Retour à l'accueil
         </Link>

@@ -95,8 +95,8 @@ function LightPage() {
   return (
     <main className="relative min-h-[100svh] flex flex-col">
       {/* Sticky header with progress */}
-      <div className="sticky top-0 z-10 bg-ink/90 backdrop-blur-sm">
-        <div className="h-1 bg-white/5">
+      <div className="sticky top-0 z-10 bg-cream/90 backdrop-blur-sm border-b border-line">
+        <div className="h-1 bg-line">
           <div
             className="h-full bg-gradient-to-r from-coral-500 to-coral-400 transition-[width] duration-500 ease-out"
             style={{ width: `${progress}%` }}
@@ -106,7 +106,7 @@ function LightPage() {
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-white/15 text-neutral-400 hover:text-white hover:border-white/40 transition-colors"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-line text-neutral-500 hover:text-ink hover:border-ink/30 transition-colors bg-surface"
             aria-label={step === 0 ? "Retour à l'accueil" : "Question précédente"}
           >
             <svg
@@ -124,12 +124,12 @@ function LightPage() {
               />
             </svg>
           </button>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-coral">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-coral font-semibold">
             {step + 1} / {totalSteps}
           </p>
           <Link
             href="/"
-            className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+            className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 hover:text-ink transition-colors"
           >
             Quitter
           </Link>
@@ -187,7 +187,7 @@ function LightPage() {
       </div>
 
       <footer className="px-6 pb-6 pt-2 text-center">
-        <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-600">
+        <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">
           Test rapide gratuit · 1 minute · sans email
         </p>
       </footer>
@@ -214,11 +214,11 @@ function SliderInput({
       <div className="text-center">
         <p
           className={`font-display font-semibold text-[80px] sm:text-[110px] leading-none tracking-tight transition-colors ${
-            value === null ? "text-neutral-700" : "text-coral"
+            value === null ? "text-neutral-300" : "text-transparent bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text"
           }`}
         >
           {value === null ? "?" : value}
-          <span className="text-[36px] sm:text-[48px] text-neutral-500 font-normal align-top ml-1">
+          <span className="text-[36px] sm:text-[48px] text-neutral-400 font-normal align-top ml-1">
             /10
           </span>
         </p>
@@ -237,8 +237,8 @@ function SliderInput({
               aria-pressed={isSelected}
               className={`h-12 sm:h-14 rounded-lg border text-sm sm:text-base font-semibold tabular-nums transition-all active:scale-95 ${
                 isSelected
-                  ? "border-coral bg-coral text-white shadow-lg shadow-coral/30"
-                  : "border-white/15 bg-white/[0.03] text-neutral-300 hover:border-coral/40 hover:bg-coral/[0.06]"
+                  ? "border-coral bg-coral text-white shadow-md shadow-coral/30"
+                  : "border-line bg-surface text-neutral-700 hover:border-coral/50 hover:bg-coral/[0.04]"
               }`}
             >
               {n}

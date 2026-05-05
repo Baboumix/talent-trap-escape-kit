@@ -28,12 +28,12 @@ export default function EnLanding() {
 
       <section className="flex-1 flex flex-col justify-center items-center text-center max-w-2xl mx-auto w-full">
         <h1 className="font-display font-medium text-[56px] sm:text-7xl md:text-[96px] lg:text-[112px] leading-[0.92] tracking-tight mb-8">
-          <span className="block text-white">Your talent.</span>
+          <span className="block text-ink">Your talent.</span>
           <span className="block bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
             Activated?
           </span>
         </h1>
-        <p className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-sm mb-6">
+        <p className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-sm mb-6">
           A score out of 10. And the 6 essential needs that drive it.
         </p>
         <p className="text-neutral-500 text-sm leading-relaxed max-w-sm">

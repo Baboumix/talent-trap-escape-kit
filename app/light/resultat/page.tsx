@@ -84,14 +84,14 @@ function LightResultatPage() {
         className="absolute inset-0 -z-10 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full bg-coral/[0.12] blur-[140px]" />
+        <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full bg-coral/[0.18] blur-[140px]" />
       </div>
 
       <header
         className="flex justify-center mb-8 animate-fade-up"
         style={{ animationDelay: "0ms" }}
       >
-        <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/30 rounded-full bg-coral/[0.04]">
+        <p className="inline-flex items-center gap-2 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-coral border border-coral/40 rounded-full bg-coral/[0.08]">
           <span className="w-1 h-1 rounded-full bg-coral" />
           Résultat préliminaire
         </p>
@@ -102,10 +102,10 @@ function LightResultatPage() {
         className="max-w-xl mx-auto w-full text-center animate-fade-up"
         style={{ animationDelay: "150ms" }}
       >
-        <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 mb-3">
+        <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 mb-3">
           Tu es probablement dans la zone
         </p>
-        <h1 className="font-display font-semibold leading-[0.9] tracking-tight text-coral text-[58px] sm:text-[88px] md:text-[112px]">
+        <h1 className="font-display font-semibold leading-[0.9] tracking-tight text-[58px] sm:text-[88px] md:text-[112px] bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
           {ZONE_LABELS[result.zone]}
         </h1>
         <p className="mt-4 text-[10px] uppercase tracking-[0.2em] text-neutral-500">
@@ -126,7 +126,7 @@ function LightResultatPage() {
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "450ms" }}
       >
-        <p className="font-display italic font-medium text-lg md:text-xl text-center text-neutral-200 leading-relaxed">
+        <p className="font-display italic font-medium text-lg md:text-xl text-center text-ink leading-relaxed">
           « {result.config.insightByZone[result.zone]} »
         </p>
       </section>
@@ -151,14 +151,14 @@ function LightResultatPage() {
         className="mt-10 max-w-xl mx-auto w-full animate-fade-up"
         style={{ animationDelay: "750ms" }}
       >
-        <div className="rounded-2xl border border-coral/30 bg-coral/[0.05] p-6 md:p-7 text-center">
-          <p className="text-neutral-300 text-sm leading-relaxed mb-5">
-            Le diagnostic complet te donne <strong className="text-white">tout</strong>.
+        <div className="rounded-2xl border border-coral/30 bg-coral/[0.06] p-6 md:p-7 text-center shadow-sm">
+          <p className="text-neutral-700 text-sm leading-relaxed mb-5">
+            Le diagnostic complet te donne <strong className="text-ink">tout</strong>.
             5 minutes de plus, par email, gratuit.
           </p>
           <Link
             href={`/diagnostic?source=${answers.source}`}
-            className="group inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/20 active:scale-[0.99] transition-transform"
+            className="group inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 rounded-full font-medium text-white bg-gradient-to-r from-coral-500 to-coral-400 shadow-xl shadow-coral/30 active:scale-[0.99] transition-transform"
           >
             Débloquer mon diagnostic complet
             <svg
@@ -176,7 +176,7 @@ function LightResultatPage() {
               />
             </svg>
           </Link>
-          <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-neutral-600">
+          <p className="mt-4 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
             Par email · gratuit · aucune carte bancaire
           </p>
         </div>
@@ -202,7 +202,7 @@ function LightResultatPage() {
         </Link>
         <Link
           href="/"
-          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 hover:text-ink transition-colors"
         >
           Retour à l'accueil
         </Link>
@@ -213,9 +213,9 @@ function LightResultatPage() {
 
 function LockedRow({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/[0.02]">
+    <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-line bg-surface shadow-sm">
       <span
-        className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/[0.04] text-neutral-500"
+        className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-cream text-neutral-500 border border-line"
         aria-hidden="true"
       >
         <svg viewBox="0 0 16 16" className="w-3.5 h-3.5" fill="none">
@@ -228,10 +228,37 @@ function LockedRow({ label }: { label: string }) {
           />
         </svg>
       </span>
-      <p className="flex-1 text-sm text-neutral-400 leading-snug">{label}</p>
+      <p className="flex-1 text-sm text-neutral-700 leading-snug">{label}</p>
     </div>
   );
 }
+
+// Couleurs par zone : vert (sain), amber (mid), coral (critique)
+const ZONE_COLOR_CLASSES: Record<
+  QuadrantZone,
+  { active: string; idle: string }
+> = {
+  "pleine-expansion": {
+    active:
+      "border-emerald-500 bg-emerald-50 text-emerald-700 shadow-md shadow-emerald-500/20 scale-[1.02]",
+    idle: "border-emerald-200 bg-emerald-50/40 text-emerald-700/60",
+  },
+  "reveil-possible": {
+    active:
+      "border-amber-500 bg-amber-50 text-amber-700 shadow-md shadow-amber-500/20 scale-[1.02]",
+    idle: "border-amber-200 bg-amber-50/40 text-amber-700/60",
+  },
+  "depart-imminent": {
+    active:
+      "border-amber-500 bg-amber-50 text-amber-700 shadow-md shadow-amber-500/20 scale-[1.02]",
+    idle: "border-amber-200 bg-amber-50/40 text-amber-700/60",
+  },
+  "urgence-absolue": {
+    active:
+      "border-coral bg-coral/10 text-coral shadow-md shadow-coral/30 scale-[1.02]",
+    idle: "border-coral/20 bg-coral/[0.04] text-coral/60",
+  },
+};
 
 function Quadrant({ zone }: { zone: QuadrantZone }) {
   // Grid order : top-left, top-right, bottom-left, bottom-right
@@ -252,20 +279,27 @@ function Quadrant({ zone }: { zone: QuadrantZone }) {
       <div className="flex">
         {/* Y axis label (left) */}
         <div className="flex flex-col justify-between pr-3 py-2 text-[10px] uppercase tracking-[0.18em] text-neutral-500 text-right">
-          <span>Talent<br/>Exprimé</span>
-          <span>Talent<br/>Bridé</span>
+          <span>
+            Talent
+            <br />
+            Exprimé
+          </span>
+          <span>
+            Talent
+            <br />
+            Bridé
+          </span>
         </div>
         {/* The grid */}
         <div className="grid grid-cols-2 gap-2 flex-1">
           {cells.map((key) => {
             const isActive = key === zone;
+            const colors = ZONE_COLOR_CLASSES[key];
             return (
               <div
                 key={key}
                 className={`aspect-[5/3] rounded-lg flex items-center justify-center text-center px-3 py-2 border transition-all ${
-                  isActive
-                    ? "border-coral bg-coral/10 text-coral shadow-lg shadow-coral/20 scale-[1.02]"
-                    : "border-white/8 bg-white/[0.02] text-neutral-600"
+                  isActive ? colors.active : colors.idle
                 }`}
               >
                 <p className="text-xs font-semibold leading-tight">
@@ -304,7 +338,7 @@ function ShareBlock({
   };
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-center">
+    <div className="rounded-2xl border border-line bg-surface p-5 text-center shadow-sm">
       <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
         Partage ton score préliminaire
       </p>
@@ -313,7 +347,7 @@ function ShareBlock({
           href={twitterUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-700 hover:border-coral/60 hover:text-coral transition-colors"
         >
           X / Twitter
         </a>
@@ -321,14 +355,14 @@ function ShareBlock({
           href={linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-700 hover:border-coral/60 hover:text-coral transition-colors"
         >
           LinkedIn
         </a>
         <button
           type="button"
           onClick={onCopy}
-          className="text-xs px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:border-coral/60 hover:text-coral transition-colors"
+          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-700 hover:border-coral/60 hover:text-coral transition-colors"
         >
           {copied ? "Lien copié !" : "Copier le lien"}
         </button>
@@ -344,14 +378,14 @@ function RevealLoader() {
         className="absolute inset-0 -z-10 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-coral/[0.1] blur-[120px] animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-coral/[0.18] blur-[120px] animate-pulse" />
       </div>
       <div className="flex items-center gap-2 mb-6">
         <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:0ms]" />
         <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:200ms]" />
         <span className="w-2 h-2 rounded-full bg-coral animate-pulse [animation-delay:400ms]" />
       </div>
-      <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-400">
+      <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500">
         Calcul en cours
       </p>
     </main>

@@ -37,21 +37,21 @@ const ANSWER_CHOICES: AnswerChoice[] = [
     short: "Non",
     full: "Non, pas vraiment",
     className:
-      "border-rose-500/30 bg-rose-500/5 text-rose-200 hover:border-rose-500 hover:bg-rose-500 hover:text-white focus-visible:border-rose-500 focus-visible:bg-rose-500 focus-visible:text-white",
+      "border-rose-200 bg-rose-50 text-rose-700 hover:border-rose-500 hover:bg-rose-500 hover:text-white focus-visible:border-rose-500 focus-visible:bg-rose-500 focus-visible:text-white",
   },
   {
     value: 1,
     short: "Plutôt",
     full: "Plutôt oui",
     className:
-      "border-neutral-400/30 bg-neutral-500/5 text-neutral-200 hover:border-neutral-200 hover:bg-neutral-200 hover:text-neutral-900 focus-visible:border-neutral-200 focus-visible:bg-neutral-200 focus-visible:text-neutral-900",
+      "border-line bg-surface text-ink hover:border-ink/30 hover:bg-ink hover:text-white focus-visible:border-ink/30 focus-visible:bg-ink focus-visible:text-white",
   },
   {
     value: 2,
     short: "Oui",
     full: "Oui, clairement",
     className:
-      "border-emerald-500/30 bg-emerald-500/5 text-emerald-200 hover:border-emerald-500 hover:bg-emerald-500 hover:text-white focus-visible:border-emerald-500 focus-visible:bg-emerald-500 focus-visible:text-white",
+      "border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-500 hover:bg-emerald-500 hover:text-white focus-visible:border-emerald-500 focus-visible:bg-emerald-500 focus-visible:text-white",
   },
 ];
 
@@ -216,8 +216,8 @@ export default function DiagnosticPage() {
 
   return (
     <main className="relative min-h-[100svh] flex flex-col">
-      <div className="sticky top-0 z-10 bg-ink/90 backdrop-blur-sm">
-        <div className="h-1 bg-white/5">
+      <div className="sticky top-0 z-10 bg-cream/90 backdrop-blur-sm">
+        <div className="h-1 bg-line">
           <div
             className="h-full bg-gradient-to-r from-coral-500 to-coral-400 transition-[width] duration-500 ease-out"
             style={{ width: `${progress}%` }}
@@ -229,7 +229,7 @@ export default function DiagnosticPage() {
               <button
                 type="button"
                 onClick={goBack}
-                className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-white/15 text-neutral-400 hover:text-white hover:border-white/40 transition-colors"
+                className="inline-flex items-center justify-center w-7 h-7 rounded-full border border-line text-neutral-500 hover:text-ink hover:border-ink/30 transition-colors"
                 aria-label="Revenir à la question précédente"
                 title="Revenir à la question précédente"
               >
@@ -255,7 +255,7 @@ export default function DiagnosticPage() {
           </div>
           <Link
             href="/"
-            className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+            className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-500 transition-colors"
           >
             Quitter
           </Link>
@@ -309,8 +309,8 @@ function MilestoneToast({ message }: { message: string }) {
       role="status"
       aria-live="polite"
     >
-      <div className="pointer-events-auto max-w-sm px-5 py-3 rounded-full border border-coral/40 bg-ink/95 backdrop-blur-md shadow-xl shadow-coral/10">
-        <p className="text-sm text-white flex items-center gap-2">
+      <div className="pointer-events-auto max-w-sm px-5 py-3 rounded-full border border-coral/40 bg-cream/95 backdrop-blur-md shadow-xl shadow-coral/10">
+        <p className="text-sm text-ink flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse" />
           {message}
         </p>
@@ -360,7 +360,7 @@ function StatutStep({ onSelect }: { onSelect: (s: StatutPro) => void }) {
         </p>
         <Link
           href="/"
-          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-500 transition-colors"
         >
           Quitter
         </Link>
@@ -370,7 +370,7 @@ function StatutStep({ onSelect }: { onSelect: (s: StatutPro) => void }) {
         <h1 className="font-display font-medium text-[34px] sm:text-4xl md:text-5xl leading-[1.05] tracking-tight mb-4">
           Ton contexte.
         </h1>
-        <p className="text-neutral-400 text-base mb-10">
+        <p className="text-neutral-500 text-base mb-10">
           Pour que le verdict soit calibré sur ta réalité, pas sur une moyenne.
         </p>
 
@@ -397,7 +397,7 @@ function StatutStep({ onSelect }: { onSelect: (s: StatutPro) => void }) {
                     </span>
                   </span>
                   <svg
-                    className="shrink-0 w-4 h-4 text-neutral-600 group-hover:text-neutral-300 group-hover:translate-x-0.5 transition-all"
+                    className="shrink-0 w-4 h-4 text-neutral-600 group-hover:text-neutral-400 group-hover:translate-x-0.5 transition-all"
                     viewBox="0 0 16 16"
                     fill="none"
                     aria-hidden="true"

@@ -18,18 +18,18 @@ export default function MentionsLegales() {
       </header>
 
       <article className="prose prose-invert max-w-none">
-        <h1 className="font-display font-medium text-4xl md:text-5xl tracking-tight mb-8 text-white">
+        <h1 className="font-display font-medium text-4xl md:text-5xl tracking-tight mb-8 text-ink">
           Mentions légales
         </h1>
 
-        <section className="space-y-6 text-neutral-300 leading-relaxed">
+        <section className="space-y-6 text-neutral-400 leading-relaxed">
           <div>
             <h2 className="text-xs uppercase tracking-[0.2em] text-coral mb-2">
               Éditeur du site
             </h2>
             <p>
               Julien Klein, exerçant sous le nom commercial{" "}
-              <strong className="text-white">monExpansion</strong>.
+              <strong className="text-ink">monExpansion</strong>.
               <br />
               Contact : julien@monexpansion.com
               <br />
@@ -43,7 +43,7 @@ export default function MentionsLegales() {
             </h2>
             <p>
               Le diagnostic kit.monexpansion.com est hébergé par{" "}
-              <strong className="text-white">Vercel Inc.</strong>
+              <strong className="text-ink">Vercel Inc.</strong>
               <br />
               440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.
               <br />
@@ -98,7 +98,7 @@ export default function MentionsLegales() {
       <footer className="mt-16 mb-8 text-center">
         <Link
           href="/"
-          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-400 transition-colors"
+          className="text-[10px] uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-500 transition-colors"
         >
           Retour à l'accueil
         </Link>
