@@ -2,7 +2,7 @@
 
 Diagnostic gratuit 5 minutes · lead magnet pour monExpansion · Bootcamp Expansion.
 
-- **Prod :** https://kit.monexpansion.com
+- **Prod :** https://talent.monexpansion.com
 - **Source de vérité du contenu éditorial :** Notion → page `App Talent` (parent de la base `🧭 Diagnostics`)
 
 ## Stack

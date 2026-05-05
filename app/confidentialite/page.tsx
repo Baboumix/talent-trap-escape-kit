@@ -147,7 +147,7 @@ export default function Confidentialite() {
               Cookies
             </h2>
             <p>
-              kit.monexpansion.com utilise Google Tag Manager qui dépose des
+              talent.monexpansion.com utilise Google Tag Manager qui dépose des
               cookies pour Google Analytics 4 (mesure d'audience). Le
               consentement est géré au niveau de monexpansion.com via Complianz.
               Tu peux refuser ou retirer ton consentement à tout moment via les

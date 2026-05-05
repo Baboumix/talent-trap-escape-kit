@@ -4,7 +4,7 @@ Document de référence pour comprendre tout ce que l'application enregistre, en
 
 ## Contexte produit
 
-**Profil du Talent Coincé** est un diagnostic gratuit de 5 minutes, déployé sur **kit.monexpansion.com** (Next.js, Vercel). C'est le lead magnet du funnel monExpansion qui pousse vers le Bootcamp Expansion, le coaching premium 1:1 (via TidyCal), ou la newsletter selon le profil détecté.
+**Profil du Talent Coincé** est un diagnostic gratuit de 5 minutes, déployé sur **talent.monexpansion.com** (Next.js, Vercel). C'est le lead magnet du funnel monExpansion qui pousse vers le Bootcamp Expansion, le coaching premium 1:1 (via TidyCal), ou la newsletter selon le profil détecté.
 
 L'utilisateur :
 1. Arrive sur la home, clique "Démarrer le diagnostic"
@@ -25,7 +25,7 @@ Les 14 verdicts :
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  NAVIGATEUR UTILISATEUR (kit.monexpansion.com)      │
+│  NAVIGATEUR UTILISATEUR (talent.monexpansion.com)      │
 └──────┬──────────────────────────────────────────────┘
        │
        ├──► Google Tag Manager (GTM-PHQMQHQK)
@@ -264,7 +264,7 @@ Optionnels (override des fallbacks) :
 ## Ressources
 
 - Repo : https://github.com/Baboumix/talent-trap-escape-kit
-- Prod : https://kit.monexpansion.com
+- Prod : https://talent.monexpansion.com
 - Dashboard Notion : `🧭 Diagnostics` sous la page `App Talent`
 - Dashboard Brevo : compte monExpansion, listes 11 (FR) et 12 (EN), template `diagnostic_fait`
 - GA4 : property `G-26ZHX08Z9J`, custom dimensions configurées

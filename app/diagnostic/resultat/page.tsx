@@ -425,16 +425,15 @@ function ShareBlock(_props: {
   talentScore: number;
 }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface shadow-sm p-6 md:p-7 text-center">
-      <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
-        Une personne dans ton entourage devrait voir ça ?
+    <div className="text-center">
+      <p className="text-sm text-neutral-600 leading-relaxed">
+        <span className="text-base mr-1.5 align-middle" aria-hidden="true">
+          📸
+        </span>
+        Une capture d'écran suffit pour le partager à quelqu'un.
       </p>
-      <p className="text-neutral-700 text-sm leading-relaxed max-w-md mx-auto">
-        <span className="text-2xl mr-1 align-middle">📸</span>
-        Fais une capture d'écran et envoie-la lui par message.
-      </p>
-      <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
-        kit.monexpansion.com
+      <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-neutral-400">
+        talent.monexpansion.com
       </p>
     </div>
   );

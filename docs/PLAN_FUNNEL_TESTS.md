@@ -19,7 +19,7 @@ LANDING WORDPRESS (monexpansion.com/[slug])
   └── /talent  (hook : "Talent activé ?")
             ↓ (avec ?source=keeper / fraud / ai / talent)
 
-TEST UNIFIÉ (kit.monexpansion.com)
+TEST UNIFIÉ (talent.monexpansion.com)
   ├── Q0 : slider 1-10 dynamique selon source
   ├── Q0b : question miroir dynamique selon source
   ├── EMAIL GATE (enrichi)
@@ -184,7 +184,7 @@ Comparé à la spec originale (4 tests séparés, ~70 pieces de texte, 4 builds)
 
 - ✅ 1 test unifié, 4 portes d'entrée
 - ✅ Landings sur monexpansion.com/[slug] (pas sous-domaines)
-- ✅ kit.monexpansion.com / talent.monexpansion.com pointent vers la même app
+- ✅ talent.monexpansion.com / talent.monexpansion.com pointent vers la même app
 - ✅ ExpansionStudio retiré (offre arrêtée)
 - ✅ Live mensuel reporté (URL pas encore disponible)
 - ✅ Sains : pas de P.S. produit, juste bloc "Reste connecté"

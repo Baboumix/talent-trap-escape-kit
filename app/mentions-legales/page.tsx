@@ -42,7 +42,7 @@ export default function MentionsLegales() {
               Hébergement
             </h2>
             <p>
-              Le diagnostic kit.monexpansion.com est hébergé par{" "}
+              Le diagnostic talent.monexpansion.com est hébergé par{" "}
               <strong className="text-ink">Vercel Inc.</strong>
               <br />
               440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.

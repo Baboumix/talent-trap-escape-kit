@@ -1,5 +1,5 @@
 /**
- * Analytics helper centralisé pour kit.monexpansion.com
+ * Analytics helper centralisé pour talent.monexpansion.com
  * Tous les events du diagnostic Profil du Talent Coincé passent par ici.
  *
  * Forwarded by GTM-PHQMQHQK to GA4 G-26ZHX08Z9J.
