@@ -419,74 +419,23 @@ function NeedCard({
   );
 }
 
-function ShareBlock({
-  verdictKey,
-  verdictName,
-  talentScore,
-}: {
+function ShareBlock(_props: {
   verdictKey: VerdictKey;
   verdictName: string;
   talentScore: number;
 }) {
-  const [copied, setCopied] = useState(false);
-  const shareUrl = "https://kit.monexpansion.com";
-  const shareText = `Je viens de découvrir : je suis un ${verdictName}. Note ${talentScore}/10 sur "à quel point j'utilise mon talent". Et toi ?`;
-
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    shareText,
-  )}&url=${encodeURIComponent(`${shareUrl}?utm_source=share&utm_medium=twitter`)}`;
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-    `${shareUrl}?utm_source=share&utm_medium=linkedin`,
-  )}`;
-
-  const onCopy = async () => {
-    analytics.shareClicked("copy_link", verdictKey);
-    try {
-      await navigator.clipboard.writeText(
-        `${shareText} ${shareUrl}?utm_source=share&utm_medium=copy`,
-      );
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore
-    }
-  };
-
   return (
     <div className="rounded-2xl border border-line bg-surface shadow-sm p-6 md:p-7 text-center">
       <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
-        Partage ton verdict
+        Une personne dans ton entourage devrait voir ça ?
       </p>
-      <p className="text-neutral-400 text-sm leading-relaxed mb-5 max-w-md mx-auto">
-        Quelqu'un dans ton entourage devrait faire ce test ? Envoie-le-lui.
+      <p className="text-neutral-700 text-sm leading-relaxed max-w-md mx-auto">
+        <span className="text-2xl mr-1 align-middle">📸</span>
+        Fais une capture d'écran et envoie-la lui par message.
       </p>
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        <a
-          href={twitterUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => analytics.shareClicked("twitter", verdictKey)}
-          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-400 hover:border-coral/60 hover:text-coral transition-colors"
-        >
-          X / Twitter
-        </a>
-        <a
-          href={linkedinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => analytics.shareClicked("linkedin", verdictKey)}
-          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-400 hover:border-coral/60 hover:text-coral transition-colors"
-        >
-          LinkedIn
-        </a>
-        <button
-          type="button"
-          onClick={onCopy}
-          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-400 hover:border-coral/60 hover:text-coral transition-colors"
-        >
-          {copied ? "Lien copié !" : "Copier le lien"}
-        </button>
-      </div>
+      <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
+        kit.monexpansion.com
+      </p>
     </div>
   );
 }

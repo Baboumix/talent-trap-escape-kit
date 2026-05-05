@@ -105,7 +105,7 @@ function LightResultatPage() {
         <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 mb-3">
           Tu es probablement dans la zone
         </p>
-        <h1 className="font-display font-semibold leading-[0.9] tracking-tight text-[58px] sm:text-[88px] md:text-[112px] bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent">
+        <h1 className="font-display font-semibold leading-[1.0] tracking-tight text-[58px] sm:text-[88px] md:text-[112px] bg-gradient-to-r from-coral-500 to-coral-400 bg-clip-text text-transparent pb-2">
           {ZONE_LABELS[result.zone]}
         </h1>
         <p className="mt-4 text-[10px] uppercase tracking-[0.2em] text-neutral-500">
@@ -262,19 +262,19 @@ const ZONE_COLOR_CLASSES: Record<
 
 function Quadrant({ zone }: { zone: QuadrantZone }) {
   // Grid order : top-left, top-right, bottom-left, bottom-right
-  // X axis : Loyal (left) → Truqué (right)
+  // X axis : Truqué (left) → Loyal (right)
   // Y axis : Exprimé (top) → Bridé (bottom)
   const cells: QuadrantZone[] = [
-    "pleine-expansion", // top-left = Loyal + Exprimé
-    "depart-imminent", // top-right = Truqué + Exprimé
-    "reveil-possible", // bottom-left = Loyal + Bridé
-    "urgence-absolue", // bottom-right = Truqué + Bridé
+    "depart-imminent", // top-left = Truqué + Exprimé
+    "pleine-expansion", // top-right = Loyal + Exprimé
+    "urgence-absolue", // bottom-left = Truqué + Bridé
+    "reveil-possible", // bottom-right = Loyal + Bridé
   ];
   return (
     <div className="relative w-full">
       <div className="flex justify-between mb-2 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
-        <span>Terrain Loyal</span>
         <span>Terrain Truqué</span>
+        <span>Terrain Loyal</span>
       </div>
       <div className="flex">
         {/* Y axis label (left) */}
@@ -314,59 +314,19 @@ function Quadrant({ zone }: { zone: QuadrantZone }) {
   );
 }
 
-function ShareBlock({
-  zone,
-  source,
-}: {
-  zone: QuadrantZone;
-  source: SourceKey;
-}) {
-  const [copied, setCopied] = useState(false);
-  const shareUrl = `https://kit.monexpansion.com/light?source=${source}`;
-  const shareText = `Je viens de découvrir : je suis dans la zone "${ZONE_LABELS[zone]}". Et toi, où en es-tu ?`;
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
-
-  const onCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // ignore
-    }
-  };
-
+function ShareBlock(_props: { zone: QuadrantZone; source: SourceKey }) {
   return (
     <div className="rounded-2xl border border-line bg-surface p-5 text-center shadow-sm">
       <p className="text-[10px] uppercase tracking-[0.2em] text-coral mb-3">
-        Partage ton score préliminaire
+        Une personne dans ton entourage devrait voir ça ?
       </p>
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        <a
-          href={twitterUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-700 hover:border-coral/60 hover:text-coral transition-colors"
-        >
-          X / Twitter
-        </a>
-        <a
-          href={linkedinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-700 hover:border-coral/60 hover:text-coral transition-colors"
-        >
-          LinkedIn
-        </a>
-        <button
-          type="button"
-          onClick={onCopy}
-          className="text-xs px-4 py-2 rounded-full border border-line text-neutral-700 hover:border-coral/60 hover:text-coral transition-colors"
-        >
-          {copied ? "Lien copié !" : "Copier le lien"}
-        </button>
-      </div>
+      <p className="text-sm text-neutral-700 leading-relaxed">
+        <span className="text-2xl mr-1 align-middle">📸</span>
+        Fais une capture d'écran et envoie-la lui par message.
+      </p>
+      <p className="mt-3 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
+        kit.monexpansion.com
+      </p>
     </div>
   );
 }
